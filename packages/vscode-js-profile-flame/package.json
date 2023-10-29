@@ -2,117 +2,46 @@
   "name": "vscode-js-profile-flame",
   "displayName": "Flame Chart Visualizer for JavaScript Profiles",
   "version": "0.0.1",
+  "private": "false",
   "description": "Flame graph visualizer for Heap and CPU profiles taken from the JavaScript debugger",
+  "homepage": "https://github.com/CodeEditorLand/CodeEditorLand#readme",
+  "bugs": {
+    "url": "https://github.com/CodeEditorLand/CodeEditorLand/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeEditorLand/CodeEditorLand.git"
+  },
+  "license": "MIT",
   "author": {
     "name": "Nikola Hristov",
     "email": "nikola@nikolahristov.tech",
     "url": "https://nikolahristov.tech"
   },
-  "homepage": "https://github.com/CodeEditorLand/CodeEditorLand#readme",
-  "license": "MIT",
+  "publisher": "playform",
+  "sideEffects": false,
+  "type": "module",
   "main": "out/extension.js",
   "browser": "out/extension.web.js",
   "files": [
     "out"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/CodeEditorLand/CodeEditorLand.git"
-  },
-  "capabilities": {
-    "virtualWorkspaces": true,
-    "untrustedWorkspaces": {
-      "supported": true
-    }
-  },
-  "publisher": "ms-vscode",
-  "sideEffects": false,
-  "engines": {
-    "vscode": "1.74.0"
-  },
   "scripts": {
-    "pack": "vsce package --yarn",
     "compile": "rimraf out && concurrently \"npm:compile:*\"",
     "compile:cpu-client": "webpack --mode production --config webpack.cpu-client.js",
-    "compile:heap-client": "webpack --mode production --config webpack.heap-client.js",
-    "compile:realtime": "webpack --mode production --config webpack.realtime.js",
     "compile:ext": "webpack --mode production --config webpack.extension.js --target node",
     "compile:ext:web": "webpack --mode production --config webpack.extension.js --target web",
+    "compile:heap-client": "webpack --mode production --config webpack.heap-client.js",
+    "compile:realtime": "webpack --mode production --config webpack.realtime.js",
+    "pack": "vsce package --yarn",
+    "prepublishOnly": "TypeScriptESBuild Source/**/*.ts",
     "watch": "concurrently \"npm:watch:*\"",
     "watch:cpu-client": "webpack --mode development --config webpack.cpu-client.js --watch",
-    "watch:heap-client": "webpack --mode development --config webpack.heap-client.js --watch",
-    "watch:realtime": "webpack --mode development --config webpack.realtime.js --watch",
     "watch:ext": "webpack --mode development --config webpack.extension.js --watch --target node",
-    "prepublishOnly": "TypeScriptESBuild Source/**/*.ts"
+    "watch:heap-client": "webpack --mode development --config webpack.heap-client.js --watch",
+    "watch:realtime": "webpack --mode development --config webpack.realtime.js --watch"
   },
-  "icon": "resources/logo.png",
   "contributes": {
-    "customEditors": [
-      {
-        "viewType": "jsProfileVisualizer.cpuprofile.flame",
-        "displayName": "CPU Profile Flame Graph Visualizer",
-        "priority": "option",
-        "selector": [
-          {
-            "filenamePattern": "*.cpuprofile"
-          }
-        ]
-      },
-      {
-        "viewType": "jsProfileVisualizer.heapprofile.flame",
-        "displayName": "Heap Profile Flame Graph Visualizer",
-        "priority": "option",
-        "selector": [
-          {
-            "filenamePattern": "*.heapprofile"
-          }
-        ]
-      }
-    ],
-    "views": {
-      "debug": [
-        {
-          "type": "webview",
-          "id": "vscode-js-profile-flame.realtime",
-          "name": "Realtime Performance",
-          "when": "debugType =~ /^pwa-/ || debugType == node-terminal"
-        }
-      ]
-    },
-    "menus": {
-      "view/title": [
-        {
-          "command": "vscode-js-profile-flame.setRealtimeCharts",
-          "when": "view == vscode-js-profile-flame.realtime",
-          "group": "navigation@1"
-        },
-        {
-          "command": "vscode-js-profile-flame.collapseCharts",
-          "when": "view == vscode-js-profile-flame.realtime && vscodeJsProfileFlameSplitCharts",
-          "group": "navigation@1"
-        },
-        {
-          "command": "vscode-js-profile-flame.splitCharts",
-          "when": "view == vscode-js-profile-flame.realtime && !vscodeJsProfileFlameSplitCharts",
-          "group": "navigation@1"
-        },
-        {
-          "command": "extension.js-debug.startProfile",
-          "when": "view == vscode-js-profile-flame.realtime",
-          "group": "navigation@1"
-        }
-      ],
-      "commandPalette": [
-        {
-          "command": "vscode-js-profile-flame.collapseCharts",
-          "when": "debugType =~ /^pwa-/ && vscodeJsProfileFlameSplitCharts"
-        },
-        {
-          "command": "vscode-js-profile-flame.splitCharts",
-          "when": "debugType =~ /^pwa-/ && !vscodeJsProfileFlameSplitCharts"
-        }
-      ]
-    },
     "commands": [
       {
         "command": "vscode-js-profile-flame.setRealtimeCharts",
@@ -157,15 +86,73 @@
           }
         }
       }
-    ]
-  },
-  "bugs": {
-    "url": "https://github.com/CodeEditorLand/CodeEditorLand/issues"
-  },
-  "devDependencies": {
-    "@types/chroma-js": "2.4.2",
-    "@types/resize-observer-browser": "0.1.9",
-    "typescript-esbuild": "0.3.1"
+    ],
+    "customEditors": [
+      {
+        "viewType": "jsProfileVisualizer.cpuprofile.flame",
+        "displayName": "CPU Profile Flame Graph Visualizer",
+        "priority": "option",
+        "selector": [
+          {
+            "filenamePattern": "*.cpuprofile"
+          }
+        ]
+      },
+      {
+        "viewType": "jsProfileVisualizer.heapprofile.flame",
+        "displayName": "Heap Profile Flame Graph Visualizer",
+        "priority": "option",
+        "selector": [
+          {
+            "filenamePattern": "*.heapprofile"
+          }
+        ]
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "vscode-js-profile-flame.setRealtimeCharts",
+          "when": "view == vscode-js-profile-flame.realtime",
+          "group": "navigation@1"
+        },
+        {
+          "command": "vscode-js-profile-flame.collapseCharts",
+          "when": "view == vscode-js-profile-flame.realtime && vscodeJsProfileFlameSplitCharts",
+          "group": "navigation@1"
+        },
+        {
+          "command": "vscode-js-profile-flame.splitCharts",
+          "when": "view == vscode-js-profile-flame.realtime && !vscodeJsProfileFlameSplitCharts",
+          "group": "navigation@1"
+        },
+        {
+          "command": "extension.js-debug.startProfile",
+          "when": "view == vscode-js-profile-flame.realtime",
+          "group": "navigation@1"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "vscode-js-profile-flame.collapseCharts",
+          "when": "debugType =~ /^pwa-/ && vscodeJsProfileFlameSplitCharts"
+        },
+        {
+          "command": "vscode-js-profile-flame.splitCharts",
+          "when": "debugType =~ /^pwa-/ && !vscodeJsProfileFlameSplitCharts"
+        }
+      ]
+    },
+    "views": {
+      "debug": [
+        {
+          "type": "webview",
+          "id": "vscode-js-profile-flame.realtime",
+          "name": "Realtime Performance",
+          "when": "debugType =~ /^pwa-/ || debugType == node-terminal"
+        }
+      ]
+    }
   },
   "dependencies": {
     "@vscode/codicons": "0.0.35",
@@ -173,9 +160,22 @@
     "vscode-js-profile-core": "*",
     "vscode-webview-tools": "0.1.1"
   },
-  "type": "module",
-  "private": "false",
+  "devDependencies": {
+    "@types/chroma-js": "2.4.2",
+    "@types/resize-observer-browser": "0.1.9",
+    "typescript-esbuild": "0.3.1"
+  },
+  "engines": {
+    "vscode": "1.74.0"
+  },
   "publishConfig": {
     "access": "public"
+  },
+  "icon": "resources/logo.png",
+  "capabilities": {
+    "virtualWorkspaces": true,
+    "untrustedWorkspaces": {
+      "supported": true
+    }
   }
 }

@@ -1,6 +1,23 @@
 {
   "name": "js-profile-visualizer",
+  "version": "0.0.1",
   "private": "false",
+  "homepage": "https://github.com/CodeEditorLand/CodeEditorLand#readme",
+  "bugs": {
+    "url": "https://github.com/CodeEditorLand/CodeEditorLand/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeEditorLand/CodeEditorLand.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Nikola Hristov",
+    "email": "nikola@nikolahristov.tech",
+    "url": "https://nikolahristov.tech"
+  },
+  "publisher": "playform",
+  "type": "module",
   "workspaces": [
     "packages/vscode-js-profile-core",
     "packages/vscode-js-profile-flame",
@@ -10,20 +27,23 @@
     "clean": "rimraf \"packages/*/out\"",
     "compile": "npm run clean && npm run compile:core && concurrently \"npm:compile:table\" \"npm:compile:flame\"",
     "compile:core": "npm run -w vscode-js-profile-core compile",
-    "compile:table": "npm run -w vscode-js-profile-table compile",
     "compile:flame": "npm run -w vscode-js-profile-flame compile",
-    "watch": "concurrently \"npm:watch:core\" \"npm:watch:flame\" \"npm:watch:table\"",
-    "watch:core": "npm run -w vscode-js-profile-core watch",
-    "watch:table": "npm run -w vscode-js-profile-table watch",
-    "watch:flame": "npm run -w vscode-js-profile-flame watch",
-    "pack": "npm run compile && npm run pack -w",
+    "compile:table": "npm run -w vscode-js-profile-table compile",
     "fmt": "prettier --write \"packages/**/*.{ts,tsx,css}\" \"!**/out/**\" && npm run test:lint -- --fix",
+    "pack": "npm run compile && npm run pack -w",
+    "prepublishOnly": "TypeScriptESBuild Source/**/*.ts",
     "test": "concurrently \"npm:test:*\"",
-    "test:lint": "eslint  \"packages/**/*.{ts,tsx}\"",
     "test:fmt": "prettier --list-different \"packages/**/*.{ts,tsx,css}\" \"!**/out/**\"",
+    "test:lint": "eslint  \"packages/**/*.{ts,tsx}\"",
     "test:unit": "vitest",
     "vscode:prepublish": "npm run compile",
-    "prepublishOnly": "TypeScriptESBuild Source/**/*.ts"
+    "watch": "concurrently \"npm:watch:core\" \"npm:watch:flame\" \"npm:watch:table\"",
+    "watch:core": "npm run -w vscode-js-profile-core watch",
+    "watch:flame": "npm run -w vscode-js-profile-flame watch",
+    "watch:table": "npm run -w vscode-js-profile-table watch"
+  },
+  "dependencies": {
+    "preact-virtual-list": "0.3.1"
   },
   "devDependencies": {
     "@types/chai": "4.3.9",
@@ -58,34 +78,15 @@
     "svg-inline-loader": "0.8.2",
     "ts-loader": "9.5.0",
     "typescript": "5.2.2",
+    "typescript-esbuild": "0.3.1",
     "vitest": "0.34.6",
     "vscode-debugprotocol": "1.39.0",
     "vscode-test": "1.3.0",
     "webpack": "5.89.0",
     "webpack-cli": "5.1.4",
-    "webpack-dev-server": "4.15.1",
-    "typescript-esbuild": "0.3.1"
+    "webpack-dev-server": "4.15.1"
   },
-  "dependencies": {
-    "preact-virtual-list": "0.3.1"
-  },
-  "homepage": "https://github.com/CodeEditorLand/CodeEditorLand#readme",
-  "bugs": {
-    "url": "https://github.com/CodeEditorLand/CodeEditorLand/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/CodeEditorLand/CodeEditorLand.git"
-  },
-  "version": "0.0.1",
-  "license": "MIT",
-  "type": "module",
   "publishConfig": {
     "access": "public"
-  },
-  "author": {
-    "name": "Nikola Hristov",
-    "email": "nikola@nikolahristov.tech",
-    "url": "https://nikolahristov.tech"
   }
 }

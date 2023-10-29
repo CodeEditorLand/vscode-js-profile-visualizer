@@ -1,50 +1,51 @@
 {
   "name": "vscode-js-profile-table",
-  "version": "0.0.1",
   "displayName": "Table Visualizer for JavaScript Profiles",
+  "version": "0.0.1",
+  "private": "false",
   "description": "Text visualizer for profiles taken from the JavaScript debugger",
+  "homepage": "https://github.com/CodeEditorLand/CodeEditorLand#readme",
+  "bugs": {
+    "url": "https://github.com/CodeEditorLand/CodeEditorLand/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeEditorLand/CodeEditorLand.git"
+  },
+  "license": "MIT",
   "author": {
     "name": "Nikola Hristov",
     "email": "nikola@nikolahristov.tech",
     "url": "https://nikolahristov.tech"
   },
-  "homepage": "https://github.com/CodeEditorLand/CodeEditorLand#readme",
-  "license": "MIT",
+  "publisher": "playform",
+  "sideEffects": false,
+  "type": "module",
   "main": "out/extension.js",
   "browser": "out/extension.web.js",
   "files": [
     "out"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/CodeEditorLand/CodeEditorLand.git"
-  },
-  "capabilities": {
-    "virtualWorkspaces": true,
-    "untrustedWorkspaces": {
-      "supported": true
-    }
-  },
   "scripts": {
-    "pack": "vsce package --yarn",
     "compile": "rimraf out && concurrently \"npm:compile:*\"",
     "compile:cpu-client": "webpack --mode production --config webpack.cpu-client.js",
-    "compile:heap-client": "webpack --mode production --config webpack.heap-client.js",
     "compile:ext": "webpack --mode production --config webpack.extension.js --target node",
     "compile:ext:web": "webpack --mode production --config webpack.extension.js --target web",
+    "compile:heap-client": "webpack --mode production --config webpack.heap-client.js",
+    "pack": "vsce package --yarn",
+    "prepublishOnly": "TypeScriptESBuild Source/**/*.ts",
     "watch": "concurrently \"npm:watch:*\"",
     "watch:cpu-client": "webpack --mode development --config webpack.cpu-client.js --watch",
-    "watch:heap-client": "webpack --mode development --config webpack.heap-client.js --watch",
     "watch:ext": "webpack --mode development --config webpack.extension.js --watch --target node",
-    "prepublishOnly": "TypeScriptESBuild Source/**/*.ts"
-  },
-  "icon": "resources/icon.png",
-  "publisher": "ms-vscode",
-  "sideEffects": false,
-  "engines": {
-    "vscode": "1.74.0"
+    "watch:heap-client": "webpack --mode development --config webpack.heap-client.js --watch"
   },
   "contributes": {
+    "commands": [
+      {
+        "command": "extension.jsProfileVisualizer.table.clearCodeLenses",
+        "title": "Clear Profile Code Lenses"
+      }
+    ],
     "customEditors": [
       {
         "viewType": "jsProfileVisualizer.cpuprofile.table",
@@ -67,12 +68,6 @@
         ]
       }
     ],
-    "commands": [
-      {
-        "command": "extension.jsProfileVisualizer.table.clearCodeLenses",
-        "title": "Clear Profile Code Lenses"
-      }
-    ],
     "menus": {
       "commandPalette": [
         {
@@ -82,19 +77,24 @@
       ]
     }
   },
-  "bugs": {
-    "url": "https://github.com/CodeEditorLand/CodeEditorLand/issues"
-  },
   "dependencies": {
     "@vscode/codicons": "0.0.35",
     "vscode-js-profile-core": "*"
   },
-  "type": "module",
-  "private": "false",
+  "devDependencies": {
+    "typescript-esbuild": "0.3.1"
+  },
+  "engines": {
+    "vscode": "1.74.0"
+  },
   "publishConfig": {
     "access": "public"
   },
-  "devDependencies": {
-    "typescript-esbuild": "0.3.1"
+  "icon": "resources/icon.png",
+  "capabilities": {
+    "virtualWorkspaces": true,
+    "untrustedWorkspaces": {
+      "supported": true
+    }
   }
 }
