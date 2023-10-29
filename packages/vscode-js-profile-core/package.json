@@ -1,8 +1,8 @@
 {
   "name": "vscode-js-profile-core",
-  "version": "1.0.6",
+  "version": "0.0.1",
   "sideEffects": false,
-  "private": true,
+  "private": "false",
   "scripts": {
     "compile": "concurrently \"npm:compile:*\"",
     "compile:ext": "tsc -p tsconfig.json",
@@ -11,13 +11,33 @@
     "watch": "concurrently \"npm:watch:*\"",
     "watch:ext": "tsc --watch",
     "watch:esm": "tsc --watch -p tsconfig.browser.json",
-    "watch:css": "npm run compile:css && chokidar \"src/**/*.css\" -c \"cpy --parents --cwd=src '**/*.css' ../out/esm\""
+    "watch:css": "npm run compile:css && chokidar \"src/**/*.css\" -c \"cpy --parents --cwd=src '**/*.css' ../out/esm\"",
+    "prepublishOnly": "TypeScriptESBuild Source/**/*.ts"
   },
   "dependencies": {
     "@vscode/codicons": "0.0.35",
     "isomorphic-unfetch": "4.0.2"
   },
   "devDependencies": {
-    "@types/node-fetch": "2.6.7"
+    "@types/node-fetch": "2.6.7",
+    "typescript-esbuild": "0.3.1"
+  },
+  "homepage": "https://github.com/CodeEditorLand/CodeEditorLand#readme",
+  "bugs": {
+    "url": "https://github.com/CodeEditorLand/CodeEditorLand/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeEditorLand/CodeEditorLand.git"
+  },
+  "license": "MIT",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "Nikola Hristov",
+    "email": "nikola@nikolahristov.tech",
+    "url": "https://nikolahristov.tech"
   }
 }

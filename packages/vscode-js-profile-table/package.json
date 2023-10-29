@@ -1,10 +1,14 @@
 {
   "name": "vscode-js-profile-table",
-  "version": "1.0.6",
+  "version": "0.0.1",
   "displayName": "Table Visualizer for JavaScript Profiles",
   "description": "Text visualizer for profiles taken from the JavaScript debugger",
-  "author": "Connor Peet <connor@peet.io>",
-  "homepage": "https://github.com/microsoft/vscode-js-profile-visualizer#readme",
+  "author": {
+    "name": "Nikola Hristov",
+    "email": "nikola@nikolahristov.tech",
+    "url": "https://nikolahristov.tech"
+  },
+  "homepage": "https://github.com/CodeEditorLand/CodeEditorLand#readme",
   "license": "MIT",
   "main": "out/extension.js",
   "browser": "out/extension.web.js",
@@ -13,7 +17,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/microsoft/vscode-js-profile-visualizer.git"
+    "url": "git+https://github.com/CodeEditorLand/CodeEditorLand.git"
   },
   "capabilities": {
     "virtualWorkspaces": true,
@@ -31,7 +35,8 @@
     "watch": "concurrently \"npm:watch:*\"",
     "watch:cpu-client": "webpack --mode development --config webpack.cpu-client.js --watch",
     "watch:heap-client": "webpack --mode development --config webpack.heap-client.js --watch",
-    "watch:ext": "webpack --mode development --config webpack.extension.js --watch --target node"
+    "watch:ext": "webpack --mode development --config webpack.extension.js --watch --target node",
+    "prepublishOnly": "TypeScriptESBuild Source/**/*.ts"
   },
   "icon": "resources/icon.png",
   "publisher": "ms-vscode",
@@ -78,10 +83,18 @@
     }
   },
   "bugs": {
-    "url": "https://github.com/microsoft/vscode-js-profile-visualizer/issues"
+    "url": "https://github.com/CodeEditorLand/CodeEditorLand/issues"
   },
   "dependencies": {
     "@vscode/codicons": "0.0.35",
     "vscode-js-profile-core": "*"
+  },
+  "type": "module",
+  "private": "false",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "typescript-esbuild": "0.3.1"
   }
 }
