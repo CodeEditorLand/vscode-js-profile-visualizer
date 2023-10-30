@@ -3,10 +3,7 @@
 		"module": "commonjs",
 		"target": "ES2019",
 		"outDir": "out",
-		"lib": [
-			"ES2019",
-			"dom"
-		],
+		"lib": ["ES2019", "dom"],
 		"declaration": false,
 		"sourceMap": true,
 		"strict": true,
@@ -19,8 +16,5 @@
 		"esModuleInterop": true,
 		"preserveWatchOutput": true
 	},
-	"exclude": [
-		"node_modules",
-		".vscode-test"
-	]
+	"exclude": ["node_modules", ".vscode-test"]
 }
