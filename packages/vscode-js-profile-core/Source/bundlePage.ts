@@ -2,15 +2,12 @@
  * Copyright (C) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------*/
 
-import * as vscode from "vscode";
-import { makeNonce, nonceHeader } from "./nonce";
+import * as vscode from 'vscode';
+import { makeNonce, nonceHeader } from './nonce';
 
-export const bundlePage = async (
-	bundleUri: vscode.Uri,
-	constants: { [key: string]: unknown }
-) => {
-	const nonce = makeNonce();
-	const html = `<!DOCTYPE html>
+export const bundlePage = async (bundleUri: vscode.Uri, constants: { [key: string]: unknown }) => {
+  const nonce = makeNonce();
+  const html = `<!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8">
@@ -21,15 +18,13 @@ export const bundlePage = async (
     <body>
       <script type="text/javascript" nonce="${nonce}">
         ${Object.entries(constants)
-			.map(
-				([key, value]) => `globalThis.${key} = ${JSON.stringify(value)}`
-			)
-			.join(";")}
+          .map(([key, value]) => `globalThis.${key} = ${JSON.stringify(value)}`)
+          .join(';')}
       </script>
       <script nonce="${nonce}" src="${bundleUri}"></script>
     </body>
     </html>
   `;
 
-	return html;
+  return html;
 };
