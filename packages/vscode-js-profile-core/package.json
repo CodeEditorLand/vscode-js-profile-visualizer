@@ -14,6 +14,6 @@
     "watch:css": "npm run compile:css && chokidar \"src/**/*.css\" -c \"cpy --parents --cwd=src '**/*.css' ../out/esm\""
   },
   "dependencies": {
-    "@vscode/codicons": "^0.0.35"
+    "@vscode/codicons": "0.0.35"
   }
 }
