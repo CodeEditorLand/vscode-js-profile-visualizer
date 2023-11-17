@@ -159,7 +159,7 @@
 	"devDependencies": {
 		"@types/chroma-js": "2.4.3",
 		"@types/cytoscape": "3.19.15",
-		"@types/resize-observer-browser": "0.1.7"
+		"@types/resize-observer-browser": "0.1.10"
 	},
 	"engines": {
 		"vscode": "1.74.0"
