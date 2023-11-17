@@ -1,9 +1,8 @@
-.f {
-  display: flex;
-  align-items: center;
-  background: var(--vscode-editorWidget-background);
-  box-shadow: 0 0 8px 2px var(--vscode-widget-shadow);
-  height: 33px;
+.error {
+  background: var(--vscode-inputValidation-errorBackground);
+  border: 1px solid var(--vscode-inputValidation-errorBorder);
   padding: 4px;
-  box-sizing: border-box;
+  position: absolute;
+  top: calc(100% - 4px);
+  z-index: 1;
 }
