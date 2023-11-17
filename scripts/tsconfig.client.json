@@ -1,6 +1,6 @@
 {
-  "extends": "./tsconfig",
-  "compilerOptions": {
-    "module": "esnext"
-  }
+	"extends": "./tsconfig",
+	"compilerOptions": {
+		"module": "esnext"
+	}
 }
