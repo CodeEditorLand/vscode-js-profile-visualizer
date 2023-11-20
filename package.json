@@ -12,7 +12,6 @@
 		"compile:core": "npm run -w vscode-js-profile-core compile",
 		"compile:flame": "npm run -w vscode-js-profile-flame compile",
 		"compile:table": "npm run -w vscode-js-profile-table compile",
-		"fmt": "prettier --write \"packages/**/*.{ts,tsx,css}\" \"!**/out/**\" && npm run test:lint -- --fix",
 		"pack": "npm run compile && npm run pack -w",
 		"test": "concurrently \"npm:test:*\"",
 		"test:fmt": "prettier --list-different \"packages/**/*.{ts,tsx,css}\" \"!**/out/**\"",
@@ -23,13 +22,6 @@
 		"watch:core": "npm run -w vscode-js-profile-core watch",
 		"watch:flame": "npm run -w vscode-js-profile-flame watch",
 		"watch:table": "npm run -w vscode-js-profile-table watch"
-	},
-	"prettier": {
-		"arrowParens": "avoid",
-		"printWidth": 100,
-		"singleQuote": true,
-		"tabWidth": 2,
-		"trailingComma": "all"
 	},
 	"dependencies": {
 		"preact-virtual-list": "0.3.1"
