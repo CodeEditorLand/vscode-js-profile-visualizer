@@ -2,6 +2,7 @@
   "name": "vscode-js-profile-flame",
   "displayName": "Flame Chart Visualizer for JavaScript Profiles",
   "version": "0.0.1",
+  "private": "false",
   "description": "Flame graph visualizer for Heap and CPU profiles taken from the JavaScript debugger",
   "homepage": "https://github.com/CodeEditorLand/CodeEditorLand#readme",
   "bugs": {
@@ -19,6 +20,7 @@
   },
   "publisher": "playform",
   "sideEffects": false,
+  "type": "module",
   "main": "out/extension.js",
   "browser": "out/extension.web.js",
   "files": [
@@ -27,8 +29,8 @@
   "scripts": {
     "compile": "rimraf out && webpack --mode production",
     "pack": "vsce package --yarn",
-    "watch": "webpack --mode development --watch",
-    "prepublishOnly": "TypeScriptESBuild 'Source/**/*.ts'"
+    "prepublishOnly": "TypeScriptESBuild 'Source/**/*.ts'",
+    "watch": "webpack --mode development --watch"
   },
   "contributes": {
     "commands": [
@@ -167,16 +169,14 @@
     "@types/resize-observer-browser": "0.1.11",
     "typescript-esbuild": "0.3.1"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "icon": "resources/logo.png",
   "capabilities": {
     "virtualWorkspaces": true,
     "untrustedWorkspaces": {
       "supported": true
     }
-  },
-  "type": "module",
-  "private": "false",
-  "publishConfig": {
-    "access": "public"
   }
 }
