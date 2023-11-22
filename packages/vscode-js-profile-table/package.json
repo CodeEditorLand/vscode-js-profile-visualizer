@@ -1,91 +1,101 @@
 {
-	"name": "vscode-js-profile-table",
-	"displayName": "Table Visualizer for JavaScript Profiles",
-	"version": "1.0.7",
-	"description": "Text visualizer for profiles taken from the JavaScript debugger",
-	"homepage": "https://github.com/microsoft/vscode-js-profile-visualizer#readme",
-	"bugs": {
-		"url": "https://github.com/microsoft/vscode-js-profile-visualizer/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/microsoft/vscode-js-profile-visualizer.git"
-	},
-	"license": "MIT",
-	"author": "Connor Peet <connor@peet.io>",
-	"publisher": "ms-vscode",
-	"sideEffects": false,
-	"main": "out/extension.js",
-	"browser": "out/extension.web.js",
-	"files": [
-		"out"
-	],
-	"scripts": {
-		"compile": "rimraf out && webpack --mode production",
-		"pack": "vsce package --yarn",
-		"watch": "webpack --mode development --watch"
-	},
-	"contributes": {
-		"commands": [
-			{
-				"command": "extension.jsProfileVisualizer.table.clearCodeLenses",
-				"title": "Clear Profile Code Lenses"
-			}
-		],
-		"customEditors": [
-			{
-				"viewType": "jsProfileVisualizer.cpuprofile.table",
-				"displayName": "CPU Profile Table Visualizer",
-				"priority": "default",
-				"selector": [
-					{
-						"filenamePattern": "*.cpuprofile"
-					}
-				]
-			},
-			{
-				"viewType": "jsProfileVisualizer.heapprofile.table",
-				"displayName": "Heap Profile Table Visualizer",
-				"priority": "default",
-				"selector": [
-					{
-						"filenamePattern": "*.heapprofile"
-					}
-				]
-			},
-			{
-				"viewType": "jsProfileVisualizer.heapsnapshot.table",
-				"displayName": "Heap Snapshot Table Visualizer",
-				"priority": "default",
-				"selector": [
-					{
-						"filenamePattern": "*.heapsnapshot"
-					}
-				]
-			}
-		],
-		"menus": {
-			"commandPalette": [
-				{
-					"command": "extension.jsProfileVisualizer.table.clearCodeLenses",
-					"when": "jsProfileVisualizer.hasCodeLenses == true"
-				}
-			]
-		}
-	},
-	"dependencies": {
-		"@vscode/codicons": "0.0.35",
-		"pretty-bytes": "6.1.1",
-		"vscode-js-profile-core": "*"
-	},
-	"engines": {
-		"vscode": "1.74.0"
-	},
-	"icon": "resources/icon.png",
-	"capabilities": {
-		"virtualWorkspaces": true,
-		"untrustedWorkspaces": {
-			"supported": true
-		}
-	}
+  "name": "vscode-js-profile-table",
+  "displayName": "Table Visualizer for JavaScript Profiles",
+  "version": "0.0.1",
+  "description": "Text visualizer for profiles taken from the JavaScript debugger",
+  "homepage": "https://github.com/CodeEditorLand/CodeEditorLand#readme",
+  "bugs": {
+    "url": "https://github.com/CodeEditorLand/CodeEditorLand/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeEditorLand/CodeEditorLand.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Nikola Hristov",
+    "email": "nikola@nikolahristov.tech",
+    "url": "https://nikolahristov.tech"
+  },
+  "publisher": "playform",
+  "sideEffects": false,
+  "main": "out/extension.js",
+  "browser": "out/extension.web.js",
+  "files": [
+    "out"
+  ],
+  "scripts": {
+    "compile": "rimraf out && webpack --mode production",
+    "pack": "vsce package --yarn",
+    "watch": "webpack --mode development --watch",
+    "prepublishOnly": "TypeScriptESBuild 'Source/**/*.ts'"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.jsProfileVisualizer.table.clearCodeLenses",
+        "title": "Clear Profile Code Lenses"
+      }
+    ],
+    "customEditors": [
+      {
+        "viewType": "jsProfileVisualizer.cpuprofile.table",
+        "displayName": "CPU Profile Table Visualizer",
+        "priority": "default",
+        "selector": [
+          {
+            "filenamePattern": "*.cpuprofile"
+          }
+        ]
+      },
+      {
+        "viewType": "jsProfileVisualizer.heapprofile.table",
+        "displayName": "Heap Profile Table Visualizer",
+        "priority": "default",
+        "selector": [
+          {
+            "filenamePattern": "*.heapprofile"
+          }
+        ]
+      },
+      {
+        "viewType": "jsProfileVisualizer.heapsnapshot.table",
+        "displayName": "Heap Snapshot Table Visualizer",
+        "priority": "default",
+        "selector": [
+          {
+            "filenamePattern": "*.heapsnapshot"
+          }
+        ]
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "extension.jsProfileVisualizer.table.clearCodeLenses",
+          "when": "jsProfileVisualizer.hasCodeLenses == true"
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "@vscode/codicons": "0.0.35",
+    "pretty-bytes": "6.1.1",
+    "vscode-js-profile-core": "*"
+  },
+  "icon": "resources/icon.png",
+  "capabilities": {
+    "virtualWorkspaces": true,
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
+  "type": "module",
+  "private": "false",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "typescript-esbuild": "0.3.1"
+  }
 }
