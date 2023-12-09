@@ -1,42 +1,42 @@
 .configurator {
-	padding-top: 4px;
+  padding-top: 4px;
 }
 
 .metric {
-	display: none;
-	height: 2em;
-	align-items: center;
-	padding: 0 7px;
-	position: relative;
-	cursor: pointer;
-	line-height: 0;
+  display: none;
+  height: 2em;
+  align-items: center;
+  padding: 0 7px;
+  position: relative;
+  cursor: pointer;
+  line-height: 0;
 }
 
 .metric::before {
-	content: "";
-	width: 6px;
-	height: 6px;
-	margin-right: 7px;
-	border-radius: 100%;
-	background: transparent;
-	color: var(--vscode-debugIcon-breakpointUnverifiedForeground);
-	border: 2px solid var(--vscode-debugIcon-breakpointUnverifiedForeground);
+  content: '';
+  width: 6px;
+  height: 6px;
+  margin-right: 7px;
+  border-radius: 100%;
+  background: transparent;
+  color: var(--vscode-debugIcon-breakpointUnverifiedForeground);
+  border: 2px solid var(--vscode-debugIcon-breakpointUnverifiedForeground);
 }
 
 .metric.available,
 .metric.enabled {
-	display: flex;
+  display: flex;
 }
 
 .metric.enabled {
-	color: inherit;
+  color: inherit;
 }
 
 .metric.enabled::before {
-	background: var(--metric-color);
-	border-color: var(--metric-color);
+  background: var(--metric-color);
+  border-color: var(--metric-color);
 }
 
 .label {
-	flex-grow: 1;
+  flex-grow: 1;
 }

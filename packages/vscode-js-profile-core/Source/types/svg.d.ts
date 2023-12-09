@@ -1,4 +1,4 @@
-declare module "*.svg" {
-	const icon: string;
-	export = icon;
+declare module '*.svg' {
+  const icon: string;
+  export = icon;
 }

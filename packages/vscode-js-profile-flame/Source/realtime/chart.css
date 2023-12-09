@@ -1,128 +1,124 @@
 * {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .container {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .container.noData > * {
-	display: none;
+  display: none;
 }
 
 .noDataText {
-	display: none;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	text-align: center;
-	justify-content: center;
-	align-items: center;
-	opacity: 0.8;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.8;
 }
 
 .container.noData .noDataText {
-	display: flex;
+  display: flex;
 }
 
 @media (min-width: 600px) {
-	.configOpen.container {
-		flex-direction: row;
-		align-items: stretch;
-	}
+  .configOpen.container {
+    flex-direction: row;
+    align-items: stretch;
+  }
 }
 
 .configOpen canvas {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .labelList {
-	font-size: 11px;
-	cursor: pointer;
-	font-family: var(--font-family);
-	display: flex;
-	align-items: center;
-	white-space: nowrap;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: var(--font-family);
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
 }
 
 .labelList > span > span {
-	padding-left: 0.25em;
+  padding-left: 0.25em;
 }
 
 .labelList > span {
-	display: inline-flex;
-	align-items: center;
-	margin: 0 4px;
-	color: var(--sideBar-foreground, var(--vscode-foreground));
+  display: inline-flex;
+  align-items: center;
+  margin: 0 4px;
+  color: var(--sideBar-foreground, var(--vscode-foreground));
 }
 
 .labelList > span::before {
-	content: "";
-	width: 8px;
-	height: 8px;
-	margin-right: 4px;
-	display: inline-block;
-	border-radius: 100%;
-	background: var(--metric-color);
+  content: '';
+  width: 8px;
+  height: 8px;
+  margin-right: 4px;
+  display: inline-block;
+  border-radius: 100%;
+  background: var(--metric-color);
 }
 
 .maxContainer {
-	position: absolute;
-	top: 0;
-	left: 0.3em;
-	background: linear-gradient(
-		to bottom,
-		var(--vscode-sideBar-background),
-		transparent
-	);
-	font-size: 0.8em;
+  position: absolute;
+  top: 0;
+  left: 0.3em;
+  background: linear-gradient(to bottom, var(--vscode-sideBar-background), transparent);
+  font-size: 0.8em;
 }
 
 .maxContainer.split {
-	position: static;
+  position: static;
 }
 
 .maxContainer.split .max {
-	position: absolute;
-	left: 0.3em;
+  position: absolute;
+  left: 0.3em;
 }
 
 .maxContainer.split .maxLabel {
-	display: inline;
+  display: inline;
 }
 
 .maxContainer.split .max::before {
-	content: none !important;
+  content: none !important;
 }
 
 .maxLabel {
-	display: none;
+  display: none;
 }
 
 .max {
-	display: inline;
+  display: inline;
 }
 
 .max + .max::before {
-	content: " / ";
+  content: ' / ';
 }
 
 .timeLeft,
 .timeRight {
-	position: absolute;
-	font-size: 11px;
-	bottom: 2px;
+  position: absolute;
+  font-size: 11px;
+  bottom: 2px;
 }
 
 .timeLeft {
-	left: 0.3em;
+  left: 0.3em;
 }
 
 .timeRight {
-	right: 0.3em;
+  right: 0.3em;
 }
