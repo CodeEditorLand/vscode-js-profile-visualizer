@@ -29,9 +29,6 @@
   "icon": "resources/icon.png",
   "publisher": "ms-vscode",
   "sideEffects": false,
-  "engines": {
-    "vscode": "1.74.0"
-  },
   "contributes": {
     "customEditors": [
       {

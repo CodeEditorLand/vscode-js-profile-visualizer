@@ -23,9 +23,6 @@
   },
   "publisher": "ms-vscode",
   "sideEffects": false,
-  "engines": {
-    "vscode": "1.74.0"
-  },
   "scripts": {
     "pack": "vsce package --yarn",
     "compile": "rimraf out && webpack --mode production",
