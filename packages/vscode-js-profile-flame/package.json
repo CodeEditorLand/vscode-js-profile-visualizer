@@ -157,13 +157,13 @@
   },
   "devDependencies": {
     "@types/chroma-js": "2.4.3",
-    "@types/cytoscape": "3.19.15",
-    "@types/resize-observer-browser": "0.1.7"
+    "@types/cytoscape": "3.19.16",
+    "@types/resize-observer-browser": "0.1.11"
   },
   "dependencies": {
     "@vscode/codicons": "0.0.35",
     "chroma-js": "2.4.2",
-    "cytoscape": "3.27.0",
+    "cytoscape": "3.28.0",
     "cytoscape-klay": "3.1.4",
     "vscode-js-profile-core": "*",
     "vscode-webview-tools": "0.1.1"
