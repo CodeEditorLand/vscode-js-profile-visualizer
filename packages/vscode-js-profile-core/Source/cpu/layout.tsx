@@ -42,7 +42,7 @@ export const cpuProfileLayoutFactory = <T,>(): CpuProfileLayoutComponent<T> => {
 						requireExtension="ms-vscode.vscode-js-profile-flame"
 					/>
 				) : undefined,
-			[FilterFooter],
+			[FilterFooter]
 		);
 
 		return (

@@ -14,7 +14,7 @@ import {
 } from "./realtime/protocol";
 
 export const readRealtimeSettings = (
-	context: vscode.ExtensionContext,
+	context: vscode.ExtensionContext
 ): ISettings => {
 	const config = vscode.workspace.getConfiguration();
 	return {
@@ -75,7 +75,7 @@ export class RealtimeSessionTracker {
 		vscode.commands.executeCommand(
 			"setContext",
 			"vscodeJsProfileFlameSplitCharts",
-			readRealtimeSettings(context).splitCharts,
+			readRealtimeSettings(context).splitCharts
 		);
 	}
 
@@ -95,7 +95,7 @@ export class RealtimeSessionTracker {
 		vscode.commands.executeCommand(
 			"setContext",
 			"vscodeJsProfileFlameSplitCharts",
-			split,
+			split
 		);
 		this.context.workspaceState.update(splitChartsKey, split);
 		this.updateSettings();
@@ -148,7 +148,7 @@ export class RealtimeSessionTracker {
 			for (const metric of data.metrics) {
 				metric.reset(
 					this.settings.viewDuration,
-					this.settings.pollInterval,
+					this.settings.pollInterval
 				);
 			}
 
@@ -199,7 +199,7 @@ export class RealtimeSessionTracker {
 			for (const metric of metrics) {
 				metric.reset(
 					this.settings.viewDuration,
-					this.settings.pollInterval,
+					this.settings.pollInterval
 				); // no-ops if the steps are already the same
 			}
 		}
@@ -235,7 +235,7 @@ export class RealtimeSessionTracker {
 					const listener = data.cts.token.onCancellationRequested(
 						() => {
 							clearTimeout(timeout);
-						},
+						}
 					);
 				});
 		};

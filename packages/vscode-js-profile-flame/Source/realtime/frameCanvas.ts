@@ -32,7 +32,7 @@ export class FrameCanvas extends Canvas {
 		super(width, height, settings);
 
 		this.elem.addEventListener("mousemove", (evt) =>
-			this.onMouseMove(evt.pageX),
+			this.onMouseMove(evt.pageX)
 		);
 		this.elem.addEventListener("mouseout", () => this.clearHover());
 		window.addEventListener("mouseout", () => this.clearHover());
@@ -155,7 +155,7 @@ export class FrameCanvas extends Canvas {
 
 		const index = Math.max(
 			0,
-			enabledMetrics[0].index - Math.round((1 - x / this.width) * steps),
+			enabledMetrics[0].index - Math.round((1 - x / this.width) * steps)
 		);
 		if (index === this.hoveredIndex) {
 			return;
@@ -200,7 +200,7 @@ export class FrameCanvas extends Canvas {
 			Math.ceil(yStep * i + (i > 0 ? Sizing.SplitSpacing / 2 : 0)),
 			Math.floor(
 				yStep * (i + 1) -
-					(i < metrics.length - 1 ? Sizing.SplitSpacing / 2 : 0),
+					(i < metrics.length - 1 ? Sizing.SplitSpacing / 2 : 0)
 			),
 		]);
 	}
@@ -210,7 +210,7 @@ export class FrameCanvas extends Canvas {
 			this.createMetricPath(
 				metric,
 				this.metricRanges[i][0],
-				this.metricRanges[i][1],
+				this.metricRanges[i][1]
 			),
 			this.settings.metricColor(metric),
 		]);
@@ -219,7 +219,7 @@ export class FrameCanvas extends Canvas {
 	private createMetricPath(
 		{ maxY, metrics }: Metric,
 		y1: number,
-		y2: number,
+		y2: number
 	) {
 		const width = this.width;
 		const lineBaseY = y2 - Sizing.LineWidth / 2;
@@ -235,7 +235,7 @@ export class FrameCanvas extends Canvas {
 		let x = width;
 		path.moveTo(
 			x,
-			getY(y1, lineBaseY, 1 - metrics[metrics.length - 1] / maxY),
+			getY(y1, lineBaseY, 1 - metrics[metrics.length - 1] / maxY)
 		);
 
 		for (let i = metrics.length - 2; i >= 0; i--) {

@@ -64,11 +64,11 @@ const showPosition = async (
 	doc: vscode.TextDocument,
 	lineNumber: number,
 	columnNumber: number,
-	viewColumn?: vscode.ViewColumn,
+	viewColumn?: vscode.ViewColumn
 ) => {
 	const pos = new vscode.Position(
 		Math.max(0, lineNumber - 1),
-		Math.max(0, columnNumber - 1),
+		Math.max(0, columnNumber - 1)
 	);
 	await vscode.window.showTextDocument(doc, {
 		viewColumn,
@@ -82,7 +82,7 @@ const runCommand = (link: CommandLink) =>
 const showPositionInFile = async (
 	rootPath: string | undefined,
 	location: ISourceLocation,
-	viewColumn?: vscode.ViewColumn,
+	viewColumn?: vscode.ViewColumn
 ): Promise<boolean> => {
 	const diskPaths = getCandidateDiskPaths(rootPath, location.source);
 	const foundPaths = await Promise.all(diskPaths.map(exists));
@@ -102,14 +102,14 @@ const showPositionInFile = async (
 		doc,
 		location.lineNumber,
 		location.columnNumber,
-		viewColumn,
+		viewColumn
 	);
 	return true;
 };
 
 const showPositionInUrl = async (
 	{ url: rawUrl, lineNumber, columnNumber }: Cdp.Runtime.CallFrame,
-	viewColumn?: vscode.ViewColumn,
+	viewColumn?: vscode.ViewColumn
 ) => {
 	let url: URL;
 	try {
@@ -124,14 +124,14 @@ const showPositionInUrl = async (
 
 	const path = resolve(
 		vscode.workspace.workspaceFolders?.[0].uri.fsPath ?? tmpdir(),
-		url.pathname.slice(1) || "index.js",
+		url.pathname.slice(1) || "index.js"
 	);
 
 	const document = await vscode.workspace.openTextDocument(
 		vscode.Uri.file(path).with({
 			scheme: DownloadFileProvider.scheme,
 			query: rawUrl,
-		}),
+		})
 	);
 	await showPosition(document, lineNumber + 1, columnNumber + 1, viewColumn);
 	return true;
@@ -167,7 +167,7 @@ const parseLink = (link: string | undefined): Link => {
  */
 export const getCandidateDiskPaths = (
 	rootPath: string | undefined,
-	source: Dap.Source,
+	source: Dap.Source
 ) => {
 	if (!source.path) {
 		return [];
@@ -185,7 +185,7 @@ export const getCandidateDiskPaths = (
 		// compute the relative path using the original platform's logic, and
 		// then resolve it using the current platform
 		locations.push(
-			resolve(folder.uri.fsPath, properRelative(rootPath, source.path)),
+			resolve(folder.uri.fsPath, properRelative(rootPath, source.path))
 		);
 	}
 

@@ -21,14 +21,14 @@ export function activate(context: vscode.ExtensionContext) {
 				vscode.Uri.joinPath(
 					context.extensionUri,
 					"out",
-					"cpu-client.bundle.js",
-				),
+					"cpu-client.bundle.js"
+				)
 			),
 			{
 				webviewOptions: {
 					retainContextWhenHidden: true,
 				},
-			},
+			}
 		),
 		vscode.window.registerCustomEditorProvider(
 			"jsProfileVisualizer.heapprofile.table",
@@ -37,14 +37,14 @@ export function activate(context: vscode.ExtensionContext) {
 				vscode.Uri.joinPath(
 					context.extensionUri,
 					"out",
-					"heap-client.bundle.js",
-				),
+					"heap-client.bundle.js"
+				)
 			),
 			{
 				webviewOptions: {
 					retainContextWhenHidden: true,
 				},
-			},
+			}
 		),
 		vscode.window.registerCustomEditorProvider(
 			"jsProfileVisualizer.heapsnapshot.table",
@@ -52,21 +52,21 @@ export function activate(context: vscode.ExtensionContext) {
 				vscode.Uri.joinPath(
 					context.extensionUri,
 					"out",
-					"heapsnapshot-client.bundle.js",
-				),
-			),
+					"heapsnapshot-client.bundle.js"
+				)
+			)
 			// note: context is not retained when hidden, unlike other editors, because
 			// the model is kept in a worker_thread and accessed via RPC
 		),
 		vscode.workspace.registerTextDocumentContentProvider(
 			"js-viz-download",
-			new DownloadFileProvider(),
+			new DownloadFileProvider()
 		),
 		vscode.languages.registerCodeLensProvider("*", lenses),
 		vscode.commands.registerCommand(
 			"extension.jsProfileVisualizer.table.clearCodeLenses",
-			() => lenses.clear(),
-		),
+			() => lenses.clear()
+		)
 	);
 }
 

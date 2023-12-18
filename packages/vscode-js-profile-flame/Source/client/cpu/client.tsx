@@ -54,7 +54,7 @@ const CloseButton: FunctionComponent = () => {
 				viewType: "jsProfileVisualizer.cpuprofile.table",
 				requireExtension: "ms-vscode.vscode-js-profile-table",
 			}),
-		[vscode],
+		[vscode]
 	);
 
 	return (
@@ -84,7 +84,7 @@ const Root: FunctionComponent = () => {
 				<CloseButton />{" "}
 			</Fragment>
 		),
-		[leftHeavy],
+		[leftHeavy]
 	);
 
 	const cols = leftHeavy ? getLeftHeavyCols() : getTimelineCols();
@@ -97,15 +97,15 @@ const Root: FunctionComponent = () => {
 				() =>
 					LocationAccessor.getFilteredColumns(
 						cols,
-						query.selectedAndParents,
+						query.selectedAndParents
 					),
-				[query],
+				[query]
 			);
 			return (
 				<FlameGraph model={MODEL} columns={cols} filtered={filtered} />
 			);
 		},
-		[cols],
+		[cols]
 	);
 
 	return (
@@ -113,7 +113,7 @@ const Root: FunctionComponent = () => {
 			data={{
 				data: DataProvider.fromArray(
 					LocationAccessor.rootAccessors(cols),
-					(n) => n.children,
+					(n) => n.children
 				),
 				genericMatchStr: (n) =>
 					[

@@ -25,9 +25,9 @@ export abstract class ProfileAnnotations<TNode extends INode> {
 				node.callFrame.url,
 				new Position(
 					Math.max(0, node.callFrame.lineNumber),
-					Math.max(0, node.callFrame.columnNumber),
+					Math.max(0, node.callFrame.columnNumber)
 				),
-				node,
+				node
 			);
 
 			const src = node.src;
@@ -45,9 +45,9 @@ export abstract class ProfileAnnotations<TNode extends INode> {
 					path,
 					new Position(
 						Math.max(0, src.lineNumber - 1),
-						Math.max(0, src.columnNumber - 1),
+						Math.max(0, src.columnNumber - 1)
 					),
-					node,
+					node
 				);
 			}
 		});

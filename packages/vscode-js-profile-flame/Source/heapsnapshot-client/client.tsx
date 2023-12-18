@@ -40,8 +40,7 @@ const Root: FunctionComponent = () => {
 						type="number"
 						min={1}
 						value={maxDistance ? String(maxDistance) : ""}
-						placeholder={`Maximum retainer distance (default: ${DEFAULT_RETAINER_DISTANCE})`}
-					></Filter>
+						placeholder={`Maximum retainer distance (default: ${DEFAULT_RETAINER_DISTANCE})`}></Filter>
 				</FilterBar>
 			</div>
 			<Graph maxDistance={maxDistance || DEFAULT_RETAINER_DISTANCE} />
@@ -197,7 +196,7 @@ render(<Root />, container);
 
 function attachPathHoverHandle(
 	root: cytoscape.CollectionReturnValue,
-	graph: cytoscape.Core,
+	graph: cytoscape.Core
 ) {
 	let lastPath: cytoscape.CollectionReturnValue | null = null;
 	graph.on("mouseover", "node", (ev) => {

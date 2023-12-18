@@ -38,14 +38,14 @@ export const makeBaseTimeViewRow =
 	}) => {
 		const onToggleExpand = useCallback(
 			() => onExpanded(!expanded, node),
-			[expanded, node],
+			[expanded, node]
 		);
 
 		const onKeyDown = useCallback(
 			(evt: KeyboardEvent) => {
 				onKeyDownRaw?.(evt, node);
 			},
-			[onKeyDownRaw, node],
+			[onKeyDownRaw, node]
 		);
 
 		const onFocus = useCallback(() => {
@@ -77,24 +77,21 @@ export const makeBaseTimeViewRow =
 				role="treeitem"
 				aria-posinset={position}
 				aria-level={depth + 1}
-				aria-expanded={expanded}
-			>
+				aria-expanded={expanded}>
 				{children}
 				{!locationText ? (
 					<div
 						className={classes(
 							styles.location,
-							virtual && styles.virtual,
+							virtual && styles.virtual
 						)}
-						style={{ marginLeft: depth * 15 }}
-					>
+						style={{ marginLeft: depth * 15 }}>
 						{expand} <span className={styles.fn}>{rowText}</span>
 					</div>
 				) : (
 					<div
 						className={styles.location}
-						style={{ marginLeft: depth * 15 }}
-					>
+						style={{ marginLeft: depth * 15 }}>
 						{expand}{" "}
 						<span className={styles.fn} style={{ maxWidth: "80%" }}>
 							{rowText}

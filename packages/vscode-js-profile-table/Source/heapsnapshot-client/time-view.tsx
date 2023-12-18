@@ -41,7 +41,7 @@ export const TimeView: FunctionComponent<{
 	data: DataProvider<TableNode>;
 }> = ({ query, data }) => {
 	const [sortFn, setSortFn] = useState<SortFn<TableNode> | undefined>(
-		undefined,
+		undefined
 	);
 
 	return (
@@ -67,11 +67,10 @@ const TimeViewHeader: FunctionComponent<{
 			onClick={useCallback(
 				() =>
 					onChangeSort(() =>
-						sort === sortBySelfSize ? undefined : sortBySelfSize,
+						sort === sortBySelfSize ? undefined : sortBySelfSize
 					),
-				[sort],
-			)}
-		>
+				[sort]
+			)}>
 			{sort === sortBySelfSize && <Icon i={ChevronDown} />}
 			Self Size
 		</div>
@@ -84,11 +83,10 @@ const TimeViewHeader: FunctionComponent<{
 					onChangeSort(() =>
 						sort === sortByRetainedSize
 							? undefined
-							: sortByRetainedSize,
+							: sortByRetainedSize
 					),
-				[sort],
-			)}
-		>
+				[sort]
+			)}>
 			{sort === sortByRetainedSize && <Icon i={ChevronDown} />}
 			Retained Size
 		</div>
@@ -109,8 +107,8 @@ const timeViewRow =
 						acc.retainedSize += n.retainedSize;
 						return acc;
 					},
-					{ selfSize: 0, retainedSize: 0 },
-			  );
+					{ selfSize: 0, retainedSize: 0 }
+				);
 
 		const vscode = useContext(VsCodeApi);
 		const onClick = useCallback(
@@ -124,7 +122,7 @@ const timeViewRow =
 					requireExtension: "ms-vscode.vscode-js-profile-flame",
 				});
 			},
-			[vscode, node.index],
+			[vscode, node.index]
 		);
 
 		const pct = ret && {
@@ -144,8 +142,7 @@ const timeViewRow =
 								role="button"
 								alt="View Retainer Graph"
 								title="View Retainer Graph"
-								onClick={onClick}
-							>
+								onClick={onClick}>
 								<Icon
 									i={TypeHierarchySub}
 									style={{
@@ -160,18 +157,16 @@ const timeViewRow =
 							{node.parent ? ` @${node.id}` : ""}
 						</span>
 					</Fragment>
-				}
-			>
+				}>
 				<div
 					className={styles.duration}
 					aria-labelledby="self-size-header"
 					title={
 						pct &&
 						`${node.selfSize} bytes, ${(pct.self * 100).toFixed(
-							1,
+							1
 						)}% of total`
-					}
-				>
+					}>
 					{pct && <ImpactBar impact={pct.self} />}
 					{prettyBytes(node.selfSize)}
 				</div>
@@ -181,10 +176,9 @@ const timeViewRow =
 					title={
 						pct &&
 						`${node.retainedSize} bytes, ${(pct.ret * 100).toFixed(
-							1,
+							1
 						)}% of total`
-					}
-				>
+					}>
 					{pct && <ImpactBar impact={pct.ret} />}
 					{prettyBytes(node.retainedSize)}
 				</div>

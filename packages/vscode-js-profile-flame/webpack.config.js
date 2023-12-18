@@ -19,7 +19,7 @@ module.exports = [
 	{
 		...require("../../scripts/webpack.client")(
 			__dirname,
-			"heapsnapshot-client",
+			"heapsnapshot-client"
 		),
 		entry: `./src/heapsnapshot-client/client.tsx`,
 	},

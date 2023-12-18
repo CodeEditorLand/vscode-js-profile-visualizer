@@ -31,7 +31,7 @@ export const Filter: FunctionComponent<{
 		(evt: Event) => {
 			onChange((evt.target as HTMLInputElement).value);
 		},
-		[onChange],
+		[onChange]
 	);
 
 	return (

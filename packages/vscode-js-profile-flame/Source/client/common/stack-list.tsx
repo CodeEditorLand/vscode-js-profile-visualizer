@@ -55,7 +55,7 @@ const StackList: FunctionComponent<{
 					(!shouldTruncateStack ||
 						i < Constants.DefaultStackLimit) && (
 						<BoxLink box={b} onClick={setFocused} key={i} />
-					),
+					)
 			)}
 			{shouldTruncateStack && (
 				<Fragment>
@@ -63,8 +63,7 @@ const StackList: FunctionComponent<{
 					<dd>
 						<a
 							onClick={() => setLimitedStack(false)}
-							className={styles.more}
-						>
+							className={styles.more}>
 							<em>
 								{stack.length - Constants.DefaultStackLimit}{" "}
 								more...
@@ -96,7 +95,7 @@ const BoxLink: FunctionComponent<{ box: IBox; onClick(box: IBox): void }> = ({
 				toSide: evt.altKey,
 			});
 		},
-		[vscode, box],
+		[vscode, box]
 	);
 
 	const click = useCallback(() => onClick(box), [box, onClick]);
@@ -104,7 +103,7 @@ const BoxLink: FunctionComponent<{ box: IBox; onClick(box: IBox): void }> = ({
 	const lineCol = locText?.match(/:(\d+(:\d+)?)$/)?.[1];
 	const locFile = locText?.substring(
 		0,
-		locText.length - (lineCol ? lineCol.length + 1 : 0),
+		locText.length - (lineCol ? lineCol.length + 1 : 0)
 	);
 
 	return (

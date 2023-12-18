@@ -28,7 +28,7 @@ const DragHandle: FunctionComponent<{
 			evt.preventDefault();
 			evt.stopPropagation();
 		},
-		[canvasWidth, bounds],
+		[canvasWidth, bounds]
 	);
 
 	const range = bounds.maxX - bounds.minX;
@@ -37,16 +37,15 @@ const DragHandle: FunctionComponent<{
 	return (
 		<div
 			className={classes(styles.handle, current && styles.active)}
-			style={{ height: Constants.TimelineHeight }}
-		>
+			style={{ height: Constants.TimelineHeight }}>
 			<div
 				className={classes(
 					styles.bg,
-					lock === LockBound.Y && styles.active,
+					lock === LockBound.Y && styles.active
 				)}
 				onMouseDown={useCallback(
 					(evt: MouseEvent) => start(evt, LockBound.Y),
-					[start],
+					[start]
 				)}
 				style={{
 					transform: `scaleX(${range}) translateX(${
@@ -57,30 +56,30 @@ const DragHandle: FunctionComponent<{
 			<div
 				className={classes(
 					styles.bookend,
-					lock & LockBound.MaxX && styles.active,
+					lock & LockBound.MaxX && styles.active
 				)}
-				style={{ transform: `translateX(${bounds.minX * 100}%)` }}
-			>
+				style={{ transform: `translateX(${bounds.minX * 100}%)` }}>
 				<div
 					style={{ left: 0 }}
 					onMouseDown={useCallback(
 						(evt: MouseEvent) => start(evt, LockBound.MaxX),
-						[start],
+						[start]
 					)}
 				/>
 			</div>
 			<div
 				className={classes(
 					styles.bookend,
-					lock & LockBound.MinX && styles.active,
+					lock & LockBound.MinX && styles.active
 				)}
-				style={{ transform: `translateX(${(bounds.maxX - 1) * 100}%)` }}
-			>
+				style={{
+					transform: `translateX(${(bounds.maxX - 1) * 100}%)`,
+				}}>
 				<div
 					style={{ right: 0 }}
 					onMouseDown={useCallback(
 						(evt: MouseEvent) => start(evt, LockBound.MinX),
-						[start],
+						[start]
 					)}
 				/>
 			</div>

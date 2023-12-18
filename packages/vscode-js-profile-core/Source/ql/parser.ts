@@ -6,7 +6,10 @@ import { IQuery, PropertyType } from ".";
 import { operators } from "./operators";
 
 export class ParseError extends Error {
-	constructor(message: string, public readonly index: number) {
+	constructor(
+		message: string,
+		public readonly index: number
+	) {
 		super(message);
 	}
 }
@@ -29,7 +32,7 @@ const enum Chars {
 const operatorTokens = new Set(
 	Object.values(operators)
 		.map((v) => Object.keys(v))
-		.reduce((acc, v) => [...acc, ...v], []),
+		.reduce((acc, v) => [...acc, ...v], [])
 );
 
 export interface ILexed {
@@ -47,7 +50,7 @@ export const lex = (expr: string) => {
 	let i = 0;
 	const eat = (
 		token: Token,
-		test: (char: string, i: number) => boolean,
+		test: (char: string, i: number) => boolean
 	): ILexed => {
 		let text = "";
 		const start = i;
@@ -82,7 +85,7 @@ export const lex = (expr: string) => {
 			case Token.Text:
 				const nextCol = expr.indexOf(
 					Chars.Space + Chars.StartColumn,
-					i,
+					i
 				);
 				if (nextCol === -1) {
 					tokens.push(eat(Token.Text, () => true));
@@ -109,8 +112,8 @@ export const lex = (expr: string) => {
 
 				tokens.push(
 					eat(Token.Value, (c) =>
-						endWithSpace ? c !== Chars.Space : c !== char,
-					),
+						endWithSpace ? c !== Chars.Space : c !== char
+					)
 				);
 				state = Token.Text;
 				if (!endWithSpace) {
@@ -128,7 +131,7 @@ export const lex = (expr: string) => {
 export const compile = <T>(
 	lexed: ILexed[],
 	query: IQuery<T>,
-	ops = operators,
+	ops = operators
 ) => {
 	const filterList: ((model: T) => boolean)[] = [];
 	const text: string[] = [];
@@ -139,11 +142,11 @@ export const compile = <T>(
 				const prop = query.datasource.properties[token.text];
 				if (!prop) {
 					const available = Object.keys(
-						query.datasource.properties,
+						query.datasource.properties
 					).join(", ");
 					throw new ParseError(
 						`Unknown column @${token.text}, have: ${available}`,
-						token.start,
+						token.start
 					);
 				}
 
@@ -151,7 +154,7 @@ export const compile = <T>(
 				if (op?.token !== Token.Operator) {
 					throw new ParseError(
 						`Missing operator for column @${token.text}`,
-						token.start,
+						token.start
 					);
 				}
 
@@ -160,7 +163,7 @@ export const compile = <T>(
 						`Unknown operator for @${
 							token.text
 						}, have: ${Object.keys(ops[prop.type]).join(", ")}`,
-						op.start,
+						op.start
 					);
 				}
 
@@ -168,12 +171,12 @@ export const compile = <T>(
 				if (value?.token !== Token.Value) {
 					throw new ParseError(
 						`Missing operand for column @${value.text}`,
-						token.start,
+						token.start
 					);
 				}
 
 				const compiled = ops[prop.type][op.text](value.text) as (
-					a: unknown,
+					a: unknown
 				) => boolean;
 				filterList.push((m) => compiled(prop.accessor(m)));
 				break;

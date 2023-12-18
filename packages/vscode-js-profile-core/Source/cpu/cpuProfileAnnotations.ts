@@ -48,7 +48,7 @@ export class CpuProfileAnnotations extends ProfileAnnotations<ILocation> {
 			if (position.character < existing.position.character) {
 				existing.position = new Position(
 					position.line,
-					position.character,
+					position.character
 				);
 			}
 			existing.data.aggregateTime += data.aggregateTime;
@@ -85,10 +85,10 @@ export class CpuProfileAnnotations extends ProfileAnnotations<ILocation> {
 						new CodeLens(range, {
 							title:
 								`${decimalFormat.format(
-									data.selfTime / 1000,
+									data.selfTime / 1000
 								)}ms Self Time, ` +
 								`${decimalFormat.format(
-									data.aggregateTime / 1000,
+									data.aggregateTime / 1000
 								)}ms Total`,
 							command: "",
 						}),

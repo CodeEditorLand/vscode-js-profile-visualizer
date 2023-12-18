@@ -11,7 +11,7 @@ import vertexShaderSource from "./box.vert";
 const createShader = (
 	gl: WebGL2RenderingContext,
 	type: GLenum,
-	source: string,
+	source: string
 ) => {
 	const shader = gl.createShader(type);
 	if (!shader) {
@@ -33,7 +33,7 @@ const createShader = (
 const createProgram = (
 	gl: WebGL2RenderingContext,
 	vertexShader: WebGLShader,
-	fragmentShader: WebGLShader,
+	fragmentShader: WebGLShader
 ) => {
 	const program = gl.createProgram();
 	if (!program) {
@@ -77,7 +77,7 @@ export const setupGl = ({
 	const boxProgram = createProgram(
 		gl,
 		createShader(gl, gl.VERTEX_SHADER, vertexShaderSource),
-		createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource),
+		createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource)
 	);
 
 	const boxAttributeLocation = gl.getAttribLocation(boxProgram, "boxes");
@@ -131,11 +131,11 @@ export const setupGl = ({
 
 		console.assert(
 			ii === indexData.length,
-			"expected to have written all indices",
+			"expected to have written all indices"
 		);
 		console.assert(
 			pi === positions.length,
-			"expected to have written all positions",
+			"expected to have written all positions"
 		);
 
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, vertexBuffer);
@@ -173,7 +173,7 @@ export const setupGl = ({
 	const focusColorLocation = gl.getUniformLocation(boxProgram, "focus_color");
 	const primaryColorLocation = gl.getUniformLocation(
 		boxProgram,
-		"primary_color",
+		"primary_color"
 	);
 
 	/**
@@ -186,7 +186,7 @@ export const setupGl = ({
 			bounds.minX,
 			bounds.y,
 			bounds.maxX,
-			bounds.y + size.height,
+			bounds.y + size.height
 		);
 	};
 
@@ -201,7 +201,7 @@ export const setupGl = ({
 		rgba[3] = 255;
 		gl.uniform4fv(
 			focusColorLocation,
-			new Float32Array(rgba.map((r) => r / 255)),
+			new Float32Array(rgba.map((r) => r / 255))
 		);
 	};
 
@@ -219,7 +219,7 @@ export const setupGl = ({
 			hsv[0] / 360,
 			hsv[1],
 			hsv[2],
-			parsed.alpha(),
+			parsed.alpha()
 		);
 	};
 
@@ -229,7 +229,7 @@ export const setupGl = ({
 	setBounds(
 		{ minX: 0, maxX: 1, y: 0, level: 0 },
 		{ width: 100, height: 100 },
-		initialScale,
+		initialScale
 	);
 	setBoxes(initialBoxes);
 	setFocusColor(focusColor);

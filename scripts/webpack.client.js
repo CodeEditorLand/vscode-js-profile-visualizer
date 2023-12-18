@@ -29,7 +29,7 @@ module.exports = (dirname, file = "client") => ({
 						path: require.resolve("path-browserify"),
 						os: require.resolve("os-browserify/browser"),
 					},
-			  }),
+				}),
 	},
 	module: {
 		rules: [

@@ -55,7 +55,7 @@ const smallestZoomableRange = 1e-7;
  */
 function formatTimestamp(
 	timestampMicroseconds: number,
-	rangeMicroseconds: number,
+	rangeMicroseconds: number
 ) {
 	const rangeMilliseconds = rangeMicroseconds / 1000;
 	let precision = 0;
@@ -99,7 +99,7 @@ const makeBaseFlame =
 		const webCanvas = useRef<HTMLCanvasElement>(null);
 		const webContext = useMemo(
 			() => webCanvas.current?.getContext("2d"),
-			[webCanvas.current],
+			[webCanvas.current]
 		);
 		const glCanvas = useRef<HTMLCanvasElement>(null);
 
@@ -117,11 +117,11 @@ const makeBaseFlame =
 
 		const rawBoxes = useMemo(
 			() => buildBoxes(columns, filtered),
-			[columns, filtered],
+			[columns, filtered]
 		);
 		const clampY = Math.max(
 			0,
-			rawBoxes.maxY - canvasSize.height + Constants.ExtraYBuffer,
+			rawBoxes.maxY - canvasSize.height + Constants.ExtraYBuffer
 		);
 		const [focused, setFocused] = useState<IBox | undefined>(undefined);
 		const [bounds, setBounds] = usePersistedState<IBounds>("bounds", {
@@ -141,23 +141,23 @@ const makeBaseFlame =
 					boxes: [...rawBoxes.boxById.values()],
 					scale: dpr,
 				}),
-			[glCanvas.current],
+			[glCanvas.current]
 		);
 		useEffect(
 			() => gl?.setBoxes([...rawBoxes.boxById.values()]),
-			[rawBoxes],
+			[rawBoxes]
 		);
 		useEffect(
 			() => gl?.setBounds(bounds, canvasSize, dpr),
-			[bounds, canvasSize],
+			[bounds, canvasSize]
 		);
 		useEffect(
 			() => gl?.setFocusColor(cssVariables.focusBorder),
-			[cssVariables.focusBorder],
+			[cssVariables.focusBorder]
 		);
 		useEffect(
 			() => gl?.setPrimaryColor(cssVariables["charts-red"]),
-			[cssVariables["charts-red"]],
+			[cssVariables["charts-red"]]
 		);
 		useEffect(() => gl?.setFocused(focused?.loc.graphId), [focused]);
 		useEffect(() => gl?.setHovered(hovered?.box.loc.graphId), [hovered]);
@@ -182,7 +182,7 @@ const makeBaseFlame =
 					toSide: evt.altKey,
 				});
 			},
-			[vscode],
+			[vscode]
 		);
 
 		const textCache = useMemo(
@@ -192,9 +192,9 @@ const makeBaseFlame =
 						cssVariables["editor-font-family"]
 					}`,
 					Constants.TextColor,
-					dpr,
+					dpr
 				),
-			[cssVariables],
+			[cssVariables]
 		);
 
 		useEffect(() => {
@@ -215,7 +215,7 @@ const makeBaseFlame =
 					0,
 					Constants.TimelineHeight,
 					canvasSize.width,
-					canvasSize.height,
+					canvasSize.height
 				);
 				webContext.save();
 				webContext.beginPath();
@@ -223,7 +223,7 @@ const makeBaseFlame =
 					0,
 					Constants.TimelineHeight,
 					canvasSize.width,
-					canvasSize.height,
+					canvasSize.height
 				);
 				webContext.clip();
 
@@ -259,7 +259,7 @@ const makeBaseFlame =
 						x1 + 3,
 						box.y1 - bounds.y + 3,
 						width - 6,
-						Constants.BoxHeight,
+						Constants.BoxHeight
 					);
 				}
 
@@ -277,7 +277,7 @@ const makeBaseFlame =
 				0,
 				0,
 				webContext.canvas.width,
-				Constants.TimelineHeight,
+				Constants.TimelineHeight
 			);
 			webContext.fillStyle = cssVariables["editor-foreground"];
 			webContext.font = webContext.textAlign = "right";
@@ -285,7 +285,7 @@ const makeBaseFlame =
 			webContext.lineWidth = 1 / dpr;
 
 			const labels = Math.round(
-				canvasSize.width / Constants.TimelineLabelSpacing,
+				canvasSize.width / Constants.TimelineLabelSpacing
 			);
 			const spacing = canvasSize.width / labels;
 
@@ -300,7 +300,7 @@ const makeBaseFlame =
 				webContext.fillText(
 					`${formatTimestamp(time, timeRange)}${unit}`,
 					x - 3,
-					Constants.TimelineHeight / 2,
+					Constants.TimelineHeight / 2
 				);
 				webContext.moveTo(x, 0);
 				webContext.lineTo(x, Constants.TimelineHeight);
@@ -345,13 +345,13 @@ const makeBaseFlame =
 						box.y1 > bounds.y + canvasSize.height
 							? box.y1
 							: bounds.y,
-						clampY,
+						clampY
 					),
 					level: box.level,
 				});
 				setFocused(box);
 			},
-			[clampY, canvasSize.height, bounds],
+			[clampY, canvasSize.height, bounds]
 		);
 
 		// Key event handler, deals with focus navigation and escape/enter
@@ -363,8 +363,13 @@ const makeBaseFlame =
 						return hovered?.src === HighlightSource.Keyboard
 							? setHovered(undefined)
 							: showInfo
-							  ? setShowInfo(false)
-							  : setBounds({ minX: 0, maxX: 1, y: 0, level: 0 });
+								? setShowInfo(false)
+								: setBounds({
+										minX: 0,
+										maxX: 1,
+										y: 0,
+										level: 0,
+									});
 					case "Enter":
 						if ((evt.metaKey || evt.ctrlKey) && hovered) {
 							return openBox(hovered.box, evt);
@@ -394,7 +399,7 @@ const makeBaseFlame =
 								columns,
 								rawBoxes.boxById,
 								x,
-								focused.row,
+								focused.row
 							);
 							if (box && box !== focused) {
 								nextFocus = box;
@@ -413,7 +418,7 @@ const makeBaseFlame =
 								columns,
 								rawBoxes.boxById,
 								x,
-								focused.row,
+								focused.row
 							);
 							if (box && box !== focused) {
 								nextFocus = box;
@@ -426,24 +431,26 @@ const makeBaseFlame =
 							columns,
 							rawBoxes.boxById,
 							focused.column,
-							focused.row - 1,
+							focused.row - 1
 						);
 						break;
-					case "ArrowDown": {
-						let x = focused.column;
-						do {
-							nextFocus = getBoxInRowColumn(
-								columns,
-								rawBoxes.boxById,
-								x,
-								focused.row + 1,
+					case "ArrowDown":
+						{
+							let x = focused.column;
+							do {
+								nextFocus = getBoxInRowColumn(
+									columns,
+									rawBoxes.boxById,
+									x,
+									focused.row + 1
+								);
+							} while (
+								!nextFocus &&
+								columns[++x]?.rows[focused.row] ===
+									focused.column
 							);
-						} while (
-							!nextFocus &&
-							columns[++x]?.rows[focused.row] === focused.column
-						);
-					}
-					break;
+						}
+						break;
 					default:
 						break;
 				}
@@ -456,7 +463,7 @@ const makeBaseFlame =
 					});
 				}
 			},
-			[zoomToBox, focused, hovered, rawBoxes, showInfo],
+			[zoomToBox, focused, hovered, rawBoxes, showInfo]
 		);
 
 		// Keyboard events
@@ -490,11 +497,11 @@ const makeBaseFlame =
 
 				const row = Math.floor(
 					(fromTop + bounds.y - Constants.TimelineHeight) /
-						Constants.BoxHeight,
+						Constants.BoxHeight
 				);
 				return getBoxInRowColumn(columns, rawBoxes.boxById, col, row);
 			},
-			[webCanvas, bounds, columns, rawBoxes],
+			[webCanvas, bounds, columns, rawBoxes]
 		);
 
 		// Listen for drag events on the window when it's running
@@ -517,7 +524,7 @@ const makeBaseFlame =
 					minX = clamp(
 						0,
 						original.minX - (evt.pageX - pageXOrigin) * xPerPixel,
-						upper,
+						upper
 					);
 					maxX =
 						lock & LockBound.MaxX
@@ -528,7 +535,7 @@ const makeBaseFlame =
 					maxX = clamp(
 						minX + Constants.MinWindow,
 						original.maxX - (evt.pageX - pageXOrigin) * xPerPixel,
-						1,
+						1
 					);
 				}
 
@@ -538,8 +545,8 @@ const makeBaseFlame =
 						: clamp(
 								0,
 								original.y - (evt.pageY - pageYOrigin),
-								clampY,
-						  );
+								clampY
+							);
 				setBounds({ minX, maxX, y, level: bounds.level });
 			};
 
@@ -572,7 +579,7 @@ const makeBaseFlame =
 				}
 
 				setHovered(
-					box ? { box, src: HighlightSource.Hover } : undefined,
+					box ? { box, src: HighlightSource.Hover } : undefined
 				);
 			},
 			[
@@ -581,7 +588,7 @@ const makeBaseFlame =
 				canvasSize,
 				hovered,
 				rawBoxes,
-			],
+			]
 		);
 
 		const onWheel = useCallback(
@@ -604,7 +611,7 @@ const makeBaseFlame =
 					const deltaX = clamp(
 						0 - bounds.minX,
 						(evt.deltaY / width) * (bounds.maxX - bounds.minX),
-						1 - bounds.maxX,
+						1 - bounds.maxX
 					);
 					setBounds({
 						...bounds,
@@ -622,7 +629,7 @@ const makeBaseFlame =
 				const dleft = (evt.pageX - left) / width;
 				const minX = Math.max(
 					0,
-					bounds.minX + dleft * (range - newRange),
+					bounds.minX + dleft * (range - newRange)
 				);
 				const maxX = Math.min(1, minX + newRange);
 				const next = { minX, maxX, y: bounds.y, level: bounds.level };
@@ -630,7 +637,7 @@ const makeBaseFlame =
 
 				evt.preventDefault();
 			},
-			[clampY, webCanvas.current, drag || bounds],
+			[clampY, webCanvas.current, drag || bounds]
 		);
 
 		const onMouseDown = useCallback(
@@ -645,7 +652,7 @@ const makeBaseFlame =
 				});
 				evt.preventDefault();
 			},
-			[canvasSize, drag || bounds],
+			[canvasSize, drag || bounds]
 		);
 
 		const onMouseUp = useCallback(
@@ -680,7 +687,7 @@ const makeBaseFlame =
 				evt.stopPropagation();
 				evt.preventDefault();
 			},
-			[drag, getBoxUnderCursor, openBox, zoomToBox],
+			[drag, getBoxUnderCursor, openBox, zoomToBox]
 		);
 
 		const onMouseLeave = useCallback(
@@ -688,7 +695,7 @@ const makeBaseFlame =
 				onMouseUp(evt);
 				setHovered(undefined);
 			},
-			[onMouseUp],
+			[onMouseUp]
 		);
 
 		const onFocus = useCallback(() => {
@@ -698,13 +705,13 @@ const makeBaseFlame =
 			}
 
 			const firstCol = Math.abs(
-				binarySearch(columns, (c) => c.x2 - bounds.minX),
+				binarySearch(columns, (c) => c.x2 - bounds.minX)
 			);
 			const firstBox = getBoxInRowColumn(
 				columns,
 				rawBoxes.boxById,
 				firstCol,
-				0,
+				0
 			);
 			if (firstBox) {
 				setFocused(firstBox);

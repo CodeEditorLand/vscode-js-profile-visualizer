@@ -46,8 +46,7 @@ export const BaseTooltip: FunctionComponent<IBaseTooltipProps> = ({
 				left: clamp(0, canvasWidth * left + 10, canvasWidth - 400),
 				top: above ? "initial" : lowerY + 10,
 				bottom: above ? upperY + 10 : "initial",
-			}}
-		>
+			}}>
 			<dl>
 				<dt>Function</dt>
 				<dd className={styles.function}>
@@ -60,9 +59,8 @@ export const BaseTooltip: FunctionComponent<IBaseTooltipProps> = ({
 							aria-label={file}
 							className={classes(
 								styles.label,
-								node.src && styles.clickable,
-							)}
-						>
+								node.src && styles.clickable
+							)}>
 							<MiddleOut
 								aria-hidden={true}
 								endChars={file?.length}

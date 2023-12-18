@@ -12,14 +12,14 @@ const dpr = window.devicePixelRatio || 1;
 export class Canvas {
 	public readonly elem = document.createElement("canvas");
 	public readonly ctx = this.elem.getContext(
-		"2d",
+		"2d"
 	) as CanvasRenderingContext2D;
 	protected scale = 1;
 
 	constructor(
 		public width: number,
 		public height: number,
-		protected readonly settings: Settings,
+		protected readonly settings: Settings
 	) {
 		this.updateSize(width, height, true);
 	}

@@ -72,19 +72,19 @@ export type GraphRPCInterface = {
 		classIndex: number,
 		start: number,
 		end: number,
-		sortBy: WasmSortBy,
+		sortBy: WasmSortBy
 	): Promise<INode[]>;
 
 	getNodeChildren(
 		parentIndex: number,
 		start: number,
 		end: number,
-		sortBy: WasmSortBy,
+		sortBy: WasmSortBy
 	): Promise<INode[]>;
 
 	getRetainers(
 		parentIndex: number,
-		maxDistance: number,
+		maxDistance: number
 	): Promise<IRetainingNode[]>;
 };
 

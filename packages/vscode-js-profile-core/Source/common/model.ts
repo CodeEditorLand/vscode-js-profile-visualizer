@@ -32,7 +32,7 @@ export interface ICommonNode {
  */
 export const categorize = (
 	callFrame: Cdp.Runtime.CallFrame,
-	src: ISourceLocation | undefined,
+	src: ISourceLocation | undefined
 ) => {
 	callFrame.functionName = callFrame.functionName || "(anonymous)";
 	if (callFrame.lineNumber < 0) {

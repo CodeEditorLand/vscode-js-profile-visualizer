@@ -36,7 +36,7 @@ render(
 	<HeapProfileLayout
 		data={{
 			data: DataProvider.fromArray(allChildren, (n) =>
-				Object.values(n.children),
+				Object.values(n.children)
 			),
 			genericMatchStr: (n) =>
 				[
@@ -79,5 +79,5 @@ render(
 		body={TimeViewWrapper}
 		filterFooter={OpenFlameButton}
 	/>,
-	container,
+	container
 );

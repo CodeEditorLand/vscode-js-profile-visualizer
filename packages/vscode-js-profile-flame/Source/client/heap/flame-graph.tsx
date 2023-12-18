@@ -29,14 +29,14 @@ const InfoBox: FunctionComponent<IBaseInfoBoxProp> = ({
 				<dt>Self Size</dt>
 				<dd>
 					{decimalFormat.format(
-						(localLocation as IHeapProfileNode).selfSize / 1000,
+						(localLocation as IHeapProfileNode).selfSize / 1000
 					)}
 					kB
 				</dd>
 				<dt>Total Size</dt>
 				<dd>
 					{decimalFormat.format(
-						(localLocation as IHeapProfileNode).totalSize / 1000,
+						(localLocation as IHeapProfileNode).totalSize / 1000
 					)}
 					kB
 				</dd>
@@ -45,8 +45,7 @@ const InfoBox: FunctionComponent<IBaseInfoBoxProp> = ({
 				box={box}
 				columns={columns}
 				boxes={boxes}
-				setFocused={setFocused}
-			></StackList>
+				setFocused={setFocused}></StackList>
 		</div>
 	);
 };

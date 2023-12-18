@@ -7,14 +7,14 @@ import { IPropertyToPrimitiveType, Property, PropertyType } from "./types";
 export interface IOperator<T> {
 	appliesTo: T;
 	filter: (
-		value: ReturnType<(Property<unknown> & { type: T })["accessor"]>,
+		value: ReturnType<(Property<unknown> & { type: T })["accessor"]>
 	) => boolean;
 }
 
 export type IOperatorMap = {
 	[K in PropertyType]: {
 		[key: string]: (
-			input: string,
+			input: string
 		) => (value: IPropertyToPrimitiveType[K]) => boolean;
 	};
 };

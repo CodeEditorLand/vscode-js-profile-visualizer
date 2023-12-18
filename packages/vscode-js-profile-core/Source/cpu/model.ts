@@ -61,7 +61,7 @@ export interface IProfileModel {
  */
 const computeAggregateTime = (
 	index: number,
-	nodes: IComputedNode[],
+	nodes: IComputedNode[]
 ): number => {
 	const row = nodes[index];
 	if (row.aggregateTime) {
@@ -81,7 +81,7 @@ const computeAggregateTime = (
  * aren't provided by default.
  */
 const ensureSourceLocations = (
-	profile: ICpuProfileRaw,
+	profile: ICpuProfileRaw
 ): ReadonlyArray<IAnnotationLocation> => {
 	if (profile.$vscode) {
 		return profile.$vscode.locations; // profiles we generate are already good

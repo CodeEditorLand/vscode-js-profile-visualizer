@@ -26,7 +26,7 @@ export interface IRichFilter {
  * Compile the filter into a predicate function.
  */
 export const compileFilter = (
-	fn: IRichFilter,
+	fn: IRichFilter
 ): ((input: string) => boolean) => {
 	if (fn.regex) {
 		const re = new RegExp(fn.text, fn.caseSensitive ? "" : "i");
@@ -64,7 +64,7 @@ export const richFilter =
 						regex,
 						caseSensitive,
 						datasource: data,
-					}),
+					})
 				);
 				setError(undefined);
 			} catch (e) {

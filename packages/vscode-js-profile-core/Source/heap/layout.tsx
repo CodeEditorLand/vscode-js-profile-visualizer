@@ -44,7 +44,7 @@ export const heapProfileLayoutFactory = <
 						requireExtension="ms-vscode.vscode-js-profile-flame"
 					/>
 				) : undefined,
-			[FilterFooter],
+			[FilterFooter]
 		);
 
 		return (

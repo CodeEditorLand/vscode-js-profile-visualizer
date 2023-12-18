@@ -21,7 +21,7 @@ const OpenFlameButton: FunctionComponent<{
 				viewType,
 				requireExtension,
 			}),
-		[vscode],
+		[vscode]
 	);
 
 	return (

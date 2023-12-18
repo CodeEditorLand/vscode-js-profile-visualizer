@@ -67,7 +67,7 @@ export class Settings {
 		this.changeListeners.push(listener);
 		return () =>
 			(this.changeListeners = this.changeListeners.filter(
-				(c) => c !== listener,
+				(c) => c !== listener
 			));
 	}
 

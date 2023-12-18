@@ -1,19 +1,19 @@
 .c {
-  white-space: nowrap;
-  overflow: hidden;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 .c span {
-  display: inline-block;
-  vertical-align: bottom;
-  white-space: nowrap;
-  overflow: hidden;
+	display: inline-block;
+	vertical-align: bottom;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 .c span:first-child {
-  text-overflow: ellipsis;
+	text-overflow: ellipsis;
 }
 
 .c span:last-child {
-  direction: rtl;
+	direction: rtl;
 }

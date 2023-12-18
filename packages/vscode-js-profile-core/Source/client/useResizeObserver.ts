@@ -7,7 +7,7 @@ import { useEffect } from "preact/hooks";
 export const useResizeObserver = <T extends HTMLElement>(
 	callback: (entry: ResizeObserverEntry) => void,
 	element: T | null,
-	options?: ResizeObserverOptions,
+	options?: ResizeObserverOptions
 ) => {
 	useEffect(() => {
 		if (!element) {

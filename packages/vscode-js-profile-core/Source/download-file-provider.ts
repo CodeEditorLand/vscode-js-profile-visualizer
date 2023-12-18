@@ -34,7 +34,7 @@ export class DownloadFileProvider
 				} catch (e) {
 					return (e as Error).message;
 				}
-			},
+			}
 		);
 	}
 }

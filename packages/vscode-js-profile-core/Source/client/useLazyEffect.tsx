@@ -9,7 +9,7 @@ import { useRef, useEffect, Inputs } from "preact/hooks";
  */
 export const useLazyEffect = (
 	fn: () => void | (() => void),
-	inputs: Inputs,
+	inputs: Inputs
 ): void => {
 	const isFirst = useRef(true);
 	useEffect(() => {

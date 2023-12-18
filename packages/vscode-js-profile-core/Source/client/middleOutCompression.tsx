@@ -23,14 +23,12 @@ export const MiddleOut: FunctionComponent<{
 				style={{
 					maxWidth: `calc(100% - ${endWidth}em)`,
 					minWidth: `${startWidth}em`,
-				}}
-			>
+				}}>
 				{text.slice(0, -endChars)}
 			</span>
 			<span
 				aria-hidden="true"
-				style={{ maxWidth: `calc(100% - ${startWidth}em)` }}
-			>
+				style={{ maxWidth: `calc(100% - ${startWidth}em)` }}>
 				{text.slice(-endChars)}
 			</span>
 		</span>
