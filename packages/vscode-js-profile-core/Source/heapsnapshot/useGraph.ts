@@ -15,7 +15,7 @@ let callNo = Math.floor(Math.random() * 0x7fffffff);
 export const doGraphRpc = (
 	vscode: IVscodeApi,
 	method: string,
-	args: unknown[]
+	args: unknown[],
 ) => {
 	const id = callNo++;
 
@@ -26,7 +26,7 @@ export const doGraphRpc = (
 
 	return new Promise((resolve, reject) => {
 		const listener = (
-			event: MessageEvent<{ method: string; message: GraphRPCResult }>
+			event: MessageEvent<{ method: string; message: GraphRPCResult }>,
 		) => {
 			if (
 				event.data?.method === "graphRet" &&
@@ -60,8 +60,8 @@ export const useGraph = (): GraphRPCInterface => {
 						(_, method: keyof GraphRPCInterface) =>
 						(...args: unknown[]) =>
 							doGraphRpc(vscode, method, args),
-				}
+				},
 			) as GraphRPCInterface,
-		[]
+		[],
 	);
 };

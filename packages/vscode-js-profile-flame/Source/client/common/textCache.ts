@@ -12,11 +12,7 @@ export class TextCache {
 	public readonly charHeight: number;
 	private capacity = 128;
 
-	constructor(
-		font: string,
-		color: string,
-		private readonly scale: number
-	) {
+	constructor(font: string, color: string, private readonly scale: number) {
 		const canvas = document.createElement("canvas");
 		canvas.width = screen.width;
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -47,7 +43,7 @@ export class TextCache {
 		x: number,
 		y: number,
 		w: number,
-		h: number
+		h: number,
 	) {
 		h = Math.min(this.charHeight, h);
 
@@ -67,7 +63,7 @@ export class TextCache {
 				x + xOffset,
 				y,
 				width,
-				h
+				h,
 			);
 
 			xOffset += this.charWidth * 1.03;
@@ -86,7 +82,7 @@ export class TextCache {
 				0,
 				0,
 				canvas.width,
-				canvas.height
+				canvas.height,
 			);
 			canvas.width *= 2;
 			this.capacity *= 2;

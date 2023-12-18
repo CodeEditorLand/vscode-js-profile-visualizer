@@ -5,7 +5,7 @@
 import type { WasmSortBy } from "@vscode/v8-heap-parser";
 
 /** Mirrored into this file to avoid concrete dependencies on the wasm bundle from the webview */
-export const enum EdgeType {
+export enum EdgeType {
 	Context = 0,
 	Element = 1,
 	Property = 2,
@@ -18,7 +18,7 @@ export const enum EdgeType {
 }
 
 /** Mirrored into this file to avoid concrete dependencies on the wasm bundle from the webview */
-export const enum NodeType {
+export enum NodeType {
 	Hidden = 0,
 	Array = 1,
 	String = 2,
@@ -72,19 +72,19 @@ export type GraphRPCInterface = {
 		classIndex: number,
 		start: number,
 		end: number,
-		sortBy: WasmSortBy
+		sortBy: WasmSortBy,
 	): Promise<INode[]>;
 
 	getNodeChildren(
 		parentIndex: number,
 		start: number,
 		end: number,
-		sortBy: WasmSortBy
+		sortBy: WasmSortBy,
 	): Promise<INode[]>;
 
 	getRetainers(
 		parentIndex: number,
-		maxDistance: number
+		maxDistance: number,
 	): Promise<IRetainingNode[]>;
 };
 

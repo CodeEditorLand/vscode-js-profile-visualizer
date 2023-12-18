@@ -3,7 +3,7 @@
  *--------------------------------------------------------*/
 
 import * as ChevronDown from "@vscode/codicons/src/icons/chevron-down.svg";
-import { FunctionComponent, h } from "preact";
+import { FunctionComponent } from "preact";
 import { useCallback, useContext, useState } from "preact/hooks";
 import { Icon } from "vscode-js-profile-core/out/esm/client/icons";
 import { classes } from "vscode-js-profile-core/out/esm/client/util";
@@ -32,7 +32,7 @@ export const TimeView: FunctionComponent<{
 	data: DataProvider<ITreeNode>;
 }> = ({ data, query }) => {
 	const [sortFn, setSortFn] = useState<SortFn<ITreeNode> | undefined>(
-		() => selfSize
+		() => selfSize,
 	);
 
 	return (
@@ -60,10 +60,11 @@ const TimeViewHeader: FunctionComponent<{
 			onClick={useCallback(
 				() =>
 					onChangeSort(() =>
-						sortFn === selfSize ? undefined : selfSize
+						sortFn === selfSize ? undefined : selfSize,
 					),
-				[sortFn]
-			)}>
+				[sortFn],
+			)}
+		>
 			{sortFn === selfSize && <Icon i={ChevronDown} />}
 			Self Size
 		</div>
@@ -74,10 +75,11 @@ const TimeViewHeader: FunctionComponent<{
 			onClick={useCallback(
 				() =>
 					onChangeSort(() =>
-						sortFn === totalSize ? undefined : totalSize
+						sortFn === totalSize ? undefined : totalSize,
 					),
-				[sortFn]
-			)}>
+				[sortFn],
+			)}
+		>
 			{sortFn === totalSize && <Icon i={ChevronDown} />}
 			Total Size
 		</div>
@@ -101,7 +103,7 @@ const TimeViewRow: FunctionComponent<IRowProps<ITreeNode>> = (props) => {
 				location: node.src,
 				toSide: evt.altKey,
 			}),
-		[vscode, node]
+		[vscode, node],
 	);
 
 	return (
@@ -109,14 +111,16 @@ const TimeViewRow: FunctionComponent<IRowProps<ITreeNode>> = (props) => {
 			{...props}
 			onClick={onClick}
 			rowText={node.callFrame.functionName}
-			locationText={getNodeText(node)}>
+			locationText={getNodeText(node)}
+		>
 			<div className={styles.duration} aria-labelledby="self-size-header">
 				<ImpactBar impact={node.selfSize / node.totalSize} />
 				{decimalFormat.format(node.selfSize / 1000)}kB
 			</div>
 			<div
 				className={styles.duration}
-				aria-labelledby="total-size-header">
+				aria-labelledby="total-size-header"
+			>
 				<ImpactBar impact={node.totalSize / root.totalSize} />
 				{decimalFormat.format(node.totalSize / 1000)}kB
 			</div>

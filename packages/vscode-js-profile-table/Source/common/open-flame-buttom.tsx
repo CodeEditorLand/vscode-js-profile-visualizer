@@ -3,7 +3,7 @@
  *--------------------------------------------------------*/
 
 import * as Flame from "@vscode/codicons/src/icons/flame.svg";
-import { FunctionComponent, h } from "preact";
+import { FunctionComponent } from "preact";
 import { useCallback, useContext } from "preact/hooks";
 import { ToggleButton } from "vscode-js-profile-core/out/esm/client/toggle-button";
 import { VsCodeApi } from "vscode-js-profile-core/out/esm/client/vscodeApi";
@@ -21,7 +21,7 @@ const OpenFlameButton: FunctionComponent<{
 				viewType,
 				requireExtension,
 			}),
-		[vscode]
+		[vscode],
 	);
 
 	return (

@@ -1,7 +1,7 @@
 /*---------------------------------------------------------
  * Copyright (C) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------*/
-import { FunctionComponent, h, render } from "preact";
+import { FunctionComponent, render } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { PageLoader } from "vscode-js-profile-core/out/esm/client/pageLoader";
 import { cpuProfileLayoutFactory } from "vscode-js-profile-core/out/esm/cpu/layout";
@@ -25,7 +25,7 @@ const CpuProfileLayout = cpuProfileLayoutFactory<TableNode>();
 
 const convertSorter = (sort?: SortFn<TableNode>): number => {
 	/** Mirror of WasmSortBy in the v8_heap_parser.d.ts, but we don't want to import the wasm here */
-	const enum WasmSortBy {
+	enum WasmSortBy {
 		SelfSize = 0,
 		RetainedSize = 1,
 		Name = 2,
@@ -42,7 +42,7 @@ const convertSorter = (sort?: SortFn<TableNode>): number => {
 
 const makeNestedDataProvider = (
 	parent: TableNode,
-	graph: GraphRPCInterface
+	graph: GraphRPCInterface,
 ): DataProvider<TableNode> =>
 	new DataProvider<TableNode>(
 		parent.childrenLen,
@@ -52,21 +52,21 @@ const makeNestedDataProvider = (
 						parent.index,
 						start,
 						end,
-						convertSorter(sort)
-					)
+						convertSorter(sort),
+				  )
 				: graph.getClassChildren(
 						parent.index,
 						start,
 						end,
-						convertSorter(sort)
-					)
+						convertSorter(sort),
+				  )
 			).then((items: TableNode[]) => {
 				for (const item of items) {
 					item.parent = parent;
 				}
 				return items;
 			}),
-		(n) => makeNestedDataProvider(n, graph)
+		(n) => makeNestedDataProvider(n, graph),
 	);
 
 const Root: FunctionComponent = () => {
@@ -93,7 +93,7 @@ const Root: FunctionComponent = () => {
 		<CpuProfileLayout
 			data={{
 				data: DataProvider.fromTopLevelArray(classGroups, (n) =>
-					makeNestedDataProvider(n, graph)
+					makeNestedDataProvider(n, graph),
 				),
 				genericMatchStr: (n) => `${n.name} ${n.id}`,
 				properties: {

@@ -12,7 +12,7 @@ export class RealtimeWebviewProvider implements vscode.WebviewViewProvider {
 
 	constructor(
 		private readonly extensionUri: vscode.Uri,
-		private readonly tracker: RealtimeSessionTracker
+		private readonly tracker: RealtimeSessionTracker,
 	) {}
 
 	/**
@@ -39,7 +39,7 @@ export class RealtimeWebviewProvider implements vscode.WebviewViewProvider {
 
 	private getHtmlForWebview(webview: vscode.Webview) {
 		const scriptUri = webview.asWebviewUri(
-			vscode.Uri.joinPath(this.extensionUri, "out", "realtime.bundle.js")
+			vscode.Uri.joinPath(this.extensionUri, "out", "realtime.bundle.js"),
 		);
 		const nonce = makeNonce();
 

@@ -10,7 +10,7 @@ export * from "./types";
 type ReadRange<T> = (
 	start: number,
 	end: number,
-	sort?: (a: T, b: T) => number
+	sort?: (a: T, b: T) => number,
 ) => Promise<T[]>;
 
 export class DataProvider<T> {
@@ -33,22 +33,22 @@ export class DataProvider<T> {
 	/** Creates a data provider that reads from static arrays. */
 	public static fromArray<T>(
 		value: T[],
-		getChildren: (item: T) => T[]
+		getChildren: (item: T) => T[],
 	): DataProvider<T> {
 		return this.fromTopLevelArray(value, (v) =>
-			DataProvider.fromArray(getChildren(v), getChildren)
+			DataProvider.fromArray(getChildren(v), getChildren),
 		);
 	}
 
 	/** Creates a data provider that has a static array for the top-level children, and async thereafter. */
 	public static fromTopLevelArray<T>(
 		value: T[],
-		getChildren: (item: T) => DataProvider<T>
+		getChildren: (item: T) => DataProvider<T>,
 	): DataProvider<T> {
 		const dp = new DataProvider(
 			value.length,
 			() => Promise.resolve(value),
-			getChildren
+			getChildren,
 		);
 		dp.data = value;
 		return dp;
@@ -58,7 +58,7 @@ export class DataProvider<T> {
 	public static fromProvider<T>(
 		length: number,
 		read: ReadRange<T>,
-		getChildren: (item: T) => DataProvider<T>
+		getChildren: (item: T) => DataProvider<T>,
 	): DataProvider<T> {
 		return DataProvider.fromProvider(length, read, getChildren);
 	}
@@ -66,7 +66,7 @@ export class DataProvider<T> {
 	constructor(
 		public readonly length: number,
 		read: T[] | ReadRange<T>,
-		private readonly _getChildren: (item: T) => DataProvider<T>
+		private readonly _getChildren: (item: T) => DataProvider<T>,
 	) {
 		if (Array.isArray(read) || read instanceof Array) {
 			this.data = read;
@@ -134,10 +134,10 @@ export class DataProvider<T> {
 
 		const p = last.p.then(async () => {
 			const newData = await this._read!(last.upTo, upTo, this.sortFn);
-			if (!this.data?.length) {
-				this.data = newData;
-			} else {
+			if (this.data?.length) {
 				this.data = this.data.concat(newData);
+			} else {
+				this.data = newData;
 			}
 
 			return this.data;
@@ -191,7 +191,7 @@ const filterDeep = <T>(
 	s: DataProvider<T>,
 	filter: (model: T) => boolean,
 	model: T,
-	results: IQueryResults<T>
+	results: IQueryResults<T>,
 ) => {
 	let anyChild = false;
 	if (filter(model)) {

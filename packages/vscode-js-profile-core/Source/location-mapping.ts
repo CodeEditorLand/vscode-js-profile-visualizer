@@ -2,8 +2,8 @@
  * Copyright (C) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------*/
 
-import { properRelative } from "./path";
 import { DebugProtocol as Dap } from "vscode-debugprotocol";
+import { properRelative } from "./path";
 
 /**
  * References a specific line and column in a DAP source.
@@ -20,7 +20,7 @@ export interface ISourceLocation {
  */
 export const addRelativeDiskPath = (
 	rootPath: string,
-	candidate: ISourceLocation
+	candidate: ISourceLocation,
 ): ISourceLocation => {
 	if (candidate.source.path && candidate.source.sourceReference === 0) {
 		return {

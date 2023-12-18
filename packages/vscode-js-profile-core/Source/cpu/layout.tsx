@@ -1,7 +1,7 @@
 /*---------------------------------------------------------
  * Copyright (C) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------*/
-import { ComponentType, Fragment, FunctionComponent, h } from "preact";
+import { ComponentType, Fragment, FunctionComponent } from "preact";
 import { useMemo, useState } from "preact/hooks";
 import { RichFilterComponent, richFilter } from "../client/rich-filter";
 import styles from "../common/layout.css";
@@ -42,7 +42,7 @@ export const cpuProfileLayoutFactory = <T,>(): CpuProfileLayoutComponent<T> => {
 						requireExtension="ms-vscode.vscode-js-profile-flame"
 					/>
 				) : undefined,
-			[FilterFooter]
+			[FilterFooter],
 		);
 
 		return (

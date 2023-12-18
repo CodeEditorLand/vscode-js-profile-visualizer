@@ -10,7 +10,7 @@ import { ProfileCodeLensProvider } from "../profileCodeLensProvider";
 import { ReadonlyCustomDocument } from "../readonly-custom-document";
 import { reopenWithEditor } from "../reopenWithEditor";
 import { HeapProfileAnnotations } from "./heapProfileAnnotations";
-import { buildModel, IHeapProfileRaw, IProfileModel, ITreeNode } from "./model";
+import { IHeapProfileRaw, IProfileModel, ITreeNode, buildModel } from "./model";
 import { createTree } from "./tree";
 
 export class HeapProfileEditorProvider
@@ -23,7 +23,7 @@ export class HeapProfileEditorProvider
 	constructor(
 		private readonly lens: ProfileCodeLensProvider,
 		private readonly bundle: vscode.Uri,
-		private readonly extraConsts: Record<string, unknown> = {}
+		private readonly extraConsts: Record<string, unknown> = {},
 	) {}
 
 	/**
@@ -32,7 +32,7 @@ export class HeapProfileEditorProvider
 	async openCustomDocument(uri: vscode.Uri) {
 		const content = await vscode.workspace.fs.readFile(uri);
 		const raw: IHeapProfileRaw = JSON.parse(
-			new TextDecoder().decode(content)
+			new TextDecoder().decode(content),
 		);
 		const document = new ReadonlyCustomDocument(uri, buildModel(raw));
 
@@ -63,7 +63,7 @@ export class HeapProfileEditorProvider
 	 */
 	public async resolveCustomEditor(
 		document: ReadonlyCustomDocument<IProfileModel>,
-		webviewPanel: vscode.WebviewPanel
+		webviewPanel: vscode.WebviewPanel,
 	): Promise<void> {
 		webviewPanel.webview.onDidReceiveMessage((message: Message) => {
 			switch (message.type) {
@@ -81,14 +81,14 @@ export class HeapProfileEditorProvider
 					reopenWithEditor(
 						document.uri,
 						message.viewType,
-						message.requireExtension
+						message.requireExtension,
 					);
 					return;
 				default:
 					console.warn(
 						`Unknown request from webview: ${JSON.stringify(
-							message
-						)}`
+							message,
+						)}`,
 					);
 			}
 		});
@@ -99,7 +99,7 @@ export class HeapProfileEditorProvider
 			{
 				MODEL: document.userData,
 				...this.extraConsts,
-			}
+			},
 		);
 	}
 
@@ -129,7 +129,7 @@ export class HeapProfileEditorProvider
 	 */
 	public saveCustomDocumentAs(
 		document: ReadonlyCustomDocument<IProfileModel>,
-		destination: vscode.Uri
+		destination: vscode.Uri,
 	) {
 		return vscode.workspace.fs.copy(document.uri, destination, {
 			overwrite: true,

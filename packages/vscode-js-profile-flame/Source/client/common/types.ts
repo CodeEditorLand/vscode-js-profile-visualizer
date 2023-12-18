@@ -48,7 +48,7 @@ export interface IColumn {
 	rows: (IColumnRow | number)[];
 }
 
-export const enum LockBound {
+export enum LockBound {
 	None = 0,
 	Y = 1 << 0,
 	MinX = 1 << 1,
@@ -64,7 +64,7 @@ export interface IDrag {
 	lock: LockBound;
 }
 
-export const enum HighlightSource {
-	Hover,
-	Keyboard,
+export enum HighlightSource {
+	Hover = 0,
+	Keyboard = 1,
 }

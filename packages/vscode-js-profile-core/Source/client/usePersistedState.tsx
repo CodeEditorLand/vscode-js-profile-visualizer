@@ -12,7 +12,7 @@ import { IVscodeApi, VsCodeApi } from "./vscodeApi";
 export const usePersistedState = <T,>(key: string, defaultValue: T) => {
 	const vscode = useContext(VsCodeApi) as IVscodeApi<{ [key: string]: T }>;
 	const [value, setValue] = useState(
-		vscode.getState()?.[key] ?? defaultValue
+		vscode.getState()?.[key] ?? defaultValue,
 	);
 
 	useLazyEffect(() => {

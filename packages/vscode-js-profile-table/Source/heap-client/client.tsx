@@ -1,7 +1,7 @@
 /*---------------------------------------------------------
  * Copyright (C) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------*/
-import { FunctionComponent, h, render } from "preact";
+import { FunctionComponent, render } from "preact";
 import { heapProfileLayoutFactory } from "vscode-js-profile-core/out/esm/heap/layout";
 import {
 	IProfileModel,
@@ -36,7 +36,7 @@ render(
 	<HeapProfileLayout
 		data={{
 			data: DataProvider.fromArray(allChildren, (n) =>
-				Object.values(n.children)
+				Object.values(n.children),
 			),
 			genericMatchStr: (n) =>
 				[
@@ -79,5 +79,5 @@ render(
 		body={TimeViewWrapper}
 		filterFooter={OpenFlameButton}
 	/>,
-	container
+	container,
 );

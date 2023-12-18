@@ -3,7 +3,7 @@
  *--------------------------------------------------------*/
 
 import { Protocol as Cdp } from "devtools-protocol";
-import { categorize, INode } from "../common/model";
+import { INode, categorize } from "../common/model";
 import { IAnnotationLocation } from "../common/types";
 import { getBestLocation } from "../getBestLocation";
 import { ISourceLocation } from "../location-mapping";
@@ -61,7 +61,7 @@ export interface IProfileModel {
  */
 const computeAggregateTime = (
 	index: number,
-	nodes: IComputedNode[]
+	nodes: IComputedNode[],
 ): number => {
 	const row = nodes[index];
 	if (row.aggregateTime) {
@@ -81,7 +81,7 @@ const computeAggregateTime = (
  * aren't provided by default.
  */
 const ensureSourceLocations = (
-	profile: ICpuProfileRaw
+	profile: ICpuProfileRaw,
 ): ReadonlyArray<IAnnotationLocation> => {
 	if (profile.$vscode) {
 		return profile.$vscode.locations; // profiles we generate are already good

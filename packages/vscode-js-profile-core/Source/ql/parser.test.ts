@@ -74,7 +74,7 @@ describe("ql", () => {
 		for (const [input, output] of ttable) {
 			it(input, () => {
 				expect(lex(input).map((l) => [l.token, l.text])).to.deep.equal(
-					output
+					output,
 				);
 			});
 		}
@@ -94,7 +94,7 @@ describe("ql", () => {
 					{ username: "u12", age: 30 },
 					{ username: "u22", age: 40 },
 				],
-				() => []
+				() => [],
 			),
 			properties: {
 				username: {

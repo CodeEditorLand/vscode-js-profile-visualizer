@@ -46,7 +46,7 @@ export type IProfileModel = {
  * aren't provided by default.
  */
 const ensureSourceLocations = (
-	profile: IHeapProfileRaw
+	profile: IHeapProfileRaw,
 ): ReadonlyArray<IAnnotationLocation> => {
 	if (profile.$vscode) {
 		return profile.$vscode.locations; // profiles we generate are already good
@@ -126,7 +126,7 @@ export const buildModel = (profile: IHeapProfileRaw): IProfileModel => {
 			if (node.locationId) {
 				node.src = getBestLocation(
 					profile,
-					sourceLocations[node.locationId].locations
+					sourceLocations[node.locationId].locations,
 				);
 			}
 			nodes = nodes.concat(node.children);

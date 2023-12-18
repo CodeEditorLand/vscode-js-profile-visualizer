@@ -3,8 +3,8 @@
  *--------------------------------------------------------*/
 
 export enum PropertyType {
-	String,
-	Number,
+	String = 0,
+	Number = 1,
 }
 
 export interface IPropertyToPrimitiveType {

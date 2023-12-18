@@ -4,7 +4,7 @@
 
 import * as ChevronDown from "@vscode/codicons/src/icons/chevron-down.svg";
 import * as ChevronRight from "@vscode/codicons/src/icons/chevron-right.svg";
-import { ComponentChild, FunctionComponent, h } from "preact";
+import { ComponentChild, FunctionComponent } from "preact";
 import { useCallback } from "preact/hooks";
 import { Icon } from "vscode-js-profile-core/out/esm/client/icons";
 import { classes } from "vscode-js-profile-core/out/esm/client/util";
@@ -38,14 +38,14 @@ export const makeBaseTimeViewRow =
 	}) => {
 		const onToggleExpand = useCallback(
 			() => onExpanded(!expanded, node),
-			[expanded, node]
+			[expanded, node],
 		);
 
 		const onKeyDown = useCallback(
 			(evt: KeyboardEvent) => {
 				onKeyDownRaw?.(evt, node);
 			},
-			[onKeyDownRaw, node]
+			[onKeyDownRaw, node],
 		);
 
 		const onFocus = useCallback(() => {
@@ -77,21 +77,14 @@ export const makeBaseTimeViewRow =
 				role="treeitem"
 				aria-posinset={position}
 				aria-level={depth + 1}
-				aria-expanded={expanded}>
+				aria-expanded={expanded}
+			>
 				{children}
-				{!locationText ? (
-					<div
-						className={classes(
-							styles.location,
-							virtual && styles.virtual
-						)}
-						style={{ marginLeft: depth * 15 }}>
-						{expand} <span className={styles.fn}>{rowText}</span>
-					</div>
-				) : (
+				{locationText ? (
 					<div
 						className={styles.location}
-						style={{ marginLeft: depth * 15 }}>
+						style={{ marginLeft: depth * 15 }}
+					>
 						{expand}{" "}
 						<span className={styles.fn} style={{ maxWidth: "80%" }}>
 							{rowText}
@@ -101,6 +94,16 @@ export const makeBaseTimeViewRow =
 								{locationText}
 							</a>
 						</span>
+					</div>
+				) : (
+					<div
+						className={classes(
+							styles.location,
+							virtual && styles.virtual,
+						)}
+						style={{ marginLeft: depth * 15 }}
+					>
+						{expand} <span className={styles.fn}>{rowText}</span>
 					</div>
 				)}
 			</div>

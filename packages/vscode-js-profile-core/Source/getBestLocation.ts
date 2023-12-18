@@ -3,11 +3,11 @@
  *--------------------------------------------------------*/
 
 import { IJsDebugAnnotations } from "./common/types";
-import { addRelativeDiskPath, ISourceLocation } from "./location-mapping";
+import { ISourceLocation, addRelativeDiskPath } from "./location-mapping";
 
 export const getBestLocation = (
 	profile: { $vscode?: IJsDebugAnnotations },
-	candidates: ReadonlyArray<ISourceLocation> = []
+	candidates: ReadonlyArray<ISourceLocation> = [],
 ) => {
 	if (!profile.$vscode?.rootPath) {
 		return candidates[0];

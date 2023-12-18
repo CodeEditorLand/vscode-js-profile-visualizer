@@ -2,7 +2,7 @@
  * Copyright (C) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------*/
 
-import { FunctionComponent, h } from "preact";
+import { FunctionComponent } from "preact";
 import { decimalFormat } from "vscode-js-profile-core/out/esm/cpu/display";
 import {
 	ILocation,
@@ -28,14 +28,14 @@ const InfoBox: FunctionComponent<
 				<dt>Self Time</dt>
 				<dd>
 					{decimalFormat.format(
-						(localLocation as ILocation).selfTime / 1000
+						(localLocation as ILocation).selfTime / 1000,
 					)}
 					ms
 				</dd>
 				<dt>Total Time</dt>
 				<dd>
 					{decimalFormat.format(
-						(localLocation as ILocation).aggregateTime / 1000
+						(localLocation as ILocation).aggregateTime / 1000,
 					)}
 					ms
 				</dd>
@@ -50,7 +50,7 @@ const InfoBox: FunctionComponent<
 				</dt>
 				<dd>
 					{decimalFormat.format(
-						originalLocation.aggregateTime / 1000
+						originalLocation.aggregateTime / 1000,
 					)}
 					ms
 				</dd>
@@ -59,7 +59,8 @@ const InfoBox: FunctionComponent<
 				box={box}
 				columns={columns}
 				boxes={boxes}
-				setFocused={setFocused}></StackList>
+				setFocused={setFocused}
+			></StackList>
 		</div>
 	);
 };
@@ -90,5 +91,6 @@ export const FlameGraph: FunctionComponent<{
 		)}
 		InfoBox={(props: IBaseInfoBoxProp) => (
 			<InfoBox {...props} model={model}></InfoBox>
-		)}></BaseFlame>
+		)}
+	></BaseFlame>
 );

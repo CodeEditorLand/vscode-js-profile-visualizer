@@ -8,7 +8,7 @@ export default (
 	columns: ReadonlyArray<IColumn>,
 	boxes: ReadonlyMap<number, IBox>,
 	column: number,
-	row: number
+	row: number,
 ) => {
 	let candidate = columns[column]?.rows[row];
 	if (typeof candidate === "number") {

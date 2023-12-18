@@ -7,7 +7,6 @@ import {
 	ComponentType,
 	Fragment,
 	FunctionComponent,
-	h,
 } from "preact";
 import {
 	StateUpdater,
@@ -55,7 +54,7 @@ const DEFAULT_CHILDREN_LOAD_LEN = 100;
 const onDidFinishRead = <T,>(
 	node: T,
 	promise: Promise<void>,
-	setChildLoads: StateUpdater<ReadonlyMap<T, Promise<void>>>
+	setChildLoads: StateUpdater<ReadonlyMap<T, Promise<void>>>,
 ): void => {
 	setChildLoads((prev) => {
 		if (prev.get(node) === promise) {
@@ -222,7 +221,7 @@ export const makeBaseTimeView = <T extends ICommonNode>(): FunctionComponent<{
 							setExpanded(addToSet(expanded, node));
 						} else {
 							nextFocus = rendered.find(
-								(n) => n.node?.parent === node
+								(n) => n.node?.parent === node,
 							)?.node;
 						}
 						break;
@@ -249,7 +248,7 @@ export const makeBaseTimeView = <T extends ICommonNode>(): FunctionComponent<{
 							const parentProvider =
 								parent && providers.current.get(parent as T);
 							for (const child of parentProvider?.getChildren(
-								focused
+								focused,
 							).loaded || []) {
 								nextExpanded.add(child);
 							}
@@ -264,7 +263,7 @@ export const makeBaseTimeView = <T extends ICommonNode>(): FunctionComponent<{
 					evt.preventDefault();
 				}
 			},
-			[rendered, expanded]
+			[rendered, expanded],
 		);
 
 		useEffect(() => {
@@ -282,7 +281,7 @@ export const makeBaseTimeView = <T extends ICommonNode>(): FunctionComponent<{
 						const promise: Promise<void> = children
 							.read(DEFAULT_CHILDREN_LOAD_LEN)
 							.then(() =>
-								onDidFinishRead(node, promise, setChildLoads)
+								onDidFinishRead(node, promise, setChildLoads),
 							);
 
 						next.set(node, promise);
@@ -297,7 +296,7 @@ export const makeBaseTimeView = <T extends ICommonNode>(): FunctionComponent<{
 
 		useEffect(
 			() => listRef.current?.setAttribute("role", "tree"),
-			[listRef.current]
+			[listRef.current],
 		);
 
 		useLayoutEffect(() => {
@@ -308,7 +307,7 @@ export const makeBaseTimeView = <T extends ICommonNode>(): FunctionComponent<{
 
 			setTimeout(() => {
 				const button: HTMLButtonElement | null = el.querySelector(
-					`[data-row-id="${getGlobalUniqueId(focused)}"]`
+					`[data-row-id="${getGlobalUniqueId(focused)}"]`,
 				);
 				button?.focus();
 			});
@@ -337,13 +336,13 @@ export const makeBaseTimeView = <T extends ICommonNode>(): FunctionComponent<{
 					const promise: Promise<void> = dp
 						.read(dp.loaded.length + DEFAULT_CHILDREN_LOAD_LEN)
 						.then(() =>
-							onDidFinishRead(node, promise, setChildLoads)
+							onDidFinishRead(node, promise, setChildLoads),
 						);
 					next.set(node, promise);
 					return next;
 				});
 			},
-			[]
+			[],
 		);
 
 		const renderRow = useCallback(
@@ -369,7 +368,7 @@ export const makeBaseTimeView = <T extends ICommonNode>(): FunctionComponent<{
 						onFocus={setFocused}
 					/>
 				),
-			[expanded, setExpanded, onKeyDown]
+			[expanded, setExpanded, onKeyDown],
 		);
 
 		return (
@@ -401,10 +400,10 @@ const FooterRow: FunctionComponent<{
 	}
 
 	useEffect(() => {
-		if (!promise) {
-			setIsLoading(false);
-		} else {
+		if (promise) {
 			promise.finally(() => setIsLoading(false));
+		} else {
+			setIsLoading(false);
 		}
 	}, [promise]);
 
@@ -415,7 +414,8 @@ const FooterRow: FunctionComponent<{
 			tabIndex={0}
 			role="treeitem"
 			aria-posinset={position}
-			aria-level={depth + 1}>
+			aria-level={depth + 1}
+		>
 			<div className={styles.footer} style={{ paddingLeft: depth * 15 }}>
 				{isLoading ? (
 					"Loading..."
@@ -423,7 +423,8 @@ const FooterRow: FunctionComponent<{
 					<Fragment>
 						<a
 							role="button"
-							onClick={() => onLoadMore(node, dataProvider)}>
+							onClick={() => onLoadMore(node, dataProvider)}
+						>
 							Load more rows
 						</a>
 					</Fragment>

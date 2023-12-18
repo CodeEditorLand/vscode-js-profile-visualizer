@@ -28,7 +28,7 @@ export class Configurator {
 			const element = document.createElement("div");
 			element.classList.add(styles.metric);
 			element.addEventListener("click", () =>
-				settings.toggleMetric(metric)
+				settings.toggleMetric(metric),
 			);
 
 			const label = document.createElement("span");
@@ -67,7 +67,7 @@ export class Configurator {
 			if (metric.hasData() !== m.available) {
 				m.available = metric.hasData();
 				m.element.classList[metric.hasData() ? "add" : "remove"](
-					styles.available
+					styles.available,
 				);
 			}
 		}
@@ -85,7 +85,7 @@ export class Configurator {
 		if (metric.hasData() !== m.available) {
 			m.available = metric.hasData();
 			m.element.classList[metric.hasData() ? "add" : "remove"](
-				styles.available
+				styles.available,
 			);
 		}
 
@@ -100,7 +100,7 @@ export class Configurator {
 			m.element.classList[m.enabled ? "add" : "remove"](styles.enabled);
 			m.element.style.setProperty(
 				"--metric-color",
-				this.settings.metricColor(metric)
+				this.settings.metricColor(metric),
 			);
 		}
 	}

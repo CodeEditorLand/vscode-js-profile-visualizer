@@ -3,7 +3,7 @@
  *--------------------------------------------------------*/
 
 import cytoscape from "cytoscape";
-import { Fragment, FunctionComponent, h, render } from "preact";
+import { Fragment, FunctionComponent, render } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { Filter } from "vscode-js-profile-core/out/esm/client/filter";
 import { FilterBar } from "vscode-js-profile-core/out/esm/client/filterBar";
@@ -40,7 +40,8 @@ const Root: FunctionComponent = () => {
 						type="number"
 						min={1}
 						value={maxDistance ? String(maxDistance) : ""}
-						placeholder={`Maximum retainer distance (default: ${DEFAULT_RETAINER_DISTANCE})`}></Filter>
+						placeholder={`Maximum retainer distance (default: ${DEFAULT_RETAINER_DISTANCE})`}
+					></Filter>
 				</FilterBar>
 			</div>
 			<Graph maxDistance={maxDistance || DEFAULT_RETAINER_DISTANCE} />
@@ -196,7 +197,7 @@ render(<Root />, container);
 
 function attachPathHoverHandle(
 	root: cytoscape.CollectionReturnValue,
-	graph: cytoscape.Core
+	graph: cytoscape.Core,
 ) {
 	let lastPath: cytoscape.CollectionReturnValue | null = null;
 	graph.on("mouseover", "node", (ev) => {

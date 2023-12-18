@@ -2,7 +2,7 @@
  * Copyright (C) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------*/
 
-import { categorize, Category } from "../common/model";
+import { Category, categorize } from "../common/model";
 import { IProfileModel, IProfileModelNode, ITreeNode } from "./model";
 
 export class TreeNode implements ITreeNode {
@@ -41,7 +41,7 @@ export class TreeNode implements ITreeNode {
 
 	constructor(
 		public readonly node: IProfileModelNode,
-		public readonly parent?: TreeNode
+		public readonly parent?: TreeNode,
 	) {
 		this.category = categorize(node.callFrame, undefined);
 	}

@@ -2,7 +2,7 @@
  * Copyright (C) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------*/
 
-import { FunctionComponent, h } from "preact";
+import { FunctionComponent } from "preact";
 import { useCallback } from "preact/hooks";
 import styles from "./toggle-button.css";
 

@@ -8,11 +8,11 @@ import { ISourceLocation } from "../location-mapping";
 /**
  * Category of call frames. Grouped into system, modules, and user code.
  */
-export const enum Category {
-	System,
-	User,
-	Module,
-	Deemphasized,
+export enum Category {
+	System = 0,
+	User = 1,
+	Module = 2,
+	Deemphasized = 3,
 }
 
 export interface INode {
@@ -32,7 +32,7 @@ export interface ICommonNode {
  */
 export const categorize = (
 	callFrame: Cdp.Runtime.CallFrame,
-	src: ISourceLocation | undefined
+	src: ISourceLocation | undefined,
 ) => {
 	callFrame.functionName = callFrame.functionName || "(anonymous)";
 	if (callFrame.lineNumber < 0) {

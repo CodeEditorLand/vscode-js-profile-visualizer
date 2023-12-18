@@ -3,7 +3,7 @@
  *--------------------------------------------------------*/
 
 import * as ChevronDown from "@vscode/codicons/src/icons/chevron-down.svg";
-import { FunctionComponent, h } from "preact";
+import { FunctionComponent } from "preact";
 import { useCallback, useContext, useState } from "preact/hooks";
 import { Icon } from "vscode-js-profile-core/out/esm/client/icons";
 import { classes } from "vscode-js-profile-core/out/esm/client/util";
@@ -29,7 +29,7 @@ export const TimeView: FunctionComponent<{
 	data: DataProvider<IGraphNode>;
 }> = ({ data, query }) => {
 	const [sortFn, setSortFn] = useState<SortFn<IGraphNode> | undefined>(
-		() => selfTime
+		() => selfTime,
 	);
 
 	return (
@@ -55,10 +55,11 @@ const TimeViewHeader: FunctionComponent<{
 			onClick={useCallback(
 				() =>
 					onChangeSort(() =>
-						sortFn === selfTime ? undefined : selfTime
+						sortFn === selfTime ? undefined : selfTime,
 					),
-				[sortFn]
-			)}>
+				[sortFn],
+			)}
+		>
 			{sortFn === selfTime && <Icon i={ChevronDown} />}
 			Self Time
 		</div>
@@ -69,10 +70,11 @@ const TimeViewHeader: FunctionComponent<{
 			onClick={useCallback(
 				() =>
 					onChangeSort(() =>
-						sortFn === aggTime ? undefined : aggTime
+						sortFn === aggTime ? undefined : aggTime,
 					),
-				[sortFn]
-			)}>
+				[sortFn],
+			)}
+		>
 			{sortFn === aggTime && <Icon i={ChevronDown} />}
 			Total Time
 		</div>
@@ -98,7 +100,7 @@ const TimeViewRow: FunctionComponent<IRowProps<IGraphNode>> = (props) => {
 				location: node.src,
 				toSide: evt.altKey,
 			}),
-		[vscode, node]
+		[vscode, node],
 	);
 
 	return (
@@ -106,14 +108,16 @@ const TimeViewRow: FunctionComponent<IRowProps<IGraphNode>> = (props) => {
 			{...props}
 			onClick={onClick}
 			rowText={node.callFrame.functionName}
-			locationText={getNodeText(node)}>
+			locationText={getNodeText(node)}
+		>
 			<div className={styles.duration} aria-labelledby="self-time-header">
 				<ImpactBar impact={node.selfTime / root.selfTime} />
 				{decimalFormat.format(node.selfTime / 1000)}ms
 			</div>
 			<div
 				className={styles.duration}
-				aria-labelledby="total-time-header">
+				aria-labelledby="total-time-header"
+			>
 				<ImpactBar impact={node.aggregateTime / root.aggregateTime} />
 				{decimalFormat.format(node.aggregateTime / 1000)}ms
 			</div>

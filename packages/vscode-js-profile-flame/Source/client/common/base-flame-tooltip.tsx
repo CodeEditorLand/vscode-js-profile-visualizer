@@ -2,7 +2,7 @@
  * Copyright (C) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------*/
 
-import { Fragment, FunctionComponent, h } from "preact";
+import { Fragment, FunctionComponent } from "preact";
 import { MiddleOut } from "vscode-js-profile-core/out/esm/client/middleOutCompression";
 import { classes } from "vscode-js-profile-core/out/esm/client/util";
 import { getNodeText } from "vscode-js-profile-core/out/esm/common/display";
@@ -46,7 +46,8 @@ export const BaseTooltip: FunctionComponent<IBaseTooltipProps> = ({
 				left: clamp(0, canvasWidth * left + 10, canvasWidth - 400),
 				top: above ? "initial" : lowerY + 10,
 				bottom: above ? upperY + 10 : "initial",
-			}}>
+			}}
+		>
 			<dl>
 				<dt>Function</dt>
 				<dd className={styles.function}>
@@ -59,8 +60,9 @@ export const BaseTooltip: FunctionComponent<IBaseTooltipProps> = ({
 							aria-label={file}
 							className={classes(
 								styles.label,
-								node.src && styles.clickable
-							)}>
+								node.src && styles.clickable,
+							)}
+						>
 							<MiddleOut
 								aria-hidden={true}
 								endChars={file?.length}

@@ -47,7 +47,7 @@ export class HeapProfileAnnotations extends ProfileAnnotations<ITreeNode> {
 			if (position.character < existing.position.character) {
 				existing.position = new Position(
 					position.line,
-					position.character
+					position.character,
 				);
 			}
 			existing.data.totalSize += data.totalSize;
@@ -82,10 +82,10 @@ export class HeapProfileAnnotations extends ProfileAnnotations<ITreeNode> {
 						new CodeLens(range, {
 							title:
 								`${decimalFormat.format(
-									data.selfSize / 1000
+									data.selfSize / 1000,
 								)}kB Self Size, ` +
 								`${decimalFormat.format(
-									data.totalSize / 1000
+									data.totalSize / 1000,
 								)}kB Total Size`,
 							command: "",
 						}),

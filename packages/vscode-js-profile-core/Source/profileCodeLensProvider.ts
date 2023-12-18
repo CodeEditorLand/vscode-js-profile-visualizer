@@ -5,11 +5,11 @@
 import {
 	CodeLens,
 	CodeLensProvider,
-	commands,
 	Disposable,
 	EventEmitter,
 	ProviderResult,
 	TextDocument,
+	commands,
 } from "vscode";
 import { INode } from "./common/model";
 import { DownloadFileProvider } from "./download-file-provider";
@@ -35,7 +35,7 @@ export class ProfileCodeLensProvider implements CodeLensProvider {
 		commands.executeCommand(
 			"setContext",
 			"jsProfileVisualizer.hasCodeLenses",
-			true
+			true,
 		);
 		this.lenses = lenses;
 
@@ -57,7 +57,7 @@ export class ProfileCodeLensProvider implements CodeLensProvider {
 			commands.executeCommand(
 				"setContext",
 				"jsProfileVisualizer.hasCodeLenses",
-				false
+				false,
 			);
 			this.changeEmitter.fire();
 		}
@@ -67,10 +67,10 @@ export class ProfileCodeLensProvider implements CodeLensProvider {
 	 * @inheritdoc
 	 */
 	public provideCodeLenses(
-		document: TextDocument
+		document: TextDocument,
 	): ProviderResult<CodeLens[]> {
 		const byPath = this.lenses?.getLensesForFile(
-			lowerCaseInsensitivePath(document.uri.fsPath)
+			lowerCaseInsensitivePath(document.uri.fsPath),
 		);
 		if (byPath) {
 			return byPath;

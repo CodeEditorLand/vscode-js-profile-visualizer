@@ -2,14 +2,14 @@
  * Copyright (C) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------*/
 
-import { useRef, useEffect, Inputs } from "preact/hooks";
+import { Inputs, useEffect, useRef } from "preact/hooks";
 
 /**
  * Like useEffect, but only runs when its inputs change, not on the first render.
  */
 export const useLazyEffect = (
 	fn: () => void | (() => void),
-	inputs: Inputs
+	inputs: Inputs,
 ): void => {
 	const isFirst = useRef(true);
 	useEffect(() => {

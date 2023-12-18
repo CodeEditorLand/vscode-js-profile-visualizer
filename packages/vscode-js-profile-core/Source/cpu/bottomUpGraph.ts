@@ -47,7 +47,7 @@ export class BottomUpNode implements IGraphNode {
 
 	constructor(
 		public readonly location: ILocation,
-		public readonly parent?: BottomUpNode
+		public readonly parent?: BottomUpNode,
 	) {}
 
 	public addNode(node: IComputedNode) {
@@ -73,7 +73,7 @@ const processNode = (
 	aggregate: BottomUpNode,
 	node: IComputedNode,
 	model: IProfileModel,
-	initialNode = node
+	initialNode = node,
 ) => {
 	let child = aggregate.children[node.locationId];
 	if (!child) {

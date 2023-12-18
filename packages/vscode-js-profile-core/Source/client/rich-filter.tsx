@@ -4,7 +4,7 @@
 
 import * as CaseSensitive from "@vscode/codicons/src/icons/case-sensitive.svg";
 import * as Regex from "@vscode/codicons/src/icons/regex.svg";
-import { ComponentChild, Fragment, FunctionComponent, h } from "preact";
+import { ComponentChild, Fragment, FunctionComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { IDataSource, IQueryResults, evaluate } from "../ql";
 import { Filter } from "./filter";
@@ -26,7 +26,7 @@ export interface IRichFilter {
  * Compile the filter into a predicate function.
  */
 export const compileFilter = (
-	fn: IRichFilter
+	fn: IRichFilter,
 ): ((input: string) => boolean) => {
 	if (fn.regex) {
 		const re = new RegExp(fn.text, fn.caseSensitive ? "" : "i");
@@ -64,7 +64,7 @@ export const richFilter =
 						regex,
 						caseSensitive,
 						datasource: data,
-					})
+					}),
 				);
 				setError(undefined);
 			} catch (e) {

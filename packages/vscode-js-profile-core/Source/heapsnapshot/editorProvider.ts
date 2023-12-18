@@ -22,7 +22,7 @@ interface IWorker extends vscode.Disposable {
 class HeapSnapshotDocument implements vscode.CustomDocument {
 	constructor(
 		public readonly uri: vscode.Uri,
-		public readonly value: IWorker
+		public readonly value: IWorker,
 	) {}
 
 	/**
@@ -82,7 +82,7 @@ export class HeapSnapshotEditorProvider
 
 	constructor(
 		private readonly bundle: vscode.Uri,
-		private readonly extraConsts: Record<string, unknown> = {}
+		private readonly extraConsts: Record<string, unknown> = {},
 	) {}
 
 	/**
@@ -98,7 +98,7 @@ export class HeapSnapshotEditorProvider
 	 */
 	public async resolveCustomEditor(
 		document: HeapSnapshotDocument,
-		webviewPanel: vscode.WebviewPanel
+		webviewPanel: vscode.WebviewPanel,
 	): Promise<void> {
 		webviewPanel.webview.onDidReceiveMessage((message: Message) => {
 			switch (message.type) {
@@ -107,7 +107,7 @@ export class HeapSnapshotEditorProvider
 						document.uri.with({ query: message.withQuery }),
 						message.viewType,
 						message.requireExtension,
-						message.toSide
+						message.toSide,
 					);
 					return;
 				case "callGraph":
@@ -116,8 +116,8 @@ export class HeapSnapshotEditorProvider
 				default:
 					console.warn(
 						`Unknown request from webview: ${JSON.stringify(
-							message
-						)}`
+							message,
+						)}`,
 					);
 			}
 		});
@@ -138,7 +138,7 @@ export class HeapSnapshotEditorProvider
 					.toString(),
 				DOCUMENT_URI: document.uri.toString(),
 				...this.extraConsts,
-			}
+			},
 		);
 	}
 
@@ -168,7 +168,7 @@ export class HeapSnapshotEditorProvider
 	 */
 	public saveCustomDocumentAs(
 		document: HeapSnapshotDocument,
-		destination: vscode.Uri
+		destination: vscode.Uri,
 	) {
 		return vscode.workspace.fs.copy(document.uri, destination, {
 			overwrite: true,

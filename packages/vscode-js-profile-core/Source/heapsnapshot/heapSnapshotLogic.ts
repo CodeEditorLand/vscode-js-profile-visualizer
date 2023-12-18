@@ -14,12 +14,12 @@ import {
 
 export const isMethod = <K extends GraphRPCMethods>(
 	method: K,
-	t: GraphRPCCall
+	t: GraphRPCCall,
 ): t is GraphRPCCall<K> => t.method === method;
 
 const mapInto = <T extends { free(): void }, R>(
 	arr: readonly T[],
-	mapper: (v: T, i: number) => R
+	mapper: (v: T, i: number) => R,
 ): R[] => {
 	const transmuted = new Array<R>(arr.length);
 	for (let i = 0; i < arr.length; i++) {
@@ -32,7 +32,7 @@ const mapInto = <T extends { free(): void }, R>(
 };
 
 const processNodes = (
-	nodes: readonly (Node | RetainerNode)[]
+	nodes: readonly (Node | RetainerNode)[],
 ): (INode | IRetainingNode)[] =>
 	mapInto(nodes, (node) => ({
 		name: node.name(),
@@ -65,7 +65,7 @@ export const handleMessage = (graph: Promise<Graph>, message: GraphRPCCall) =>
 						retainedSize: Number(group.retained_size),
 						selfSize: Number(group.self_size),
 						childrenLen: group.children_len,
-					})
+					}),
 				);
 			} else if (isMethod("getClassChildren", message)) {
 				return processNodes(g.class_children(...message.args));

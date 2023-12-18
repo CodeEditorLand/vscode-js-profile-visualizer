@@ -2,7 +2,7 @@
  * Copyright (C) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------*/
 
-export const enum Config {
+export enum Config {
 	PollInterval = "debug.flameGraph.realtimePollInterval",
 	ViewDuration = "debug.flameGraph.realtimeViewDuration",
 	Easing = "debug.flameGraph.realtimeEasing",
@@ -12,13 +12,13 @@ const allConfig = [Config.PollInterval, Config.ViewDuration, Config.Easing];
 
 import * as vscode from "vscode";
 import { CpuProfileEditorProvider } from "vscode-js-profile-core/out/cpu/editorProvider";
-import { HeapProfileEditorProvider } from "vscode-js-profile-core/out/heap/editorProvider";
 import { HeapSnapshotEditorProvider } from "vscode-js-profile-core/out/esm/heapsnapshot/editorProvider";
+import { HeapProfileEditorProvider } from "vscode-js-profile-core/out/heap/editorProvider";
 import { ProfileCodeLensProvider } from "vscode-js-profile-core/out/profileCodeLensProvider";
 import { createMetrics } from "./realtime/metrics";
 import {
-	readRealtimeSettings,
 	RealtimeSessionTracker,
+	readRealtimeSettings,
 } from "./realtimeSessionTracker";
 import { RealtimeWebviewProvider } from "./realtimeWebviewProvider";
 
@@ -26,7 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
 	const realtimeTracker = new RealtimeSessionTracker(context);
 	const realtime = new RealtimeWebviewProvider(
 		context.extensionUri,
-		realtimeTracker
+		realtimeTracker,
 	);
 
 	context.subscriptions.push(
@@ -37,14 +37,14 @@ export function activate(context: vscode.ExtensionContext) {
 				vscode.Uri.joinPath(
 					context.extensionUri,
 					"out",
-					"cpu-client.bundle.js"
-				)
+					"cpu-client.bundle.js",
+				),
 			),
 			{
 				webviewOptions: {
 					retainContextWhenHidden: true,
 				},
-			}
+			},
 		),
 
 		vscode.window.registerCustomEditorProvider(
@@ -54,14 +54,14 @@ export function activate(context: vscode.ExtensionContext) {
 				vscode.Uri.joinPath(
 					context.extensionUri,
 					"out",
-					"heap-client.bundle.js"
-				)
+					"heap-client.bundle.js",
+				),
 			),
 			{
 				webviewOptions: {
 					retainContextWhenHidden: true,
 				},
-			}
+			},
 		),
 
 		vscode.window.registerCustomEditorProvider(
@@ -70,16 +70,16 @@ export function activate(context: vscode.ExtensionContext) {
 				vscode.Uri.joinPath(
 					context.extensionUri,
 					"out",
-					"heapsnapshot-client.bundle.js"
-				)
-			)
+					"heapsnapshot-client.bundle.js",
+				),
+			),
 			// note: context is not retained when hidden, unlike other editors, because
 			// the model is kept in a worker_thread and accessed via RPC
 		),
 
 		vscode.window.registerWebviewViewProvider(
 			RealtimeWebviewProvider.viewType,
-			realtime
+			realtime,
 		),
 
 		vscode.workspace.onDidChangeConfiguration((evt) => {
@@ -89,14 +89,14 @@ export function activate(context: vscode.ExtensionContext) {
 		}),
 
 		vscode.debug.onDidChangeActiveDebugSession((session) =>
-			realtimeTracker.onDidChangeActiveSession(session)
+			realtimeTracker.onDidChangeActiveSession(session),
 		),
 
 		vscode.debug.onDidStartDebugSession((session) =>
-			realtimeTracker.onSessionDidStart(session)
+			realtimeTracker.onSessionDidStart(session),
 		),
 		vscode.debug.onDidTerminateDebugSession((session) =>
-			realtimeTracker.onSessionDidEnd(session)
+			realtimeTracker.onSessionDidEnd(session),
 		),
 
 		vscode.commands.registerCommand(
@@ -120,8 +120,8 @@ export function activate(context: vscode.ExtensionContext) {
 				}));
 				quickpick.selectedItems = settings.enabledMetrics.length
 					? settings.enabledMetrics.map(
-							(index) => quickpick.items[index]
-						)
+							(index) => quickpick.items[index],
+					  )
 					: quickpick.items.slice();
 
 				quickpick.show();
@@ -129,10 +129,12 @@ export function activate(context: vscode.ExtensionContext) {
 				const chosen = await new Promise<number[] | undefined>(
 					(resolve) => {
 						quickpick.onDidAccept(() =>
-							resolve(quickpick.selectedItems.map((i) => i.index))
+							resolve(
+								quickpick.selectedItems.map((i) => i.index),
+							),
 						);
 						quickpick.onDidHide(() => resolve(undefined));
-					}
+					},
 				);
 
 				quickpick.dispose();
@@ -140,22 +142,22 @@ export function activate(context: vscode.ExtensionContext) {
 				if (chosen) {
 					realtimeTracker.setEnabledMetrics(chosen);
 				}
-			}
+			},
 		),
 
 		vscode.commands.registerCommand(
 			"vscode-js-profile-flame.splitCharts",
 			() => {
 				realtimeTracker.setSplitCharts(true);
-			}
+			},
 		),
 
 		vscode.commands.registerCommand(
 			"vscode-js-profile-flame.collapseCharts",
 			() => {
 				realtimeTracker.setSplitCharts(false);
-			}
-		)
+			},
+		),
 	);
 }
 

@@ -10,7 +10,7 @@ const getBoxInRowColumn = (
 	columns: ReadonlyArray<IColumn>,
 	boxes: ReadonlyMap<number, IBox>,
 	column: number,
-	row: number
+	row: number,
 ) => {
 	let candidate = columns[column]?.rows[row];
 	if (typeof candidate === "number") {
@@ -33,7 +33,7 @@ const pickColor = (row: IColumnRow): number => {
 
 export default (
 	columns: ReadonlyArray<IColumn>,
-	filtered: ReadonlyArray<number>
+	filtered: ReadonlyArray<number>,
 ) => {
 	const boxes: Map<number, IBox> = new Map();
 	let maxY = 0;

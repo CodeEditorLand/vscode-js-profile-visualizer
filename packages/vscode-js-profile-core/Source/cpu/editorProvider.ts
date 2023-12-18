@@ -10,7 +10,7 @@ import { ProfileCodeLensProvider } from "../profileCodeLensProvider";
 import { ReadonlyCustomDocument } from "../readonly-custom-document";
 import { reopenWithEditor } from "../reopenWithEditor";
 import { CpuProfileAnnotations } from "./cpuProfileAnnotations";
-import { buildModel, IProfileModel } from "./model";
+import { IProfileModel, buildModel } from "./model";
 import { ICpuProfileRaw } from "./types";
 
 export class CpuProfileEditorProvider
@@ -23,7 +23,7 @@ export class CpuProfileEditorProvider
 	constructor(
 		private readonly lens: ProfileCodeLensProvider,
 		private readonly bundle: vscode.Uri,
-		private readonly extraConsts: Record<string, unknown> = {}
+		private readonly extraConsts: Record<string, unknown> = {},
 	) {}
 
 	/**
@@ -32,7 +32,7 @@ export class CpuProfileEditorProvider
 	async openCustomDocument(uri: vscode.Uri) {
 		const content = await vscode.workspace.fs.readFile(uri);
 		const raw: ICpuProfileRaw = JSON.parse(
-			new TextDecoder().decode(content)
+			new TextDecoder().decode(content),
 		);
 		const document = new ReadonlyCustomDocument(uri, buildModel(raw));
 
@@ -51,7 +51,7 @@ export class CpuProfileEditorProvider
 	 */
 	public async resolveCustomEditor(
 		document: ReadonlyCustomDocument<IProfileModel>,
-		webviewPanel: vscode.WebviewPanel
+		webviewPanel: vscode.WebviewPanel,
 	): Promise<void> {
 		webviewPanel.webview.onDidReceiveMessage((message: Message) => {
 			switch (message.type) {
@@ -69,14 +69,14 @@ export class CpuProfileEditorProvider
 					reopenWithEditor(
 						document.uri,
 						message.viewType,
-						message.requireExtension
+						message.requireExtension,
 					);
 					return;
 				default:
 					console.warn(
 						`Unknown request from webview: ${JSON.stringify(
-							message
-						)}`
+							message,
+						)}`,
 					);
 			}
 		});
@@ -87,7 +87,7 @@ export class CpuProfileEditorProvider
 			{
 				MODEL: document.userData,
 				...this.extraConsts,
-			}
+			},
 		);
 	}
 
@@ -117,7 +117,7 @@ export class CpuProfileEditorProvider
 	 */
 	public saveCustomDocumentAs(
 		document: ReadonlyCustomDocument<IProfileModel>,
-		destination: vscode.Uri
+		destination: vscode.Uri,
 	) {
 		return vscode.workspace.fs.copy(document.uri, destination, {
 			overwrite: true,

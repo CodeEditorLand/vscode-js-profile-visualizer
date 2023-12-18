@@ -9,7 +9,7 @@
  */
 export function binarySearch<T>(
 	array: ReadonlyArray<T>,
-	comparator: (value: T) => number
+	comparator: (value: T) => number,
 ): number {
 	let low = 0;
 	let high = array.length - 1;

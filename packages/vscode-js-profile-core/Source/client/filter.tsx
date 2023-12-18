@@ -2,7 +2,7 @@
  * Copyright (C) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------*/
 
-import { ComponentChild, FunctionComponent, h } from "preact";
+import { ComponentChild, FunctionComponent } from "preact";
 import { useCallback } from "preact/hooks";
 import styles from "./filter.css";
 import { classes } from "./util";
@@ -31,7 +31,7 @@ export const Filter: FunctionComponent<{
 		(evt: Event) => {
 			onChange((evt.target as HTMLInputElement).value);
 		},
-		[onChange]
+		[onChange],
 	);
 
 	return (

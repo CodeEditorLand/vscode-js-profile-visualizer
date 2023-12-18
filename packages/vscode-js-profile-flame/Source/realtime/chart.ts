@@ -26,11 +26,11 @@ export class Chart {
 	private readonly frameCanvas = new FrameCanvas(
 		this.width,
 		this.height,
-		this.settings
+		this.settings,
 	);
 	private readonly elements = this.createElements();
 	private readonly settingListener = this.settings.onChange(() =>
-		this.applySettings()
+		this.applySettings(),
 	);
 	private readonly configurator = new Configurator(this.settings);
 
@@ -41,7 +41,7 @@ export class Chart {
 	constructor(
 		private width: number,
 		private height: number,
-		private readonly settings: Settings
+		private readonly settings: Settings,
 	) {
 		this.setConfiguratorOpen(width / height < autoOpenAspectRatio);
 		this.applySettings();
@@ -95,7 +95,7 @@ export class Chart {
 		if (!this.hasAnyData) {
 			const enabled = enabledMetrics.filter((m) => m.hasData());
 			this.settings.setEnabledMetrics(
-				enabled.length ? enabled : [allMetrics[0], allMetrics[1]]
+				enabled.length ? enabled : [allMetrics[0], allMetrics[1]],
 			);
 		}
 
@@ -138,7 +138,7 @@ export class Chart {
 
 		this.hasAnyData = hasData;
 		this.elements.container.classList[hasData ? "remove" : "add"](
-			styles.noData
+			styles.noData,
 		);
 	}
 
@@ -180,7 +180,7 @@ export class Chart {
 		labelList.classList.add(styles.labelList);
 		labelList.style.height = `${Sizing.LabelHeight}px`;
 		labelList.addEventListener("click", () =>
-			this.toggleConfiguration(true)
+			this.toggleConfiguration(true),
 		);
 		container.appendChild(labelList);
 
@@ -215,7 +215,7 @@ export class Chart {
 	private applySettings() {
 		const { leftTime, labelList, valueContainer } = this.elements;
 		leftTime.innerText = `${durationFormat(
-			this.settings.value.viewDuration / 1000
+			this.settings.value.viewDuration / 1000,
 		)} ago`;
 		this.setSeries(labelList, valueContainer);
 	}
@@ -237,7 +237,7 @@ export class Chart {
 			const label = document.createElement("span");
 			label.style.setProperty(
 				"--metric-color",
-				this.settings.metricColor(metric)
+				this.settings.metricColor(metric),
 			);
 			label.classList.add(styles.primary);
 			label.innerText = `${metric.name()}: `;

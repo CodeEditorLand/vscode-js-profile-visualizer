@@ -8,7 +8,7 @@ export function reopenWithEditor(
 	uri: vscode.Uri,
 	viewType: string,
 	requireExtension?: string,
-	toSide?: boolean
+	toSide?: boolean,
 ) {
 	if (
 		requireExtension &&
@@ -16,14 +16,14 @@ export function reopenWithEditor(
 	) {
 		vscode.commands.executeCommand(
 			"workbench.extensions.action.showExtensionsWithIds",
-			[requireExtension]
+			[requireExtension],
 		);
 	} else {
 		vscode.commands.executeCommand(
 			"vscode.openWith",
 			uri,
 			viewType,
-			toSide ? vscode.ViewColumn.Beside : vscode.ViewColumn.Active
+			toSide ? vscode.ViewColumn.Beside : vscode.ViewColumn.Active,
 		);
 	}
 }

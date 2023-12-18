@@ -25,7 +25,7 @@ module.exports = (dirname, target) => ({
 						path: require.resolve("path-browserify"),
 						os: require.resolve("os-browserify/browser"),
 					},
-				}),
+			  }),
 	},
 	node: {
 		__dirname: false,

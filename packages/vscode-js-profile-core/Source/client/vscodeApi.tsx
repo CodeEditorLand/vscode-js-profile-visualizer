@@ -27,7 +27,7 @@ export const VsCodeApi = createContext(vscodeApi);
  */
 export const parseVariables = () => {
 	const rawVars = String(document.documentElement.getAttribute("style"));
-	const re = new RegExp("--vscode-(.*?):(.*?)(;|$)", "g");
+	const re = /--vscode-(.*?):(.*?)(;|$)/g;
 	const vars: { [key: string]: string } = {};
 
 	let match: string[] | null;

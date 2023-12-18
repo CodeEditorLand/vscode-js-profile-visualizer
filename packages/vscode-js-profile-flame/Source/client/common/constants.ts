@@ -2,7 +2,7 @@
  * Copyright (C) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------*/
 
-export const enum Constants {
+export enum Constants {
 	BoxHeight = 20,
 	TextColor = "#fff",
 	BoxColor = "#000",

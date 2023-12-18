@@ -66,13 +66,13 @@ export class TreeNodeAccessor implements IHeapProfileNode {
 	 */
 	public static getFilteredColumns(
 		columns: ReadonlyArray<IColumn>,
-		accessors: ReadonlySet<TreeNodeAccessor>
+		accessors: ReadonlySet<TreeNodeAccessor>,
 	) {
 		const mapping = new Array(columns.length);
 		for (const accessor of accessors) {
 			mapping[accessor.x] = Math.max(
 				mapping[accessor.x] || 0,
-				accessor.y
+				accessor.y,
 			);
 		}
 
@@ -82,7 +82,7 @@ export class TreeNodeAccessor implements IHeapProfileNode {
 	constructor(
 		private readonly model: ReadonlyArray<IColumn>,
 		public readonly x: number,
-		public readonly y: number
+		public readonly y: number,
 	) {
 		const cell = this.model[x].rows[y];
 		if (typeof cell === "number") {

@@ -5,7 +5,7 @@
 import { Protocol as Cdp } from "devtools-protocol";
 import { IJsDebugAnnotations } from "../common/types";
 
-export const enum Constants {
+export enum Constants {
 	CurrentDataVersion = 1,
 }
 

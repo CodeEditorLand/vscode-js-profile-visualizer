@@ -11,7 +11,7 @@ import {
 import { ISourceLocation } from "vscode-js-profile-core/out/esm/location-mapping";
 import { IColumn, IColumnRow } from "../common/types";
 
-const enum Constants {
+enum Constants {
 	GcFunction = "(garbage collector)",
 }
 
@@ -69,13 +69,13 @@ export class LocationAccessor implements ILocation {
 	 */
 	public static getFilteredColumns(
 		columns: ReadonlyArray<IColumn>,
-		accessors: ReadonlySet<LocationAccessor>
+		accessors: ReadonlySet<LocationAccessor>,
 	) {
 		const mapping = new Array(columns.length);
 		for (const accessor of accessors) {
 			mapping[accessor.x] = Math.max(
 				mapping[accessor.x] || 0,
-				accessor.y
+				accessor.y,
 			);
 		}
 
@@ -85,7 +85,7 @@ export class LocationAccessor implements ILocation {
 	constructor(
 		private readonly model: ReadonlyArray<IColumn>,
 		public readonly x: number,
-		public readonly y: number
+		public readonly y: number,
 	) {
 		const cell = this.model[x].rows[y];
 		if (typeof cell === "number") {
@@ -182,7 +182,7 @@ export const buildLeftHeavyColumns = (model: IProfileModel): IColumn[] => {
 	const build = (node: ITopDownGraphNode, rows: ILocation[]) => {
 		let addedSelf = node.selfTime === 0; // add the self time if it's > 0
 		const children = [...node.children.values()].sort(
-			(a, b) => b.aggregateTime - a.aggregateTime
+			(a, b) => b.aggregateTime - a.aggregateTime,
 		);
 		for (const child of children) {
 			if (
@@ -202,7 +202,7 @@ export const buildLeftHeavyColumns = (model: IProfileModel): IColumn[] => {
 	};
 
 	for (const child of [...graph.values()].sort(
-		(a, b) => b.aggregateTime - a.aggregateTime
+		(a, b) => b.aggregateTime - a.aggregateTime,
 	)) {
 		build(child, []);
 	}
@@ -271,7 +271,7 @@ const mergeColumns = (columns: IColumn[]) => {
 			root.callFrame.functionName === Constants.GcFunction
 		) {
 			col.rows = columns[x - 1].rows.map((row) =>
-				typeof row === "number" ? row : x - 1
+				typeof row === "number" ? row : x - 1,
 			);
 			if (!lastFrameWasGc) {
 				col.rows.push(root);

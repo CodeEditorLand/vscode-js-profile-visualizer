@@ -2,7 +2,7 @@
  * Copyright (C) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------*/
 
-import { ComponentChild, FunctionComponent, RefObject, h } from "preact";
+import { ComponentChild, FunctionComponent, RefObject } from "preact";
 import {
 	useCallback,
 	useLayoutEffect,
@@ -66,13 +66,13 @@ export const makeVirtualList =
 			const scrollTop = container.scrollTop;
 			const startIndex = Math.max(
 				0,
-				Math.floor(scrollTop / rowHeight) - overscanCount
+				Math.floor(scrollTop / rowHeight) - overscanCount,
 			);
 			const endIndex = Math.min(
 				data.length - 1,
 				startIndex +
 					Math.ceil(container.clientHeight / rowHeight) +
-					2 * overscanCount
+					2 * overscanCount,
 			);
 
 			setRange(makeRange(startIndex, endIndex + 1));
@@ -86,7 +86,8 @@ export const makeVirtualList =
 				ref={containerRef}
 				className={className}
 				style={{ height: "100%", overflow: "auto" }}
-				onScroll={reconcile}>
+				onScroll={reconcile}
+			>
 				<div style={{ height: totalHeight, position: "relative" }}>
 					{range.map((i) => (
 						<Row

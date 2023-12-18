@@ -2,7 +2,7 @@
  * Copyright (C) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------*/
 import * as Flame from "@vscode/codicons/src/icons/flame.svg";
-import { Fragment, FunctionComponent, h, render } from "preact";
+import { Fragment, FunctionComponent, render } from "preact";
 import { useCallback, useContext, useMemo } from "preact/hooks";
 import { ToggleButton } from "vscode-js-profile-core/out/esm/client/toggle-button";
 import { VsCodeApi } from "vscode-js-profile-core/out/esm/client/vscodeApi";
@@ -39,7 +39,7 @@ const CloseButton: FunctionComponent = () => {
 				viewType: "jsProfileVisualizer.heapprofile.table",
 				requireExtension: "ms-vscode.vscode-js-profile-table",
 			}),
-		[vscode]
+		[vscode],
 	);
 
 	return (
@@ -61,7 +61,7 @@ const Root: FunctionComponent = () => {
 				<CloseButton />{" "}
 			</Fragment>
 		),
-		[]
+		[],
 	);
 
 	const cols = getTimelineCols();
@@ -73,15 +73,15 @@ const Root: FunctionComponent = () => {
 				() =>
 					TreeNodeAccessor.getFilteredColumns(
 						cols,
-						query.selectedAndParents
+						query.selectedAndParents,
 					),
-				[query]
+				[query],
 			);
 			return (
 				<FlameGraph model={MODEL} columns={cols} filtered={filtered} />
 			);
 		},
-		[cols]
+		[cols],
 	);
 
 	return (
@@ -89,7 +89,7 @@ const Root: FunctionComponent = () => {
 			data={{
 				data: DataProvider.fromArray(
 					TreeNodeAccessor.rootAccessors(cols),
-					(n) => n.children
+					(n) => n.children,
 				),
 				genericMatchStr: (n) =>
 					[

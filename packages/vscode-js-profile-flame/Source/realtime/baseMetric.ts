@@ -168,7 +168,7 @@ export abstract class DerivativeMetric extends Metric {
 		if (this.lastTimeStamp !== -1) {
 			super.push(
 				timestamp,
-				((metric - prevMetric) / (timestamp - prevTimestamp)) * 1000
+				((metric - prevMetric) / (timestamp - prevTimestamp)) * 1000,
 			);
 		}
 	}

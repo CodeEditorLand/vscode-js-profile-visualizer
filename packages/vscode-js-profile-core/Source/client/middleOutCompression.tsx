@@ -2,7 +2,7 @@
  * Copyright (C) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------*/
 
-import { h, FunctionComponent } from "preact";
+import { FunctionComponent } from "preact";
 import styles from "./middleOutCompression.css";
 
 /**
@@ -23,12 +23,14 @@ export const MiddleOut: FunctionComponent<{
 				style={{
 					maxWidth: `calc(100% - ${endWidth}em)`,
 					minWidth: `${startWidth}em`,
-				}}>
+				}}
+			>
 				{text.slice(0, -endChars)}
 			</span>
 			<span
 				aria-hidden="true"
-				style={{ maxWidth: `calc(100% - ${startWidth}em)` }}>
+				style={{ maxWidth: `calc(100% - ${startWidth}em)` }}
+			>
 				{text.slice(-endChars)}
 			</span>
 		</span>

@@ -11,13 +11,13 @@ export interface ISettings {
 	easing: boolean;
 }
 
-export const enum MessageType {
-	UpdateSettings,
-	AddData,
-	SwitchGraph,
-	SetEnabledMetrics,
-	ApplyData,
-	ClearData,
+export enum MessageType {
+	UpdateSettings = 0,
+	AddData = 1,
+	SwitchGraph = 2,
+	SetEnabledMetrics = 3,
+	ApplyData = 4,
+	ClearData = 5,
 }
 
 export interface IDAMetrics {
