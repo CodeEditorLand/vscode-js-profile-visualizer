@@ -86,8 +86,8 @@ const epsilon = (bounds: IBounds) => (bounds.maxX - bounds.minX) / 100_000;
 
 const makeBaseFlame =
 	<T extends IHeapProfileNode | ILocation>(): FunctionComponent<{
-		columns: ReadonlyArray<IColumn>;
-		filtered: ReadonlyArray<number>;
+		columns: readonly IColumn[];
+		filtered: readonly number[];
 		range: number;
 		unit: string;
 		Tooltip: FunctionComponent<IBaseTooltipProps & { node: T }>;
@@ -312,7 +312,7 @@ const makeBaseFlame =
 
 		// Update the canvas size when the window size changes, and on initial render
 		useEffect(() => {
-			if (!webCanvas.current || !glCanvas.current) {
+			if (!(webCanvas.current && glCanvas.current)) {
 				return;
 			}
 
@@ -370,12 +370,13 @@ const makeBaseFlame =
 										y: 0,
 										level: 0,
 								  });
-					case "Enter":
+					case "Enter": {
 						if ((evt.metaKey || evt.ctrlKey) && hovered) {
 							return openBox(hovered.box, evt);
 						}
 
 						return focused && zoomToBox(focused);
+					}
 					case "Space":
 						return focused && zoomToBox(focused);
 					default:
@@ -388,7 +389,7 @@ const makeBaseFlame =
 
 				let nextFocus: IBox | false | undefined;
 				switch (evt.key) {
-					case "ArrowRight":
+					case "ArrowRight": {
 						for (
 							let x = focused.column + 1;
 							x < columns.length &&
@@ -407,7 +408,8 @@ const makeBaseFlame =
 							}
 						}
 						break;
-					case "ArrowLeft":
+					}
+					case "ArrowLeft": {
 						for (
 							let x = focused.column - 1;
 							x >= 0 &&
@@ -426,7 +428,8 @@ const makeBaseFlame =
 							}
 						}
 						break;
-					case "ArrowUp":
+					}
+					case "ArrowUp": {
 						nextFocus = getBoxInRowColumn(
 							columns,
 							rawBoxes.boxById,
@@ -434,21 +437,25 @@ const makeBaseFlame =
 							focused.row - 1,
 						);
 						break;
-					case "ArrowDown": {
-						let x = focused.column;
-						do {
-							nextFocus = getBoxInRowColumn(
-								columns,
-								rawBoxes.boxById,
-								x,
-								focused.row + 1,
-							);
-						} while (
-							!nextFocus &&
-							columns[++x]?.rows[focused.row] === focused.column
-						);
 					}
-					break;
+					case "ArrowDown": {
+						{
+							let x = focused.column;
+							do {
+								nextFocus = getBoxInRowColumn(
+									columns,
+									rawBoxes.boxById,
+									x,
+									focused.row + 1,
+								);
+							} while (
+								!nextFocus &&
+								columns[++x]?.rows[focused.row] ===
+									focused.column
+							);
+						}
+						break;
+					}
 					default:
 						break;
 				}

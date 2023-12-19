@@ -21,5 +21,5 @@ const graph = Promise.all([
 ]).then(async ([f, r]) => r(f));
 
 parentPort.on("message", (message: GraphRPCCall) => {
-	handleMessage(graph, message).then((m) => parentPort!.postMessage(m));
+	handleMessage(graph, message).then((m) => parentPort?.postMessage(m));
 });

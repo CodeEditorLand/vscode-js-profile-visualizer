@@ -49,7 +49,7 @@ export class TreeNodeAccessor implements IHeapProfileNode {
 	/**
 	 * Gets root-level accessors for the list of columns.
 	 */
-	public static rootAccessors(columns: ReadonlyArray<IColumn>) {
+	public static rootAccessors(columns: readonly IColumn[]) {
 		const accessors: TreeNodeAccessor[] = [];
 		for (let x = 0; x < columns.length; x++) {
 			if (typeof columns[x].rows[0] === "object") {
@@ -65,7 +65,7 @@ export class TreeNodeAccessor implements IHeapProfileNode {
 	 * should be highlighted.
 	 */
 	public static getFilteredColumns(
-		columns: ReadonlyArray<IColumn>,
+		columns: readonly IColumn[],
 		accessors: ReadonlySet<TreeNodeAccessor>,
 	) {
 		const mapping = new Array(columns.length);
@@ -80,7 +80,7 @@ export class TreeNodeAccessor implements IHeapProfileNode {
 	}
 
 	constructor(
-		private readonly model: ReadonlyArray<IColumn>,
+		private readonly model: readonly IColumn[],
 		public readonly x: number,
 		public readonly y: number,
 	) {

@@ -60,7 +60,7 @@ const InfoBox: FunctionComponent<
 				columns={columns}
 				boxes={boxes}
 				setFocused={setFocused}
-			></StackList>
+			/>
 		</div>
 	);
 };
@@ -68,8 +68,8 @@ const InfoBox: FunctionComponent<
 const BaseFlame = makeBaseFlame<ILocation>();
 
 export const FlameGraph: FunctionComponent<{
-	columns: ReadonlyArray<IColumn>;
-	filtered: ReadonlyArray<number>;
+	columns: readonly IColumn[];
+	filtered: readonly number[];
 	model: IProfileModel;
 }> = ({ columns, model, filtered }) => (
 	<BaseFlame
@@ -90,7 +90,7 @@ export const FlameGraph: FunctionComponent<{
 			</BaseTooltip>
 		)}
 		InfoBox={(props: IBaseInfoBoxProp) => (
-			<InfoBox {...props} model={model}></InfoBox>
+			<InfoBox {...props} model={model} />
 		)}
-	></BaseFlame>
+	/>
 );

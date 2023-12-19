@@ -25,7 +25,7 @@ import { IBox, IColumn } from "./types";
 
 const StackList: FunctionComponent<{
 	box: IBox;
-	columns: ReadonlyArray<IColumn>;
+	columns: readonly IColumn[];
 	boxes: ReadonlyMap<number, IBox>;
 	setFocused(box: IBox): void;
 }> = ({ columns, boxes, box, setFocused }) => {

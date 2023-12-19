@@ -41,7 +41,7 @@ const Root: FunctionComponent = () => {
 						min={1}
 						value={maxDistance ? String(maxDistance) : ""}
 						placeholder={`Maximum retainer distance (default: ${DEFAULT_RETAINER_DISTANCE})`}
-					></Filter>
+					/>
 				</FilterBar>
 			</div>
 			<Graph maxDistance={maxDistance || DEFAULT_RETAINER_DISTANCE} />
@@ -62,7 +62,7 @@ const Graph: FunctionComponent<{ maxDistance: number }> = ({ maxDistance }) => {
 	}, [maxDistance]);
 
 	useEffect(() => {
-		if (!container || !nodes) {
+		if (!(container && nodes)) {
 			setLoading(true);
 			return;
 		}

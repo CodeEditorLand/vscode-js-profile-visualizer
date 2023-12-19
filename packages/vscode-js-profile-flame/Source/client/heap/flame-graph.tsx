@@ -46,7 +46,7 @@ const InfoBox: FunctionComponent<IBaseInfoBoxProp> = ({
 				columns={columns}
 				boxes={boxes}
 				setFocused={setFocused}
-			></StackList>
+			/>
 		</div>
 	);
 };
@@ -54,8 +54,8 @@ const InfoBox: FunctionComponent<IBaseInfoBoxProp> = ({
 const BaseFlame = makeBaseFlame<IHeapProfileNode>();
 
 export const FlameGraph: FunctionComponent<{
-	columns: ReadonlyArray<IColumn>;
-	filtered: ReadonlyArray<number>;
+	columns: readonly IColumn[];
+	filtered: readonly number[];
 	model: IProfileModel;
 }> = ({ columns, model, filtered }) => {
 	const tree = createTree(model);

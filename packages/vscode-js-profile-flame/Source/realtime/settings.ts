@@ -71,7 +71,7 @@ export class Settings {
 			));
 	}
 
-	public setEnabledMetrics(metrics: ReadonlyArray<Metric>) {
+	public setEnabledMetrics(metrics: readonly Metric[]) {
 		if (
 			metrics.length === this.enabledMetrics.length &&
 			!metrics.some((m) => !this.enabledMetrics.includes(m))

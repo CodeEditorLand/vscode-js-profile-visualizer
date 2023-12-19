@@ -23,7 +23,9 @@ type Link = CommandLink | UriLink;
 const exists = async (uristr: string) => {
 	try {
 		const uri = parseLink(uristr);
-		if (uri.type === LinkType.Command) return true;
+		if (uri.type === LinkType.Command) {
+			return true;
+		}
 		await vscode.workspace.fs.stat(uri.uri);
 		return true;
 	} catch {
@@ -149,12 +151,13 @@ const parseLink = (link: string | undefined): Link => {
 		const args = Array.isArray(parsed) ? parsed : [parsed];
 		return { type: LinkType.Command, command, args };
 	}
-	if (link?.match(/\w\w+:/))
+	if (link?.match(/\w\w+:/)) {
 		return {
 			type: LinkType.URI,
 			uri: vscode.Uri.parse(link || ""),
 			isFile: false,
 		};
+	}
 	return {
 		type: LinkType.URI,
 		uri: vscode.Uri.file(link || ""),

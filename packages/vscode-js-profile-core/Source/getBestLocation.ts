@@ -7,7 +7,7 @@ import { ISourceLocation, addRelativeDiskPath } from "./location-mapping";
 
 export const getBestLocation = (
 	profile: { $vscode?: IJsDebugAnnotations },
-	candidates: ReadonlyArray<ISourceLocation> = [],
+	candidates: readonly ISourceLocation[] = [],
 ) => {
 	if (!profile.$vscode?.rootPath) {
 		return candidates[0];

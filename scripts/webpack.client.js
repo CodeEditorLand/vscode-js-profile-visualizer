@@ -5,7 +5,7 @@ const node = process.argv.includes("node");
 module.exports = (dirname, file = "client") => ({
 	mode: production ? "production" : "development",
 	devtool: production ? false : "inline-source-map",
-	entry: `./src/client/client.tsx`,
+	entry: "./src/client/client.tsx",
 	output: {
 		path: path.join(dirname, "out"),
 		filename: `${file}.bundle.js`,

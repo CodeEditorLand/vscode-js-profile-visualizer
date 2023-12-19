@@ -47,7 +47,7 @@ export type IProfileModel = {
  */
 const ensureSourceLocations = (
 	profile: IHeapProfileRaw,
-): ReadonlyArray<IAnnotationLocation> => {
+): readonly IAnnotationLocation[] => {
 	if (profile.$vscode) {
 		return profile.$vscode.locations; // profiles we generate are already good
 	}

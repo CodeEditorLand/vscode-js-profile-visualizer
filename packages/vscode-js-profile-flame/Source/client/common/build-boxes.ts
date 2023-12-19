@@ -7,7 +7,7 @@ import { Constants } from "./constants";
 import { IBox, IColumn, IColumnRow } from "./types";
 
 const getBoxInRowColumn = (
-	columns: ReadonlyArray<IColumn>,
+	columns: readonly IColumn[],
 	boxes: ReadonlyMap<number, IBox>,
 	column: number,
 	row: number,
@@ -31,10 +31,7 @@ const pickColor = (row: IColumnRow): number => {
 	return hash & 0xff;
 };
 
-export default (
-	columns: ReadonlyArray<IColumn>,
-	filtered: ReadonlyArray<number>,
-) => {
+export default (columns: readonly IColumn[], filtered: readonly number[]) => {
 	const boxes: Map<number, IBox> = new Map();
 	let maxY = 0;
 	for (let x = 0; x < columns.length; x++) {

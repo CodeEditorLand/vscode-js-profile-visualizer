@@ -55,7 +55,7 @@ export class CpuProfileEditorProvider
 	): Promise<void> {
 		webviewPanel.webview.onDidReceiveMessage((message: Message) => {
 			switch (message.type) {
-				case "openDocument":
+				case "openDocument": {
 					openLocation({
 						rootPath: document.userData?.rootPath,
 						viewColumn: message.toSide
@@ -65,13 +65,15 @@ export class CpuProfileEditorProvider
 						location: message.location,
 					});
 					return;
-				case "reopenWith":
+				}
+				case "reopenWith": {
 					reopenWithEditor(
 						document.uri,
 						message.viewType,
 						message.requireExtension,
 					);
 					return;
+				}
 				default:
 					console.warn(
 						`Unknown request from webview: ${JSON.stringify(

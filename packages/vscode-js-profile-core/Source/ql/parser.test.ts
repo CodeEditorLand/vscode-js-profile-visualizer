@@ -65,7 +65,7 @@ describe("ql", () => {
 				[
 					[Token.Column, "hello"],
 					[Token.Operator, ":"],
-					[Token.Value, `esca\\`],
+					[Token.Value, "esca\\"],
 					[Token.Text, `ped'`],
 				],
 			],

@@ -7,7 +7,7 @@ import { IHeapProfileNode } from "vscode-js-profile-core/out/esm/heap/model";
 
 export interface IBaseInfoBoxProp {
 	box: IBox;
-	columns: ReadonlyArray<IColumn>;
+	columns: readonly IColumn[];
 	boxes: ReadonlyMap<number, IBox>;
 	setFocused(box: IBox): void;
 }

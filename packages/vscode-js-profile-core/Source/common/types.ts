@@ -24,7 +24,7 @@ export interface IJsDebugAnnotations {
 	 * For each node in the profile, the list of locations in corresponds to
 	 * in the workspace (if any).
 	 */
-	locations: ReadonlyArray<IAnnotationLocation>;
+	locations: readonly IAnnotationLocation[];
 
 	/**
 	 * Optional cell data saved from previously opening the profile as a notebook.

@@ -37,7 +37,7 @@ const createProgram = (
 ) => {
 	const program = gl.createProgram();
 	if (!program) {
-		throw new Error(`Failed creating program`);
+		throw new Error("Failed creating program");
 	}
 
 	gl.attachShader(program, vertexShader);
@@ -58,7 +58,7 @@ interface IOptions {
 	canvas: HTMLCanvasElement;
 	focusColor: string;
 	primaryColor: string;
-	boxes: ReadonlyArray<IBox>;
+	boxes: readonly IBox[];
 }
 
 export const setupGl = ({
@@ -84,7 +84,7 @@ export const setupGl = ({
 	const vertexBuffer = gl.createBuffer();
 	let vertexCount = 0;
 
-	const setBoxes = (boxes: ReadonlyArray<IBox>) => {
+	const setBoxes = (boxes: readonly IBox[]) => {
 		const boxesBuffer = gl.createBuffer();
 
 		vertexCount = boxes.length * 2 * 3; // 2 triangles, 3 verticies each
@@ -258,7 +258,7 @@ export const setupGl = ({
 			setBounds(bounds, size, scale);
 			debounceRedraw();
 		},
-		setBoxes: (boxes: ReadonlyArray<IBox>) => {
+		setBoxes: (boxes: readonly IBox[]) => {
 			setBoxes(boxes);
 			debounceRedraw();
 		},

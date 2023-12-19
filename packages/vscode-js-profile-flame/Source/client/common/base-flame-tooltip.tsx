@@ -41,7 +41,6 @@ export const BaseTooltip: FunctionComponent<IBaseTooltipProps> = ({
 		<div
 			className={styles.tooltip}
 			aria-live="polite"
-			aria-atomic={true}
 			style={{
 				left: clamp(0, canvasWidth * left + 10, canvasWidth - 400),
 				top: above ? "initial" : lowerY + 10,

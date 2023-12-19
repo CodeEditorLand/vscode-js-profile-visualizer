@@ -5,7 +5,7 @@
 import { IBox, IColumn } from "./types";
 
 export default (
-	columns: ReadonlyArray<IColumn>,
+	columns: readonly IColumn[],
 	boxes: ReadonlyMap<number, IBox>,
 	column: number,
 	row: number,

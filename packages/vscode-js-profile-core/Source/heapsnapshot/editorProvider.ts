@@ -65,7 +65,7 @@ const workerRegistry = ((globalThis as any).__jsHeapSnapshotWorkers ??=
 					if (!--rec!.rc) {
 						// avoid stopping the worker if the webview was just moved around:
 						rec!.closer = setTimeout(() => {
-							rec!.worker.terminate();
+							rec?.worker.terminate();
 							this.workers.delete(uri.toString());
 						}, 5000);
 					}
@@ -102,7 +102,7 @@ export class HeapSnapshotEditorProvider
 	): Promise<void> {
 		webviewPanel.webview.onDidReceiveMessage((message: Message) => {
 			switch (message.type) {
-				case "reopenWith":
+				case "reopenWith": {
 					reopenWithEditor(
 						document.uri.with({ query: message.withQuery }),
 						message.viewType,
@@ -110,9 +110,11 @@ export class HeapSnapshotEditorProvider
 						message.toSide,
 					);
 					return;
-				case "callGraph":
+				}
+				case "callGraph": {
 					document.value.worker.postMessage(message.inner);
 					return;
+				}
 				default:
 					console.warn(
 						`Unknown request from webview: ${JSON.stringify(

@@ -192,29 +192,33 @@ export const makeBaseTimeView = <T extends ICommonNode>(): FunctionComponent<{
 				let nextFocus: T | undefined;
 				switch (evt.key) {
 					case "Enter":
-					case "Space":
+					case "Space": {
 						setExpanded(toggleInSet(expanded, node));
 						evt.preventDefault();
 						break;
-					case "ArrowDown":
+					}
+					case "ArrowDown": {
 						nextFocus =
 							rendered[
 								rendered.findIndex((n) => n.node === node) + 1
 							]?.node;
 						break;
-					case "ArrowUp":
+					}
+					case "ArrowUp": {
 						nextFocus =
 							rendered[
 								rendered.findIndex((n) => n.node === node) - 1
 							]?.node;
 						break;
-					case "ArrowLeft":
+					}
+					case "ArrowLeft": {
 						if (expanded.has(node)) {
 							setExpanded(removeFromSet(expanded, node));
 						} else {
 							nextFocus = node.parent as T;
 						}
 						break;
+					}
 					case "ArrowRight": {
 						const children = provider?.getChildren(node);
 						if (children?.length && !expanded.has(node)) {
@@ -226,14 +230,15 @@ export const makeBaseTimeView = <T extends ICommonNode>(): FunctionComponent<{
 						}
 						break;
 					}
-					case "Home":
+					case "Home": {
 						if (listRef.current) {
 							listRef.current.scrollTop = 0;
 						}
 
 						nextFocus = rendered[0]?.node;
 						break;
-					case "End":
+					}
+					case "End": {
 						if (listRef.current) {
 							listRef.current.scrollTop =
 								listRef.current.scrollHeight;
@@ -241,9 +246,10 @@ export const makeBaseTimeView = <T extends ICommonNode>(): FunctionComponent<{
 
 						nextFocus = rendered[rendered.length - 1]?.node;
 						break;
+					}
 					case "*": {
 						const nextExpanded = new Set(expanded);
-						if (focused && focused.parent) {
+						if (focused?.parent) {
 							const parent = focused?.parent;
 							const parentProvider =
 								parent && providers.current.get(parent as T);
@@ -301,7 +307,7 @@ export const makeBaseTimeView = <T extends ICommonNode>(): FunctionComponent<{
 
 		useLayoutEffect(() => {
 			const el = listRef.current;
-			if (!el || !focused) {
+			if (!(el && focused)) {
 				return;
 			}
 

@@ -47,10 +47,10 @@ export interface IGraphNode extends ILocation {
  * so the same source location will have multiple different nodes in the model.
  */
 export interface IProfileModel {
-	nodes: ReadonlyArray<IComputedNode>;
-	locations: ReadonlyArray<ILocation>;
-	samples: ReadonlyArray<number>;
-	timeDeltas: ReadonlyArray<number>;
+	nodes: readonly IComputedNode[];
+	locations: readonly ILocation[];
+	samples: readonly number[];
+	timeDeltas: readonly number[];
 	rootPath?: string;
 	duration: number;
 }
@@ -82,7 +82,7 @@ const computeAggregateTime = (
  */
 const ensureSourceLocations = (
 	profile: ICpuProfileRaw,
-): ReadonlyArray<IAnnotationLocation> => {
+): readonly IAnnotationLocation[] => {
 	if (profile.$vscode) {
 		return profile.$vscode.locations; // profiles we generate are already good
 	}
@@ -157,7 +157,7 @@ const ensureSourceLocations = (
  * Computes the model for the given profile.
  */
 export const buildModel = (profile: ICpuProfileRaw): IProfileModel => {
-	if (!profile.timeDeltas || !profile.samples) {
+	if (!(profile.timeDeltas && profile.samples)) {
 		return {
 			nodes: [],
 			locations: [],

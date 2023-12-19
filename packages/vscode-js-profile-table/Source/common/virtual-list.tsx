@@ -14,7 +14,7 @@ import { useResizeObserver } from "vscode-js-profile-core/out/esm/client/useResi
 
 export interface IVirtualListProps<T> {
 	containerRef?: RefObject<HTMLDivElement>;
-	data: ReadonlyArray<T>;
+	data: readonly T[];
 	className?: string;
 	renderRow: (row: T) => ComponentChild;
 	rowHeight: number;

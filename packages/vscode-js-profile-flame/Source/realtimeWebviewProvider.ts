@@ -28,9 +28,10 @@ export class RealtimeWebviewProvider implements vscode.WebviewViewProvider {
 
 		webviewView.webview.onDidReceiveMessage((evt: FromWebViewMessage) => {
 			switch (evt.type) {
-				case MessageType.SetEnabledMetrics:
+				case MessageType.SetEnabledMetrics: {
 					this.tracker.setEnabledMetrics(evt.keys);
 					break;
+				}
 				default:
 				// ignored
 			}

@@ -2,7 +2,7 @@ declare module "preact-virtual-list" {
 	import { FunctionComponent, ComponentChild } from "preact";
 
 	interface IVirtualListProps<T> {
-		data: ReadonlyArray<T>;
+		data: readonly T[];
 		className?: string;
 		renderRow: (row: T) => ComponentChild;
 		rowHeight: number;

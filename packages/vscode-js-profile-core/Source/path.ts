@@ -51,7 +51,7 @@ export function maybeFileUrlToPath(fileUrl: string): string {
 		// If it has a : before the first /, assume it's a windows path or url.
 		// Ensure unix-style path starts with /, it can be removed when file:/// was stripped.
 		// Don't add if the url still has a protocol
-		fileUrl = "/" + fileUrl;
+		fileUrl = `/${fileUrl}`;
 	}
 
 	if (isWindowsPath(fileUrl)) {

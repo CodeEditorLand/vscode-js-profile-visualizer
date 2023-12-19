@@ -79,7 +79,7 @@ export const lex = (expr: string) => {
 	while (i < expr.length) {
 		const char = expr[i];
 		switch (state) {
-			case Token.Text:
+			case Token.Text: {
 				const nextCol = expr.indexOf(
 					Chars.Space + Chars.StartColumn,
 					i,
@@ -92,15 +92,18 @@ export const lex = (expr: string) => {
 					state = Token.Column; // either starting a column or at end of str
 				}
 				break;
-			case Token.Column:
+			}
+			case Token.Column: {
 				tokens.push(eat(Token.Column, (c) => c >= "A" && c <= "z"));
 				state = Token.Operator;
 				break;
-			case Token.Operator:
+			}
+			case Token.Operator: {
 				tokens.push(eat(Token.Operator, (c) => operatorTokens.has(c)));
 				state = Token.Value;
 				break;
-			case Token.Value:
+			}
+			case Token.Value: {
 				const endWithSpace =
 					char !== Chars.DoubleQuote && char !== Chars.SingleQuote;
 				if (!endWithSpace) {
@@ -117,6 +120,7 @@ export const lex = (expr: string) => {
 					i++;
 				}
 				break;
+			}
 			default:
 				throw new Error(`Illegal state ${state}`);
 		}
@@ -135,7 +139,7 @@ export const compile = <T>(
 	for (let i = 0; i < lexed.length; i++) {
 		const token = lexed[i];
 		switch (token.token) {
-			case Token.Column:
+			case Token.Column: {
 				const prop = query.datasource.properties[token.text];
 				if (!prop) {
 					const available = Object.keys(
@@ -177,9 +181,11 @@ export const compile = <T>(
 				) => boolean;
 				filterList.push((m) => compiled(prop.accessor(m)));
 				break;
-			case Token.Text:
+			}
+			case Token.Text: {
 				text.push(token.text.trim());
 				break;
+			}
 			default:
 				throw new Error(`Illegal token ${token.token}`);
 		}

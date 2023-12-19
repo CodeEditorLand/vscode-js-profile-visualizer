@@ -8,7 +8,7 @@
  * maintain sort order.
  */
 export function binarySearch<T>(
-	array: ReadonlyArray<T>,
+	array: readonly T[],
 	comparator: (value: T) => number,
 ): number {
 	let low = 0;

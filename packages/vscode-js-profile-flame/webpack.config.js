@@ -6,21 +6,21 @@ module.exports = [
 		: [require("../../scripts/webpack.extension")(__dirname, "webworker")]),
 	{
 		...require("../../scripts/webpack.client")(__dirname, "realtime"),
-		entry: `./src/realtime/client.ts`,
+		entry: "./src/realtime/client.ts",
 	},
 	{
 		...require("../../scripts/webpack.client")(__dirname, "heap-client"),
-		entry: `./src/client/heap/client.tsx`,
+		entry: "./src/client/heap/client.tsx",
 	},
 	{
 		...require("../../scripts/webpack.client")(__dirname, "cpu-client"),
-		entry: `./src/client/cpu/client.tsx`,
+		entry: "./src/client/cpu/client.tsx",
 	},
 	{
 		...require("../../scripts/webpack.client")(
 			__dirname,
 			"heapsnapshot-client",
 		),
-		entry: `./src/heapsnapshot-client/client.tsx`,
+		entry: "./src/heapsnapshot-client/client.tsx",
 	},
 ];

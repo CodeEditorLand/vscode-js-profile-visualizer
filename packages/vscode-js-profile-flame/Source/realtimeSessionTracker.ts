@@ -82,7 +82,7 @@ export class RealtimeSessionTracker {
 	/**
 	 * Updates the metrics enabled in the displayed chart.
 	 */
-	public setEnabledMetrics(enabled: ReadonlyArray<number>) {
+	public setEnabledMetrics(enabled: readonly number[]) {
 		this.context.workspaceState.update(enabledMetricsKey, enabled);
 		this.updateSettings();
 	}
@@ -130,9 +130,11 @@ export class RealtimeSessionTracker {
 		}
 
 		if (
-			!this.visibleWebviews.length ||
-			!session ||
-			!("__pendingTargetId" in session.configuration)
+			!(
+				this.visibleWebviews.length &&
+				session &&
+				"__pendingTargetId" in session.configuration
+			)
 		) {
 			return;
 		}

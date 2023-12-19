@@ -35,7 +35,7 @@ export class DataProvider<T> {
 		value: T[],
 		getChildren: (item: T) => T[],
 	): DataProvider<T> {
-		return this.fromTopLevelArray(value, (v) =>
+		return DataProvider.fromTopLevelArray(value, (v) =>
 			DataProvider.fromArray(getChildren(v), getChildren),
 		);
 	}
@@ -68,7 +68,7 @@ export class DataProvider<T> {
 		read: T[] | ReadRange<T>,
 		private readonly _getChildren: (item: T) => DataProvider<T>,
 	) {
-		if (Array.isArray(read) || read instanceof Array) {
+		if (Array.isArray(read) || Array.isArray(read)) {
 			this.data = read;
 		} else {
 			this._read = read;
@@ -133,7 +133,7 @@ export class DataProvider<T> {
 		}
 
 		const p = last.p.then(async () => {
-			const newData = await this._read!(last.upTo, upTo, this.sortFn);
+			const newData = await this._read?.(last.upTo, upTo, this.sortFn);
 			if (this.data?.length) {
 				this.data = this.data.concat(newData);
 			} else {
