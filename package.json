@@ -36,7 +36,7 @@
 		"cross-env": "7.0.3",
 		"css-loader": "6.8.1",
 		"cssnano": "6.0.2",
-		"devtools-protocol": "0.0.1237913",
+		"devtools-protocol": "0.0.1238944",
 		"glob": "10.3.10",
 		"html-webpack-plugin": "5.5.4",
 		"os-browserify": "0.3.0",
