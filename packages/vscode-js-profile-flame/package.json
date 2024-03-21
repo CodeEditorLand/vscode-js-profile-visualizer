@@ -166,7 +166,7 @@
 		"@types/chroma-js": "^2.4.3",
 		"@types/cytoscape": "^3.19.15",
 		"@types/resize-observer-browser": "^0.1.7",
-		"typescript-esbuild": "latest"
+		"typescript-esbuild": "0.4.5"
 	},
 	"publishConfig": {
 		"access": "public"
