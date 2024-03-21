@@ -1,23 +1,12 @@
 {
+	"dependencies": {
+		"@vscode/codicons": "^0.0.35",
+		"@vscode/v8-heap-parser": "^0.1.0"
+	},
+	"devDependencies": {
+		"typescript-esbuild": "0.4.5"
+	},
 	"name": "vscode-js-profile-core",
-	"version": "0.0.1",
-	"private": false,
-	"homepage": "https://github.com/CodeEditorLand/Foundation#readme",
-	"bugs": {
-		"url": "https://github.com/CodeEditorLand/Foundation/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/CodeEditorLand/Foundation.git"
-	},
-	"license": "SEE LICENSE IN LICENSE",
-	"author": {
-		"name": "Playform",
-		"email": "Hello@Playform.Cloud",
-		"url": "https://playform.cloud"
-	},
-	"sideEffects": false,
-	"type": "module",
 	"scripts": {
 		"compile": "concurrently \"npm:compile:*\"",
 		"compile:css": "cpy \"src/**/*.css\" out/esm",
@@ -29,14 +18,6 @@
 		"watch:esm": "tsc --watch -p tsconfig.browser.json",
 		"watch:ext": "tsc --watch"
 	},
-	"dependencies": {
-		"@vscode/codicons": "^0.0.35",
-		"@vscode/v8-heap-parser": "^0.1.0"
-	},
-	"devDependencies": {
-		"typescript-esbuild": "0.4.5"
-	},
-	"publishConfig": {
-		"access": "public"
-	}
+	"sideEffects": false,
+	"type": "module"
 }
