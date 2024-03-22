@@ -1,4 +1,42 @@
 {
+	"name": "js-profile-visualizer",
+	"version": "0.0.1",
+	"private": false,
+	"homepage": "https://github.com/CodeEditorLand/Foundation#readme",
+	"bugs": {
+		"url": "https://github.com/CodeEditorLand/Foundation/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/CodeEditorLand/Foundation.git"
+	},
+	"license": "SEE LICENSE IN LICENSE",
+	"author": {
+		"name": "Playform",
+		"email": "Hello@Playform.Cloud",
+		"url": "https://playform.cloud"
+	},
+	"type": "module",
+	"workspaces": [
+		"packages/vscode-js-profile-core",
+		"packages/vscode-js-profile-flame",
+		"packages/vscode-js-profile-table"
+	],
+	"scripts": {
+		"clean": "rimraf -g \"packages/*/out\"",
+		"compile": "npm run clean && npm run compile:core && concurrently \"npm:compile:table\" \"npm:compile:flame\"",
+		"compile:core": "npm run -w vscode-js-profile-core compile",
+		"compile:flame": "npm run -w vscode-js-profile-flame compile",
+		"compile:table": "npm run -w vscode-js-profile-table compile",
+		"pack": "npm run compile && npm run -ws pack",
+		"prepublishOnly": "TypeScriptESBuild 'Source/**/*.ts'",
+		"test:unit": "vitest run",
+		"vscode:prepublish": "npm run compile",
+		"watch": "concurrently \"npm:watch:core\" \"npm:watch:flame\" \"npm:watch:table\"",
+		"watch:core": "npm run -w vscode-js-profile-core watch",
+		"watch:flame": "npm run -w vscode-js-profile-flame watch",
+		"watch:table": "npm run -w vscode-js-profile-table watch"
+	},
 	"devDependencies": {
 		"@types/glob": "^8.1.0",
 		"@types/node": "^20.9.0",
@@ -33,26 +71,7 @@
 		"webpack-cli": "^5.1.4",
 		"webpack-dev-server": "^5.0.3"
 	},
-	"name": "js-profile-visualizer",
-	"scripts": {
-		"clean": "rimraf -g \"packages/*/out\"",
-		"compile": "npm run clean && npm run compile:core && concurrently \"npm:compile:table\" \"npm:compile:flame\"",
-		"compile:core": "npm run -w vscode-js-profile-core compile",
-		"compile:flame": "npm run -w vscode-js-profile-flame compile",
-		"compile:table": "npm run -w vscode-js-profile-table compile",
-		"pack": "npm run compile && npm run -ws pack",
-		"prepublishOnly": "TypeScriptESBuild 'Source/**/*.ts'",
-		"test:unit": "vitest run",
-		"vscode:prepublish": "npm run compile",
-		"watch": "concurrently \"npm:watch:core\" \"npm:watch:flame\" \"npm:watch:table\"",
-		"watch:core": "npm run -w vscode-js-profile-core watch",
-		"watch:flame": "npm run -w vscode-js-profile-flame watch",
-		"watch:table": "npm run -w vscode-js-profile-table watch"
-	},
-	"type": "module",
-	"workspaces": [
-		"packages/vscode-js-profile-core",
-		"packages/vscode-js-profile-flame",
-		"packages/vscode-js-profile-table"
-	]
+	"publishConfig": {
+		"access": "public"
+	}
 }
