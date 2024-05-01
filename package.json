@@ -1,11 +1,43 @@
 {
-	"author": {
-		"email": "Land@PlayForm.Cloud",
-		"name": "🌆 — Land —",
-		"url": "HTTPS://Land.PlayForm.Cloud"
-	},
+	"name": "js-profile-visualizer",
+	"version": "0.0.1",
+	"private": false,
+	"keywords": [
+		"land"
+	],
+	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/LandJSProfileVisualizer#readme",
 	"bugs": {
 		"url": "HTTPS://GitHub.Com/CodeEditorLand/LandJSProfileVisualizer/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+HTTPS://github.com/CodeEditorLand/LandJSProfileVisualizer.git"
+	},
+	"license": "SEE LICENSE IN LICENSE",
+	"author": {
+		"name": "🌆 — Land —",
+		"email": "Land@PlayForm.Cloud",
+		"url": "HTTPS://Land.PlayForm.Cloud"
+	},
+	"type": "module",
+	"workspaces": [
+		"packages/vscode-js-profile-core",
+		"packages/vscode-js-profile-flame",
+		"packages/vscode-js-profile-table"
+	],
+	"scripts": {
+		"Document": "Document 'Source/**/*.ts'",
+		"clean": "rimraf -g \"packages/*/out\"",
+		"compile": "npm run clean && npm run compile:core && concurrently \"npm:compile:table\" \"npm:compile:flame\"",
+		"compile:core": "npm run -w vscode-js-profile-core compile",
+		"compile:flame": "npm run -w vscode-js-profile-flame compile",
+		"compile:table": "npm run -w vscode-js-profile-table compile",
+		"pack": "npm run compile && npm run -ws pack",
+		"prepublishOnly": "Build 'Source/**/*.ts'",
+		"test:unit": "vitest run",
+		"watch:core": "npm run -w vscode-js-profile-core watch",
+		"watch:flame": "npm run -w vscode-js-profile-flame watch",
+		"watch:table": "npm run -w vscode-js-profile-table watch"
 	},
 	"devDependencies": {
 		"@playform/build": "0.0.7",
@@ -32,39 +64,7 @@
 		"svg-inline-loader": "0.8.2",
 		"ts-loader": "9.5.1"
 	},
-	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/LandJSProfileVisualizer#readme",
-	"keywords": [
-		"land"
-	],
-	"license": "SEE LICENSE IN LICENSE",
-	"name": "js-profile-visualizer",
-	"private": false,
 	"publishConfig": {
 		"access": "public"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+HTTPS://github.com/CodeEditorLand/LandJSProfileVisualizer.git"
-	},
-	"scripts": {
-		"Document": "Document 'Source/**/*.ts'",
-		"clean": "rimraf -g \"packages/*/out\"",
-		"compile": "npm run clean && npm run compile:core && concurrently \"npm:compile:table\" \"npm:compile:flame\"",
-		"compile:core": "npm run -w vscode-js-profile-core compile",
-		"compile:flame": "npm run -w vscode-js-profile-flame compile",
-		"compile:table": "npm run -w vscode-js-profile-table compile",
-		"pack": "npm run compile && npm run -ws pack",
-		"prepublishOnly": "Build 'Source/**/*.ts'",
-		"test:unit": "vitest run",
-		"watch:core": "npm run -w vscode-js-profile-core watch",
-		"watch:flame": "npm run -w vscode-js-profile-flame watch",
-		"watch:table": "npm run -w vscode-js-profile-table watch"
-	},
-	"type": "module",
-	"version": "0.0.1",
-	"workspaces": [
-		"packages/vscode-js-profile-core",
-		"packages/vscode-js-profile-flame",
-		"packages/vscode-js-profile-table"
-	]
+	}
 }
