@@ -1,38 +1,18 @@
 {
-	"name": "vscode-js-profile-table",
-	"displayName": "Table Visualizer for JavaScript Profiles",
-	"version": "0.0.1",
-	"private": false,
-	"description": "Text visualizer for profiles taken from the JavaScript debugger",
-	"keywords": [
-		"land"
-	],
-	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/LandJSProfileVisualizer#readme",
+	"author": {
+		"email": "Land@PlayForm.Cloud",
+		"name": "🌆 — Land —",
+		"url": "HTTPS://Land.PlayForm.Cloud"
+	},
+	"browser": "out/extension.web.js",
 	"bugs": {
 		"url": "HTTPS://GitHub.Com/CodeEditorLand/LandJSProfileVisualizer/issues"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git+HTTPS://github.com/CodeEditorLand/LandJSProfileVisualizer.git"
-	},
-	"license": "SEE LICENSE IN LICENSE",
-	"author": {
-		"name": "🌆 — Land —",
-		"email": "Land@PlayForm.Cloud",
-		"url": "HTTPS://Land.PlayForm.Cloud"
-	},
-	"sideEffects": false,
-	"type": "module",
-	"main": "out/extension.js",
-	"browser": "out/extension.web.js",
-	"files": [
-		"out"
-	],
-	"scripts": {
-		"Document": "Document 'Source/**/*.ts'",
-		"compile": "rimraf out && webpack --mode production",
-		"pack": "vsce package --yarn",
-		"prepublishOnly": "Build 'Source/**/*.ts'"
+	"capabilities": {
+		"untrustedWorkspaces": {
+			"supported": true
+		},
+		"virtualWorkspaces": true
 	},
 	"contributes": {
 		"commands": [
@@ -85,18 +65,38 @@
 	"dependencies": {
 		"pretty-bytes": "6.1.1"
 	},
+	"description": "Text visualizer for profiles taken from the JavaScript debugger",
 	"devDependencies": {
 		"@playform/build": "0.0.7",
 		"@playform/document": "0.0.6"
 	},
+	"displayName": "Table Visualizer for JavaScript Profiles",
+	"files": [
+		"out"
+	],
+	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/LandJSProfileVisualizer#readme",
+	"icon": "resources/icon.png",
+	"keywords": [
+		"land"
+	],
+	"license": "SEE LICENSE IN LICENSE",
+	"main": "out/extension.js",
+	"name": "vscode-js-profile-table",
+	"private": false,
 	"publishConfig": {
 		"access": "public"
 	},
-	"icon": "resources/icon.png",
-	"capabilities": {
-		"untrustedWorkspaces": {
-			"supported": true
-		},
-		"virtualWorkspaces": true
-	}
+	"repository": {
+		"type": "git",
+		"url": "git+HTTPS://github.com/CodeEditorLand/LandJSProfileVisualizer.git"
+	},
+	"scripts": {
+		"Document": "Document 'Source/**/*.ts'",
+		"compile": "rimraf out && webpack --mode production",
+		"pack": "vsce package --yarn",
+		"prepublishOnly": "Build 'Source/**/*.ts'"
+	},
+	"sideEffects": false,
+	"type": "module",
+	"version": "0.0.1"
 }

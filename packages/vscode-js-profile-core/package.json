@@ -1,26 +1,31 @@
 {
-	"name": "vscode-js-profile-core",
-	"version": "0.0.1",
-	"private": false,
+	"author": {
+		"email": "Land@PlayForm.Cloud",
+		"name": "🌆 — Land —",
+		"url": "HTTPS://Land.PlayForm.Cloud"
+	},
+	"bugs": {
+		"url": "HTTPS://GitHub.Com/CodeEditorLand/LandJSProfileVisualizer/issues"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@playform/build": "0.0.7",
+		"@playform/document": "0.0.6"
+	},
+	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/LandJSProfileVisualizer#readme",
 	"keywords": [
 		"land"
 	],
-	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/LandJSProfileVisualizer#readme",
-	"bugs": {
-		"url": "HTTPS://GitHub.Com/CodeEditorLand/LandJSProfileVisualizer/issues"
+	"license": "SEE LICENSE IN LICENSE",
+	"name": "vscode-js-profile-core",
+	"private": false,
+	"publishConfig": {
+		"access": "public"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+HTTPS://github.com/CodeEditorLand/LandJSProfileVisualizer.git"
 	},
-	"license": "SEE LICENSE IN LICENSE",
-	"author": {
-		"name": "🌆 — Land —",
-		"email": "Land@PlayForm.Cloud",
-		"url": "HTTPS://Land.PlayForm.Cloud"
-	},
-	"sideEffects": false,
-	"type": "module",
 	"scripts": {
 		"Document": "Document 'Source/**/*.ts'",
 		"compile": "concurrently \"npm:compile:*\"",
@@ -32,12 +37,7 @@
 		"watch:esm": "tsc --watch -p tsconfig.browser.json",
 		"watch:ext": "tsc --watch"
 	},
-	"dependencies": {},
-	"devDependencies": {
-		"@playform/build": "0.0.7",
-		"@playform/document": "0.0.6"
-	},
-	"publishConfig": {
-		"access": "public"
-	}
+	"sideEffects": false,
+	"type": "module",
+	"version": "0.0.1"
 }
