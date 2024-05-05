@@ -4,19 +4,22 @@
 	"version": "0.0.1",
 	"private": false,
 	"description": "Flame graph visualizer for Heap and CPU profiles taken from the JavaScript debugger",
-	"homepage": "https://github.com/CodeEditorLand/Foundation#readme",
+	"keywords": [
+		"land"
+	],
+	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/LandJSProfileVisualizer#readme",
 	"bugs": {
-		"url": "https://github.com/CodeEditorLand/Foundation/issues"
+		"url": "HTTPS://GitHub.Com/CodeEditorLand/LandJSProfileVisualizer/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/CodeEditorLand/Foundation.git"
+		"url": "git+HTTPS://github.com/CodeEditorLand/LandJSProfileVisualizer.git"
 	},
 	"license": "SEE LICENSE IN LICENSE",
 	"author": {
-		"name": "Playform",
-		"email": "Hello@Playform.Cloud",
-		"url": "https://playform.cloud"
+		"name": "🌆 — Land —",
+		"email": "Land@PlayForm.Cloud",
+		"url": "HTTPS://Land.PlayForm.Cloud"
 	},
 	"sideEffects": false,
 	"type": "module",
@@ -26,10 +29,10 @@
 		"out"
 	],
 	"scripts": {
+		"Document": "Document 'Source/**/*.ts'",
 		"compile": "rimraf out && webpack --mode production",
 		"pack": "vsce package --yarn",
-		"prepublishOnly": "TypeScriptESBuild 'Source/**/*.ts'",
-		"watch": "webpack --mode development --watch"
+		"prepublishOnly": "Build 'Source/**/*.ts'"
 	},
 	"contributes": {
 		"commands": [
@@ -97,16 +100,6 @@
 					}
 				],
 				"viewType": "jsProfileVisualizer.heapprofile.flame"
-			},
-			{
-				"displayName": "Heap Snapshot Retainers Graph Visualizer",
-				"priority": "option",
-				"selector": [
-					{
-						"filenamePattern": "*.heapsnapshot"
-					}
-				],
-				"viewType": "jsProfileVisualizer.heapsnapshot.flame"
 			}
 		],
 		"menus": {
@@ -154,19 +147,21 @@
 			]
 		}
 	},
+	"activationEvents": [
+		"onCommand:jsProfileVisualizer.heapsnapshot.flame.show",
+		"onWebviewPanel:jsProfileVisualizer.heapsnapshot.flame.show"
+	],
 	"dependencies": {
-		"@vscode/codicons": "^0.0.35",
-		"chroma-js": "^2.4.2",
-		"cytoscape": "^3.27.0",
-		"cytoscape-klay": "^3.1.4",
-		"vscode-js-profile-core": "*",
-		"vscode-webview-tools": "^0.1.1"
+		"chroma-js": "2.4.2",
+		"cytoscape": "3.29.2",
+		"cytoscape-klay": "3.1.4"
 	},
 	"devDependencies": {
-		"@types/chroma-js": "^2.4.3",
-		"@types/cytoscape": "^3.19.15",
-		"@types/resize-observer-browser": "^0.1.7",
-		"typescript-esbuild": "0.4.5"
+		"@playform/build": "0.0.7",
+		"@playform/document": "0.0.6",
+		"@types/chroma-js": "2.4.4",
+		"@types/cytoscape": "3.21.0",
+		"@types/resize-observer-browser": "0.1.11"
 	},
 	"publishConfig": {
 		"access": "public"
