@@ -1,28 +1,8 @@
 {
 	"name": "vscode-js-profile-flame",
 	"displayName": "Flame Chart Visualizer for JavaScript Profiles",
-	"version": "0.0.1",
-	"private": false,
 	"description": "Flame graph visualizer for Heap and CPU profiles taken from the JavaScript debugger",
-	"keywords": [
-		"land"
-	],
-	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/LandJSProfileVisualizer#readme",
-	"bugs": {
-		"url": "HTTPS://GitHub.Com/CodeEditorLand/LandJSProfileVisualizer/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+HTTPS://github.com/CodeEditorLand/LandJSProfileVisualizer.git"
-	},
-	"license": "SEE LICENSE IN LICENSE",
-	"author": {
-		"name": "🛬 Land —",
-		"email": "Land@PlayForm.Cloud",
-		"url": "HTTPS://Land.PlayForm.Cloud"
-	},
 	"sideEffects": false,
-	"type": "module",
 	"main": "out/extension.js",
 	"browser": "out/extension.web.js",
 	"files": [
@@ -158,13 +138,9 @@
 	},
 	"devDependencies": {
 		"@playform/build": "0.0.7",
-		"@playform/document": "0.0.6",
 		"@types/chroma-js": "2.4.4",
 		"@types/cytoscape": "3.21.0",
 		"@types/resize-observer-browser": "0.1.11"
-	},
-	"publishConfig": {
-		"access": "public"
 	},
 	"icon": "resources/logo.png",
 	"capabilities": {

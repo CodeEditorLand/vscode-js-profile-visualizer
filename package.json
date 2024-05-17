@@ -1,25 +1,5 @@
 {
 	"name": "js-profile-visualizer",
-	"version": "0.0.1",
-	"private": false,
-	"keywords": [
-		"land"
-	],
-	"homepage": "HTTPS://GitHub.Com/CodeEditorLand/LandJSProfileVisualizer#readme",
-	"bugs": {
-		"url": "HTTPS://GitHub.Com/CodeEditorLand/LandJSProfileVisualizer/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+HTTPS://github.com/CodeEditorLand/LandJSProfileVisualizer.git"
-	},
-	"license": "SEE LICENSE IN LICENSE",
-	"author": {
-		"name": "🛬 Land —",
-		"email": "Land@PlayForm.Cloud",
-		"url": "HTTPS://Land.PlayForm.Cloud"
-	},
-	"type": "module",
 	"workspaces": [
 		"packages/vscode-js-profile-core",
 		"packages/vscode-js-profile-flame",
@@ -41,7 +21,6 @@
 	},
 	"devDependencies": {
 		"@playform/build": "0.0.7",
-		"@playform/document": "0.0.6",
 		"@types/glob": "8.1.0",
 		"@types/node": "20.12.10",
 		"autoprefixer": "10.4.19",
@@ -63,8 +42,5 @@
 		"style-loader": "4.0.0",
 		"svg-inline-loader": "0.8.2",
 		"ts-loader": "9.5.1"
-	},
-	"publishConfig": {
-		"access": "public"
 	}
 }
