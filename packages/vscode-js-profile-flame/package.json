@@ -131,7 +131,7 @@
 	"description": "Flame graph visualizer for Heap and CPU profiles taken from the JavaScript debugger",
 	"devDependencies": {
 		"@types/chroma-js": "^2.4.4",
-		"@types/cytoscape": "^3.21.2",
+		"@types/cytoscape": "^3.21.3",
 		"@types/resize-observer-browser": "^0.1.11"
 	},
 	"displayName": "Flame Chart Visualizer for JavaScript Profiles",
