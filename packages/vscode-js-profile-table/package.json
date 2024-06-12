@@ -55,7 +55,7 @@
 		}
 	},
 	"dependencies": {
-		"pretty-bytes": "^6.1.1"
+		"pretty-bytes": "6.1.1"
 	},
 	"description": "Text visualizer for profiles taken from the JavaScript debugger",
 	"displayName": "Table Visualizer for JavaScript Profiles",
