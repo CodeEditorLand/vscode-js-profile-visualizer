@@ -131,13 +131,13 @@
 	],
 	"dependencies": {
 		"chroma-js": "^2.4.2",
-		"cytoscape": "^3.27.0",
+		"cytoscape": "^3.29.2",
 		"cytoscape-klay": "^3.1.4"
 	},
 	"devDependencies": {
-		"@types/chroma-js": "^2.4.3",
-		"@types/cytoscape": "^3.19.15",
-		"@types/resize-observer-browser": "^0.1.7"
+		"@types/chroma-js": "^2.4.4",
+		"@types/cytoscape": "^3.21.3",
+		"@types/resize-observer-browser": "^0.1.11"
 	},
 	"icon": "resources/logo.png",
 	"capabilities": {
