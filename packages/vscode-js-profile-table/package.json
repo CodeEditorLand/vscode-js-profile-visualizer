@@ -1,10 +1,16 @@
 {
+	"name": "vscode-js-profile-table",
+	"displayName": "Table Visualizer for JavaScript Profiles",
+	"description": "Text visualizer for profiles taken from the JavaScript debugger",
+	"sideEffects": false,
+	"main": "out/extension.js",
 	"browser": "out/extension.web.js",
-	"capabilities": {
-		"untrustedWorkspaces": {
-			"supported": true
-		},
-		"virtualWorkspaces": true
+	"files": [
+		"out"
+	],
+	"scripts": {
+		"compile": "rimraf out && webpack --mode production",
+		"pack": "vsce package --yarn"
 	},
 	"contributes": {
 		"commands": [
@@ -57,17 +63,11 @@
 	"dependencies": {
 		"pretty-bytes": "^6.1.1"
 	},
-	"description": "Text visualizer for profiles taken from the JavaScript debugger",
-	"displayName": "Table Visualizer for JavaScript Profiles",
-	"files": [
-		"out"
-	],
 	"icon": "resources/icon.png",
-	"main": "out/extension.js",
-	"name": "vscode-js-profile-table",
-	"scripts": {
-		"compile": "rimraf out && webpack --mode production",
-		"pack": "vsce package --yarn"
-	},
-	"sideEffects": false
+	"capabilities": {
+		"untrustedWorkspaces": {
+			"supported": true
+		},
+		"virtualWorkspaces": true
+	}
 }
