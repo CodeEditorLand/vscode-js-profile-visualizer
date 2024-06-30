@@ -61,7 +61,7 @@
 		}
 	},
 	"dependencies": {
-		"pretty-bytes": "^6.1.1"
+		"pretty-bytes": "6.1.1"
 	},
 	"icon": "resources/icon.png",
 	"capabilities": {
