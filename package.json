@@ -1,28 +1,10 @@
 {
-	"devDependencies": {
-		"@types/glob": "^8.1.0",
-		"@types/node": "^20.9.0",
-		"autoprefixer": "^10.4.16",
-		"chokidar-cli": "^3.0.0",
-		"concurrently": "^8.2.2",
-		"cpy-cli": "^5.0.0",
-		"cross-env": "^7.0.3",
-		"css-loader": "^6.8.1",
-		"cssnano": "^6.0.1",
-		"devtools-protocol": "0.0.1222075",
-		"glob": "^10.3.10",
-		"os-browserify": "^0.3.0",
-		"path-browserify": "^1.0.1",
-		"postcss-loader": "^7.3.3",
-		"raw-loader": "^4.0.2",
-		"rimraf": "^5.0.5",
-		"source-map-loader": "^4.0.1",
-		"source-map-support": "^0.5.21",
-		"style-loader": "^3.3.3",
-		"svg-inline-loader": "^0.8.2",
-		"ts-loader": "^9.5.0"
-	},
 	"name": "js-profile-visualizer",
+	"workspaces": [
+		"packages/vscode-js-profile-core",
+		"packages/vscode-js-profile-flame",
+		"packages/vscode-js-profile-table"
+	],
 	"scripts": {
 		"clean": "rimraf -g \"packages/*/out\"",
 		"compile": "npm run clean && npm run compile:core && concurrently \"npm:compile:table\" \"npm:compile:flame\"",
@@ -35,9 +17,27 @@
 		"watch:flame": "npm run -w vscode-js-profile-flame watch",
 		"watch:table": "npm run -w vscode-js-profile-table watch"
 	},
-	"workspaces": [
-		"packages/vscode-js-profile-core",
-		"packages/vscode-js-profile-flame",
-		"packages/vscode-js-profile-table"
-	]
+	"devDependencies": {
+		"@types/glob": "8.1.0",
+		"@types/node": "20.14.12",
+		"autoprefixer": "10.4.19",
+		"chokidar-cli": "3.0.0",
+		"concurrently": "8.2.2",
+		"cpy-cli": "5.0.0",
+		"cross-env": "7.0.3",
+		"css-loader": "7.1.2",
+		"cssnano": "7.0.4",
+		"devtools-protocol": "0.0.1330662",
+		"glob": "11.0.0",
+		"os-browserify": "0.3.0",
+		"path-browserify": "1.0.1",
+		"postcss-loader": "8.1.1",
+		"raw-loader": "4.0.2",
+		"rimraf": "6.0.1",
+		"source-map-loader": "5.0.0",
+		"source-map-support": "0.5.21",
+		"style-loader": "4.0.0",
+		"svg-inline-loader": "0.8.2",
+		"ts-loader": "9.5.1"
+	}
 }
