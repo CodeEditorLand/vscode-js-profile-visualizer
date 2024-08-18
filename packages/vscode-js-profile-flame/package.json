@@ -124,14 +124,14 @@
 		}
 	},
 	"dependencies": {
-		"chroma-js": "2.6.0",
+		"chroma-js": "3.0.0",
 		"cytoscape": "3.30.2",
 		"cytoscape-klay": "3.1.4"
 	},
 	"description": "Flame graph visualizer for Heap and CPU profiles taken from the JavaScript debugger",
 	"devDependencies": {
 		"@types/chroma-js": "2.4.4",
-		"@types/cytoscape": "3.21.5",
+		"@types/cytoscape": "3.21.6",
 		"@types/resize-observer-browser": "0.1.11"
 	},
 	"displayName": "Flame Chart Visualizer for JavaScript Profiles",
