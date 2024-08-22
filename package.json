@@ -1,4 +1,22 @@
 {
+	"name": "js-profile-visualizer",
+	"workspaces": [
+		"packages/vscode-js-profile-core",
+		"packages/vscode-js-profile-flame",
+		"packages/vscode-js-profile-table"
+	],
+	"scripts": {
+		"clean": "rimraf -g \"packages/*/out\"",
+		"compile": "npm run clean && npm run compile:core && concurrently \"npm:compile:table\" \"npm:compile:flame\"",
+		"compile:core": "npm run -w vscode-js-profile-core compile",
+		"compile:flame": "npm run -w vscode-js-profile-flame compile",
+		"compile:table": "npm run -w vscode-js-profile-table compile",
+		"pack": "npm run compile && npm run -ws pack",
+		"test:unit": "vitest run",
+		"watch:core": "npm run -w vscode-js-profile-core watch",
+		"watch:flame": "npm run -w vscode-js-profile-flame watch",
+		"watch:table": "npm run -w vscode-js-profile-table watch"
+	},
 	"devDependencies": {
 		"@types/glob": "8.1.0",
 		"@types/node": "22.4.0",
@@ -21,23 +39,5 @@
 		"style-loader": "4.0.0",
 		"svg-inline-loader": "0.8.2",
 		"ts-loader": "9.5.1"
-	},
-	"name": "js-profile-visualizer",
-	"scripts": {
-		"clean": "rimraf -g \"packages/*/out\"",
-		"compile": "npm run clean && npm run compile:core && concurrently \"npm:compile:table\" \"npm:compile:flame\"",
-		"compile:core": "npm run -w vscode-js-profile-core compile",
-		"compile:flame": "npm run -w vscode-js-profile-flame compile",
-		"compile:table": "npm run -w vscode-js-profile-table compile",
-		"pack": "npm run compile && npm run -ws pack",
-		"test:unit": "vitest run",
-		"watch:core": "npm run -w vscode-js-profile-core watch",
-		"watch:flame": "npm run -w vscode-js-profile-flame watch",
-		"watch:table": "npm run -w vscode-js-profile-table watch"
-	},
-	"workspaces": [
-		"packages/vscode-js-profile-core",
-		"packages/vscode-js-profile-flame",
-		"packages/vscode-js-profile-table"
-	]
+	}
 }
