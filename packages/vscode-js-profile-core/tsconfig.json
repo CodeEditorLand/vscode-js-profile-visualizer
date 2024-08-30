@@ -1,8 +1,0 @@
-{
-  "extends": "../../scripts/tsconfig.json",
-  "include": ["src"],
-  "compilerOptions": {
-    "outDir": "out",
-    "declaration": true,
-  }
-}
