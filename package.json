@@ -1,15 +1,15 @@
 {
 	"devDependencies": {
 		"@types/glob": "8.1.0",
-		"@types/node": "22.8.6",
+		"@types/node": "22.9.0",
 		"autoprefixer": "10.4.20",
 		"chokidar-cli": "3.0.0",
-		"concurrently": "9.0.1",
+		"concurrently": "9.1.0",
 		"cpy-cli": "5.0.0",
 		"cross-env": "7.0.3",
 		"css-loader": "7.1.2",
 		"cssnano": "7.0.6",
-		"devtools-protocol": "0.0.1376744",
+		"devtools-protocol": "0.0.1378738",
 		"glob": "11.0.0",
 		"os-browserify": "0.3.0",
 		"path-browserify": "1.0.1",
