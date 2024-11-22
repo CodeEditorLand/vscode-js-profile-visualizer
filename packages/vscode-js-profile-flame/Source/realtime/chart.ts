@@ -10,10 +10,13 @@ import { durationFormat } from "./metrics";
 import { Settings } from "./settings";
 
 const naturalAspectRatio = 16 / 9;
+
 const autoOpenAspectRatio = 4 / 3;
+
 const autoCloseAspectRatio = (naturalAspectRatio + autoOpenAspectRatio) / 2;
 
 const openToSideWidth = 250;
+
 const openToSideMinSpace = 600;
 
 export class Chart {
@@ -59,6 +62,7 @@ export class Chart {
 	public updateSize(width: number, height: number) {
 		if (!this.configHadManualToggle) {
 			const ratio = width / height;
+
 			if (ratio < autoOpenAspectRatio) {
 				this.setConfiguratorOpen(true);
 			} else if (ratio > autoCloseAspectRatio) {
@@ -70,7 +74,9 @@ export class Chart {
 		this.height = height;
 
 		let graphHeight: number;
+
 		let graphWidth: number;
+
 		if (!this.configOpen) {
 			graphHeight = height - Sizing.LabelHeight;
 			graphWidth = width;
@@ -103,6 +109,7 @@ export class Chart {
 		this.frameCanvas.updateMetrics();
 
 		this.updateMaxElements();
+
 		if (this.frameCanvas.hoveredIndex === undefined) {
 			this.updateValueElements();
 		}
@@ -148,14 +155,17 @@ export class Chart {
 		}
 
 		this.configOpen = isOpen;
+
 		if (isOpen) {
 			this.elem.appendChild(this.configurator.elem);
 			this.elem.removeChild(this.elements.labelList);
+
 			document.body.style.overflowY = "auto";
 			this.elements.container.classList.add(styles.configOpen);
 		} else {
 			this.elem.removeChild(this.configurator.elem);
 			this.elem.appendChild(this.elements.labelList);
+
 			document.body.style.overflowY = "hidden";
 			this.elements.container.classList.remove(styles.configOpen);
 		}
@@ -232,6 +242,7 @@ export class Chart {
 
 		for (let i = 0; i < this.settings.enabledMetrics.length; i++) {
 			const metric = this.settings.enabledMetrics[i];
+
 			const label = document.createElement("span");
 			label.style.setProperty(
 				"--metric-color",
@@ -248,9 +259,11 @@ export class Chart {
 			const maxWrapper = document.createElement("div");
 			maxWrapper.classList.add(styles.max);
 			maxWrapper.style.top = `${(i / this.settings.enabledMetrics.length) * 100}%`;
+
 			const maxLabel = document.createElement("span");
 			maxWrapper.classList.add(styles.maxLabel);
 			maxLabel.innerText = `${metric.short()} `;
+
 			const maxValue = document.createElement("span");
 			maxValue.innerText = metric.format(metric.maxY);
 			maxWrapper.appendChild(maxLabel);

@@ -36,6 +36,7 @@ export const doGraphRpc = (
 				window.removeEventListener("message", listener);
 
 				const result = event.data.message.result;
+
 				if ("ok" in result) {
 					resolve(result.ok);
 				} else {

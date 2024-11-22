@@ -12,11 +12,14 @@ export function binarySearch<T>(
 	comparator: (value: T) => number,
 ): number {
 	let low = 0;
+
 	let high = array.length - 1;
 
 	while (low <= high) {
 		const mid = ((low + high) / 2) | 0;
+
 		const comp = comparator(array[mid]);
+
 		if (comp < 0) {
 			low = mid + 1;
 		} else if (comp > 0) {
@@ -34,6 +37,7 @@ export function binarySearch<T>(
 export const addToSet = <T>(set: ReadonlySet<T>, value: T) => {
 	const next = new Set([...set, value]);
 	next.add(value);
+
 	return next;
 };
 
@@ -43,6 +47,7 @@ export const addToSet = <T>(set: ReadonlySet<T>, value: T) => {
 export const removeFromSet = <T>(set: ReadonlySet<T>, value: T) => {
 	const next = new Set([...set]);
 	next.delete(value);
+
 	return next;
 };
 
@@ -52,6 +57,7 @@ export const removeFromSet = <T>(set: ReadonlySet<T>, value: T) => {
  */
 export const toggleInSet = <T>(set: ReadonlySet<T>, value: T) => {
 	const next = new Set([...set]);
+
 	if (next.has(value)) {
 		next.delete(value);
 	} else {
@@ -68,6 +74,7 @@ const unset = Symbol("unset");
  */
 export const once = <T>(fn: () => T) => {
 	let value: T | typeof unset = unset;
+
 	return () => {
 		if (value === unset) {
 			value = fn();

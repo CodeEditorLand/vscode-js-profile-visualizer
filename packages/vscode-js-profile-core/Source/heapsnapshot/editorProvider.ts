@@ -48,6 +48,7 @@ const workerRegistry = ((globalThis as any).__jsHeapSnapshotWorkers ??=
 		>();
 		public async create(uri: vscode.Uri): Promise<IWorker> {
 			let rec = this.workers.get(uri.with({ query: "" }).toString());
+
 			if (!rec) {
 				const worker = await startWorker(uri);
 				rec = { worker, rc: 0 };
@@ -55,6 +56,7 @@ const workerRegistry = ((globalThis as any).__jsHeapSnapshotWorkers ??=
 			}
 
 			rec.rc++;
+
 			if (rec.closer) {
 				clearTimeout(rec.closer);
 				rec.closer = undefined;
@@ -94,7 +96,9 @@ export const setupHeapSnapshotWebview = async (
 					message.requireExtension,
 					message.toSide,
 				);
+
 				return;
+
 			case "command":
 				requireExtension(message.requireExtension, () =>
 					vscode.commands.executeCommand(
@@ -102,10 +106,14 @@ export const setupHeapSnapshotWebview = async (
 						...message.args,
 					),
 				);
+
 				return;
+
 			case "callGraph":
 				worker.postMessage(message.inner);
+
 				return;
+
 			default:
 				console.warn(
 					`Unknown request from webview: ${JSON.stringify(message)}`,
@@ -143,6 +151,7 @@ export class HeapSnapshotEditorProvider
 	 */
 	async openCustomDocument(uri: vscode.Uri) {
 		const worker = await createHeapSnapshotWorker(uri);
+
 		return new HeapSnapshotDocument(uri, worker);
 	}
 

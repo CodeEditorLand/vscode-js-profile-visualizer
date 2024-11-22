@@ -23,6 +23,7 @@ export abstract class ProfileAnnotations<TNode extends INode> {
 	public add(rootPath: string | undefined, node: TNode) {
 		const expand = once(() => {
 			const seen = new Set<string>();
+
 			const basePosition = new Position(
 				Math.max(0, node.callFrame.lineNumber),
 				Math.max(0, node.callFrame.columnNumber),
@@ -31,6 +32,7 @@ export abstract class ProfileAnnotations<TNode extends INode> {
 			this.set(node.callFrame.url, basePosition, node);
 
 			const src = node.src;
+
 			if (
 				!src ||
 				src.source.sourceReference !== 0 ||
@@ -47,6 +49,7 @@ export abstract class ProfileAnnotations<TNode extends INode> {
 				);
 
 				const key = `${path}/${position.line}`;
+
 				if (!seen.has(key)) {
 					seen.add(key);
 					this.set(path, position, node);
@@ -55,6 +58,7 @@ export abstract class ProfileAnnotations<TNode extends INode> {
 		});
 
 		this.addExpansionFn(getBasename(node.callFrame.url), expand);
+
 		if (node.src?.source.path) {
 			this.addExpansionFn(getBasename(node.src.source.path), expand);
 		}
@@ -64,6 +68,7 @@ export abstract class ProfileAnnotations<TNode extends INode> {
 	 */
 	protected addExpansionFn(basename: string, expand: () => void) {
 		let arr = this.basenamesToExpand.get(basename);
+
 		if (!arr) {
 			arr = [];
 			this.basenamesToExpand.set(basename, arr);
@@ -84,7 +89,9 @@ export abstract class ProfileAnnotations<TNode extends INode> {
 
 	protected expandForFile(file: string) {
 		const basename = getBasename(file);
+
 		const fns = this.basenamesToExpand.get(basename);
+
 		if (!fns) {
 			return;
 		}

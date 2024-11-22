@@ -52,6 +52,7 @@ export class TextCache {
 		h = Math.min(this.charHeight, h);
 
 		let xOffset = 0;
+
 		for (let i = 0; i < text.length; i++) {
 			if (xOffset >= w) {
 				return;
@@ -76,12 +77,14 @@ export class TextCache {
 
 	private getCharCoordinate(charCode: number) {
 		const cached = this.cached.get(charCode);
+
 		if (cached !== undefined) {
 			return cached;
 		}
 
 		if (this.cached.size === this.capacity) {
 			const canvas = this.context.canvas;
+
 			const existing = this.context.getImageData(
 				0,
 				0,
@@ -96,6 +99,7 @@ export class TextCache {
 		const x = this.cached.size * (this.charWidth + 1);
 		this.cached.set(charCode, x);
 		this.context.fillText(String.fromCharCode(charCode), x, 0);
+
 		return x;
 	}
 }
@@ -113,8 +117,10 @@ const getTextMeasure = (font: string) => {
 	measureElement.textContent = "W";
 	measureElement.setAttribute("aria-hidden", "true");
 	measureElement.style.font = font;
+
 	document.body.appendChild(measureElement);
 
 	const geometry = measureElement.getBoundingClientRect();
+
 	return { width: geometry.width, height: geometry.height };
 };

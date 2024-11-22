@@ -32,17 +32,22 @@ export class HeapProfileEditorProvider
 	 */
 	async openCustomDocument(uri: vscode.Uri) {
 		const content = await vscode.workspace.fs.readFile(uri);
+
 		const raw: IHeapProfileRaw = JSON.parse(
 			new TextDecoder().decode(content),
 		);
+
 		const document = new ReadonlyCustomDocument(uri, buildModel(raw));
 
 		const tree = createTree(document.userData);
+
 		const treeNodes: ITreeNode[] = [tree];
+
 		let nodes: ITreeNode[] = [tree];
 
 		while (nodes.length) {
 			const node = nodes.pop();
+
 			if (node) {
 				treeNodes.push(node);
 				nodes = nodes.concat(Object.values(node.children));
@@ -50,12 +55,15 @@ export class HeapProfileEditorProvider
 		}
 
 		const annotations = new HeapProfileAnnotations();
+
 		const rootPath = document.userData.rootPath;
+
 		for (const treeNode of treeNodes) {
 			annotations.add(rootPath, treeNode);
 		}
 
 		this.lens.registerLenses(annotations);
+
 		return document;
 	}
 
@@ -77,14 +85,18 @@ export class HeapProfileEditorProvider
 						callFrame: message.callFrame,
 						location: message.location,
 					});
+
 					return;
+
 				case "reopenWith":
 					reopenWithEditor(
 						document.uri,
 						message.viewType,
 						message.requireExtension,
 					);
+
 					return;
+
 				default:
 					console.warn(
 						`Unknown request from webview: ${JSON.stringify(message)}`,

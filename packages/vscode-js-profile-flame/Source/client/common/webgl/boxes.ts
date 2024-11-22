@@ -15,19 +15,23 @@ const createShader = (
 	source: string,
 ) => {
 	const shader = gl.createShader(type);
+
 	if (!shader) {
 		throw new Error(`Failed creating shader ${type}`);
 	}
 
 	gl.shaderSource(shader, source);
 	gl.compileShader(shader);
+
 	const success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
+
 	if (success) {
 		return shader;
 	}
 
 	const log = gl.getShaderInfoLog(shader);
 	gl.deleteShader(shader);
+
 	throw new Error(`Shader creation failed (${log || "unknown"})`);
 };
 
@@ -37,6 +41,7 @@ const createProgram = (
 	fragmentShader: WebGLShader,
 ) => {
 	const program = gl.createProgram();
+
 	if (!program) {
 		throw new Error(`Failed creating program`);
 	}
@@ -44,13 +49,16 @@ const createProgram = (
 	gl.attachShader(program, vertexShader);
 	gl.attachShader(program, fragmentShader);
 	gl.linkProgram(program);
+
 	const success = gl.getProgramParameter(program, gl.LINK_STATUS);
+
 	if (success) {
 		return program;
 	}
 
 	const log = gl.getProgramInfoLog(program);
 	gl.deleteProgram(program);
+
 	throw new Error(`Program creation failed (${log || "unknown"})`);
 };
 
@@ -71,6 +79,7 @@ export const setupGl = ({
 }: IOptions) => {
 	// Get A WebGL context
 	const gl = canvas.getContext("webgl2");
+
 	if (!gl) {
 		return;
 	}
@@ -82,7 +91,9 @@ export const setupGl = ({
 	);
 
 	const boxAttributeLocation = gl.getAttribLocation(boxProgram, "boxes");
+
 	const vertexBuffer = gl.createBuffer();
+
 	let vertexCount = 0;
 
 	const setBoxes = (boxes: ReadonlyArray<IBox>) => {
@@ -93,7 +104,9 @@ export const setupGl = ({
 		const indexData = new Uint32Array(vertexCount);
 
 		let pi = 0;
+
 		let ii = 0;
+
 		for (const box of boxes) {
 			const topLeft = pi >>> 2;
 			positions[pi++] = box.x1;
@@ -169,9 +182,13 @@ export const setupGl = ({
 	};
 
 	const boundsLocation = gl.getUniformLocation(boxProgram, "bounds");
+
 	const hoveredLocation = gl.getUniformLocation(boxProgram, "hovered");
+
 	const focusedLocation = gl.getUniformLocation(boxProgram, "focused");
+
 	const focusColorLocation = gl.getUniformLocation(boxProgram, "focus_color");
+
 	const primaryColorLocation = gl.getUniformLocation(
 		boxProgram,
 		"primary_color",
@@ -214,6 +231,7 @@ export const setupGl = ({
 		}
 
 		const parsed = chroma(color);
+
 		const hsv = parsed.luminance(Math.min(parsed.luminance(), 0.25)).hsv();
 		gl.uniform4f(
 			primaryColorLocation,
@@ -227,13 +245,17 @@ export const setupGl = ({
 	// Clear the canvas
 	gl.clearColor(0, 0, 0, 0);
 	gl.useProgram(boxProgram);
+
 	setBounds(
 		{ minX: 0, maxX: 1, y: 0, level: 0 },
 		{ width: 100, height: 100 },
 		initialScale,
 	);
+
 	setBoxes(initialBoxes);
+
 	setFocusColor(focusColor);
+
 	setPrimaryColor(primaryColor);
 	redraw();
 

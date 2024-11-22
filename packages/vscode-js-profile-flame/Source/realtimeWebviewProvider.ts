@@ -31,7 +31,9 @@ export class RealtimeWebviewProvider implements vscode.WebviewViewProvider {
 			switch (evt.type) {
 				case MessageType.SetEnabledMetrics:
 					this.tracker.setEnabledMetrics(evt.keys);
+
 					break;
+
 				default:
 				// ignored
 			}
@@ -42,6 +44,7 @@ export class RealtimeWebviewProvider implements vscode.WebviewViewProvider {
 		const scriptUri = webview.asWebviewUri(
 			vscode.Uri.joinPath(this.extensionUri, "out", "realtime.bundle.js"),
 		);
+
 		const nonce = makeNonce();
 
 		return `<!DOCTYPE html>

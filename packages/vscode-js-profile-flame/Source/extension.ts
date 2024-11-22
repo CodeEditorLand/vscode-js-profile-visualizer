@@ -28,6 +28,7 @@ const allConfig = [Config.PollInterval, Config.ViewDuration, Config.Easing];
 
 export function activate(context: vscode.ExtensionContext) {
 	const realtimeTracker = new RealtimeSessionTracker(context);
+
 	const realtime = new RealtimeWebviewProvider(
 		context.extensionUri,
 		realtimeTracker,
@@ -84,7 +85,9 @@ export function activate(context: vscode.ExtensionContext) {
 				);
 
 				const uri = vscode.Uri.parse(rawUri);
+
 				const worker = await createHeapSnapshotWorker(uri);
+
 				const webviewDisposable = await setupHeapSnapshotWebview(
 					worker,
 					vscode.Uri.joinPath(
@@ -141,7 +144,9 @@ export function activate(context: vscode.ExtensionContext) {
 			"vscode-js-profile-flame.setRealtimeCharts",
 			async () => {
 				const metrics = createMetrics();
+
 				const settings = readRealtimeSettings(context);
+
 				const quickpick = vscode.window.createQuickPick<{
 					label: string;
 					index: number;

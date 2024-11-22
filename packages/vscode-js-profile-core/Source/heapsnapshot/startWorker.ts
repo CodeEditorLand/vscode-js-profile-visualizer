@@ -19,6 +19,7 @@ export const startWorker = async (uri: vscode.Uri): Promise<Workerish> => {
 		postMessage: (m) => w.postMessage(m),
 		onMessage: (l) => {
 			w.on("message", l);
+
 			return { dispose: () => w.off("message", l) };
 		},
 		terminate: async () => {

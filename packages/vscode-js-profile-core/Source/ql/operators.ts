@@ -37,11 +37,14 @@ export const operators: IOperatorMap = {
 		"<>": (n) => (v) => v !== n,
 		"~=": (n) => {
 			const reExtract = /^\/(.+)\/([a-z])*$/.exec(n);
+
 			const re = reExtract
 				? new RegExp(reExtract[1], reExtract[2])
 				: new RegExp(n);
+
 			return (v) => {
 				re.lastIndex = 0;
+
 				return re.test(v);
 			};
 		},

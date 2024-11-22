@@ -65,11 +65,13 @@ const computeAggregateTime = (
 	nodes: IComputedNode[],
 ): number => {
 	const row = nodes[index];
+
 	if (row.aggregateTime) {
 		return row.aggregateTime;
 	}
 
 	let total = row.selfTime;
+
 	for (const child of row.children) {
 		total += computeAggregateTime(child, nodes);
 	}
@@ -89,6 +91,7 @@ const ensureSourceLocations = (
 	}
 
 	let locationIdCounter = 0;
+
 	const locationsByRef = new Map<
 		string,
 		{
@@ -108,6 +111,7 @@ const ensureSourceLocations = (
 		].join(":");
 
 		const existing = locationsByRef.get(ref);
+
 		if (existing) {
 			return existing.id;
 		}
@@ -170,7 +174,9 @@ export const buildModel = (profile: ICpuProfileRaw): IProfileModel => {
 	}
 
 	const { samples, timeDeltas } = profile;
+
 	const sourceLocations = ensureSourceLocations(profile);
+
 	const locations: ILocation[] = sourceLocations.map((l, id) => {
 		const src = getBestLocation(profile, l.locations);
 
@@ -189,8 +195,10 @@ export const buildModel = (profile: ICpuProfileRaw): IProfileModel => {
 		number /* id in profile */,
 		number /* incrementing ID */
 	>();
+
 	const mapId = (nodeId: number) => {
 		let id = idMap.get(nodeId);
+
 		if (id === undefined) {
 			id = idMap.size;
 			idMap.set(nodeId, id);
@@ -202,6 +210,7 @@ export const buildModel = (profile: ICpuProfileRaw): IProfileModel => {
 	// 1. Created a sorted list of nodes. It seems that the profile always has
 	// incrementing IDs, although they are just not initially sorted.
 	const nodes = new Array<IComputedNode>(profile.nodes.length);
+
 	for (let i = 0; i < profile.nodes.length; i++) {
 		const node = profile.nodes[i];
 
@@ -231,7 +240,9 @@ export const buildModel = (profile: ICpuProfileRaw): IProfileModel => {
 	// 2. The profile samples are the 'bottom-most' node, the currently running
 	// code. Sum of these in the self time.
 	const duration = profile.endTime - profile.startTime;
+
 	let lastNodeTime = duration - timeDeltas[0];
+
 	for (let i = 0; i < timeDeltas.length - 1; i++) {
 		const d = timeDeltas[i + 1];
 		nodes[mapId(samples[i])].selfTime += d;
@@ -250,6 +261,7 @@ export const buildModel = (profile: ICpuProfileRaw): IProfileModel => {
 	// 3. Add the aggregate times for all node children and locations
 	for (let i = 0; i < nodes.length; i++) {
 		const node = nodes[i];
+
 		const location = locations[node.locationId];
 		location.aggregateTime += computeAggregateTime(i, nodes);
 		location.selfTime += node.selfTime;

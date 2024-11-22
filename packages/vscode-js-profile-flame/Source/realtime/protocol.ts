@@ -72,6 +72,7 @@ export interface IAddData {
 
 export interface IUpdateSettingsMessage {
 	type: MessageType.UpdateSettings;
+
 	settings: ISettings;
 }
 

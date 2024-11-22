@@ -32,18 +32,23 @@ export class CpuProfileEditorProvider
 	 */
 	async openCustomDocument(uri: vscode.Uri) {
 		const content = await vscode.workspace.fs.readFile(uri);
+
 		const raw: ICpuProfileRaw = JSON.parse(
 			new TextDecoder().decode(content),
 		);
+
 		const document = new ReadonlyCustomDocument(uri, buildModel(raw));
 
 		const annotations = new CpuProfileAnnotations();
+
 		const rootPath = document.userData.rootPath;
+
 		for (const location of document.userData.locations) {
 			annotations.add(rootPath, location);
 		}
 
 		this.lens.registerLenses(annotations);
+
 		return document;
 	}
 
@@ -65,14 +70,18 @@ export class CpuProfileEditorProvider
 						callFrame: message.callFrame,
 						location: message.location,
 					});
+
 					return;
+
 				case "reopenWith":
 					reopenWithEditor(
 						document.uri,
 						message.viewType,
 						message.requireExtension,
 					);
+
 					return;
+
 				default:
 					console.warn(
 						`Unknown request from webview: ${JSON.stringify(message)}`,

@@ -48,17 +48,22 @@ export const lex = (expr: string) => {
 	const tokens: ILexed[] = [];
 
 	let i = 0;
+
 	const eat = (
 		token: Token,
 		test: (char: string, i: number) => boolean,
 	): ILexed => {
 		let text = "";
+
 		const start = i;
+
 		while (i < expr.length) {
 			const char = expr[i];
+
 			if (char === Chars.Escape) {
 				text += expr[++i];
 				i++;
+
 				continue;
 			}
 
@@ -74,6 +79,7 @@ export const lex = (expr: string) => {
 	};
 
 	let state = Token.Text;
+
 	if (expr[0] === Chars.StartColumn) {
 		state = Token.Column;
 		i++;
@@ -81,12 +87,14 @@ export const lex = (expr: string) => {
 
 	while (i < expr.length) {
 		const char = expr[i];
+
 		switch (state) {
 			case Token.Text:
 				const nextCol = expr.indexOf(
 					Chars.Space + Chars.StartColumn,
 					i,
 				);
+
 				if (nextCol === -1) {
 					tokens.push(eat(Token.Text, () => true));
 				} else {
@@ -95,17 +103,23 @@ export const lex = (expr: string) => {
 					state = Token.Column; // either starting a column or at end of str
 				}
 				break;
+
 			case Token.Column:
 				tokens.push(eat(Token.Column, (c) => c >= "A" && c <= "z"));
 				state = Token.Operator;
+
 				break;
+
 			case Token.Operator:
 				tokens.push(eat(Token.Operator, (c) => operatorTokens.has(c)));
 				state = Token.Value;
+
 				break;
+
 			case Token.Value:
 				const endWithSpace =
 					char !== Chars.DoubleQuote && char !== Chars.SingleQuote;
+
 				if (!endWithSpace) {
 					i++;
 				}
@@ -116,10 +130,12 @@ export const lex = (expr: string) => {
 					),
 				);
 				state = Token.Text;
+
 				if (!endWithSpace) {
 					i++;
 				}
 				break;
+
 			default:
 				throw new Error(`Illegal state ${state}`);
 		}
@@ -134,16 +150,21 @@ export const compile = <T>(
 	ops = operators,
 ) => {
 	const filterList: ((model: T) => boolean)[] = [];
+
 	const text: string[] = [];
+
 	for (let i = 0; i < lexed.length; i++) {
 		const token = lexed[i];
+
 		switch (token.token) {
 			case Token.Column:
 				const prop = query.datasource.properties[token.text];
+
 				if (!prop) {
 					const available = Object.keys(
 						query.datasource.properties,
 					).join(", ");
+
 					throw new ParseError(
 						`Unknown column @${token.text}, have: ${available}`,
 						token.start,
@@ -151,6 +172,7 @@ export const compile = <T>(
 				}
 
 				const op = lexed[++i];
+
 				if (op?.token !== Token.Operator) {
 					throw new ParseError(
 						`Missing operator for column @${token.text}`,
@@ -166,6 +188,7 @@ export const compile = <T>(
 				}
 
 				const value = lexed[++i];
+
 				if (value?.token !== Token.Value) {
 					throw new ParseError(
 						`Missing operand for column @${value.text}`,
@@ -177,20 +200,26 @@ export const compile = <T>(
 					a: unknown,
 				) => boolean;
 				filterList.push((m) => compiled(prop.accessor(m)));
+
 				break;
+
 			case Token.Text:
 				text.push(token.text.trim());
+
 				break;
+
 			default:
 				throw new Error(`Illegal token ${token.token}`);
 		}
 	}
 
 	const joinedText = text.join(" ").trim();
+
 	if (joinedText) {
 		const re =
 			`/${query.regex ? joinedText : reEscape(joinedText)}/` +
 			(query.caseSensitive ? "" : "i");
+
 		const compiled = ops[PropertyType.String]["~="](re);
 		filterList.push((m) => compiled(query.datasource.genericMatchStr(m)));
 	}

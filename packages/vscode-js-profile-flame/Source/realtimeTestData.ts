@@ -10,8 +10,11 @@ import { MessageType, ToWebViewMessage } from "./realtime/protocol";
  */
 export function sendTestData(webviewView: vscode.WebviewView) {
 	let cpuTime = 0;
+
 	let x = 0;
+
 	let z = 1;
+
 	const i = setInterval(() => {
 		const message: ToWebViewMessage = {
 			type: MessageType.AddData,
@@ -24,6 +27,7 @@ export function sendTestData(webviewView: vscode.WebviewView) {
 			},
 		};
 		x += 0.1;
+
 		if (Math.floor(z++ / 2) % 2 === 0) {
 			cpuTime += ((Math.cos(x) + 1) / 2) * 1000 * 1000;
 		}

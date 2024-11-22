@@ -18,6 +18,7 @@ export const readRealtimeSettings = (
 	context: vscode.ExtensionContext,
 ): ISettings => {
 	const config = vscode.workspace.getConfiguration();
+
 	return {
 		easing:
 			config.get(Config.Easing) ??
@@ -38,6 +39,7 @@ interface ISessionData {
 }
 
 const enabledMetricsKey = "enabledMetrics";
+
 const splitChartsKey = "splitCharts";
 
 /**
@@ -139,6 +141,7 @@ export class RealtimeSessionTracker {
 		}
 
 		let data = this.sessionData.get(session);
+
 		if (!data) {
 			data = {
 				session,
@@ -177,7 +180,9 @@ export class RealtimeSessionTracker {
 	 */
 	public onSessionDidEnd(session: vscode.DebugSession) {
 		this.allSessions.delete(session.id);
+
 		const data = this.sessionData.get(session);
+
 		if (!data) {
 			return;
 		}
@@ -196,6 +201,7 @@ export class RealtimeSessionTracker {
 	 */
 	public updateSettings() {
 		this.settings = readRealtimeSettings(this.context);
+
 		for (const { metrics } of this.sessionData.values()) {
 			for (const metric of metrics) {
 				metric.reset(
@@ -266,6 +272,7 @@ export class RealtimeSessionTracker {
 		const data =
 			this.displayedSession &&
 			this.sessionData.get(this.displayedSession);
+
 		if (data) {
 			const metrics: ToWebViewMessage = {
 				type: MessageType.ApplyData,
@@ -279,10 +286,12 @@ export class RealtimeSessionTracker {
 
 	private getSettingsUpdate() {
 		const settings = readRealtimeSettings(this.context);
+
 		const message: ToWebViewMessage = {
 			type: MessageType.UpdateSettings,
 			settings,
 		};
+
 		return message;
 	}
 }

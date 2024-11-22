@@ -54,6 +54,7 @@ const ensureSourceLocations = (
 	}
 
 	let locationIdCounter = 0;
+
 	const locationsByRef = new Map<
 		string,
 		{
@@ -73,6 +74,7 @@ const ensureSourceLocations = (
 		].join(":");
 
 		const existing = locationsByRef.get(ref);
+
 		if (existing) {
 			return existing.id;
 		}

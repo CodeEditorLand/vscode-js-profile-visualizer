@@ -13,6 +13,7 @@ export function requireExtension<T>(
 			"workbench.extensions.action.showExtensionsWithIds",
 			[extension],
 		);
+
 		return undefined;
 	}
 

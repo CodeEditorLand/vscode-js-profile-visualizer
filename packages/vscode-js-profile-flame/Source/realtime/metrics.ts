@@ -17,6 +17,7 @@ const wholeNumberFormat = new Intl.NumberFormat(undefined, {
 
 const formatSize = (bytes: number) => {
 	let size = 0;
+
 	while (bytes > 1024 && size < sizeLabels.length) {
 		bytes /= 1024;
 		size++;
@@ -47,11 +48,13 @@ export const durationFormat = (seconds: number) => {
 	}
 
 	const minutes = seconds / 60;
+
 	if (minutes < 120) {
 		return `${durationRawFormat.format(minutes)}m`;
 	}
 
 	const hours = minutes / 60;
+
 	return `${durationRawFormat.format(hours)}h`;
 };
 
@@ -66,6 +69,7 @@ export class CpuMetric extends DerivativeMetric {
 
 	public format(metric: number): string {
 		metric = Math.max(0, Math.min(1, metric));
+
 		return metric >= 0.01
 			? largePercentFormat.format(metric)
 			: smallPercentFormat.format(metric);

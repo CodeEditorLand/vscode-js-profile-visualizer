@@ -11,6 +11,7 @@ export const bundlePage = async (
 	constants: { [key: string]: unknown },
 ) => {
 	const nonce = makeNonce();
+
 	const html = `<!DOCTYPE html>
     <html lang="en">
     <head>

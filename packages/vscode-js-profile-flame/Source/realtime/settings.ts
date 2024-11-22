@@ -24,6 +24,7 @@ export class Settings {
 	public colors!: {
 		background: string;
 		border: string;
+
 		foreground: string;
 		graphs: string[];
 	};
@@ -61,11 +62,13 @@ export class Settings {
 
 	public metricColor(metric: Metric) {
 		const colors = this.colors.graphs;
+
 		return colors[this.allMetrics.indexOf(metric) % colors.length];
 	}
 
 	public onChange(listener: () => void) {
 		this.changeListeners.push(listener);
+
 		return () =>
 			(this.changeListeners = this.changeListeners.filter(
 				(c) => c !== listener,

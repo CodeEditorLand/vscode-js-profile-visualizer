@@ -15,6 +15,7 @@ export const getBestLocation = (
 
 	for (const candidate of candidates) {
 		const mapped = addRelativeDiskPath(profile.$vscode.rootPath, candidate);
+
 		if (mapped.relativePath) {
 			return mapped;
 		}

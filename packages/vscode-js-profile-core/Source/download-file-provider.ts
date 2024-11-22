@@ -27,7 +27,9 @@ export class DownloadFileProvider
 			async () => {
 				try {
 					const res = await fetch(uri.query, {});
+
 					const text = await res.text();
+
 					return res.ok
 						? text
 						: `Unexpected ${res.status} from ${uri.query}: ${text}`;

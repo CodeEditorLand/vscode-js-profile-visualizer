@@ -78,6 +78,7 @@ export class Configurator {
 	 */
 	public updateMetric(metric: Metric, currentValue: number) {
 		const m = this.metrics.get(metric);
+
 		if (!m) {
 			return;
 		}

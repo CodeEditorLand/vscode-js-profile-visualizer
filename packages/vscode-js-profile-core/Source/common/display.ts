@@ -14,6 +14,7 @@ export const getNodeText = (node: INode) => {
 
 	if (!node.src?.source.path) {
 		let text = `${node.callFrame.url}`;
+
 		if (node.callFrame.lineNumber >= 0) {
 			text += `:${node.callFrame.lineNumber}`;
 		}

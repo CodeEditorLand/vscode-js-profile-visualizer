@@ -14,6 +14,7 @@ const getBoxInRowColumn = (
 	row: number,
 ) => {
 	let candidate = columns[column]?.rows[row];
+
 	if (typeof candidate === "number") {
 		candidate = columns[candidate].rows[row];
 	}
@@ -37,17 +38,23 @@ export default (
 	filtered: ReadonlyArray<number>,
 ) => {
 	const boxes: Map<number, IBox> = new Map();
+
 	let maxY = 0;
+
 	for (let x = 0; x < columns.length; x++) {
 		const col = columns[x];
+
 		const highlightY = filtered[x];
+
 		for (let y = 0; y < col.rows.length; y++) {
 			const loc = col.rows[y];
+
 			if (typeof loc === "number") {
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				getBoxInRowColumn(columns, boxes, x, y)!.x2 = col.x2;
 			} else {
 				const y1 = Constants.BoxHeight * y + Constants.TimelineHeight;
+
 				const y2 = y1 + Constants.BoxHeight;
 				boxes.set(loc.graphId, {
 					column: x,

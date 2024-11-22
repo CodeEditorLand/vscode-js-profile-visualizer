@@ -23,6 +23,7 @@ const mapInto = <T extends { free(): void }, R>(
 	mapper: (v: T, i: number) => R,
 ): R[] => {
 	const transmuted = new Array<R>(arr.length);
+
 	for (let i = 0; i < arr.length; i++) {
 		const value = arr[i];
 		transmuted[i] = mapper(value, i);
@@ -52,6 +53,7 @@ export const prepareGraphParser = async () => {
 		"@vscode/v8-heap-parser"
 	);
 	init_panic_hook();
+
 	return decode_bytes;
 };
 

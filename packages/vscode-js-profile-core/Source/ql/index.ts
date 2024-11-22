@@ -51,6 +51,7 @@ export class DataProvider<T> {
 			getChildren,
 		);
 		dp.data = value;
+
 		return dp;
 	}
 
@@ -82,6 +83,7 @@ export class DataProvider<T> {
 		}
 
 		this.sortFn = sort;
+
 		if (!this.eof) {
 			// if we didn't read all the data from the provider, we need to throw away
 			// any data we read before.
@@ -95,6 +97,7 @@ export class DataProvider<T> {
 	/** Gets a data provider for the children of the item. */
 	public getChildren(item: T): DataProvider<T> {
 		let children = this.children.get(item);
+
 		if (!children) {
 			children = this._getChildren(item);
 			this.children.set(item, children);
@@ -115,6 +118,7 @@ export class DataProvider<T> {
 		}
 
 		const load = this.asyncLoads[this.asyncLoads.length - 1];
+
 		return !!(load && load.upTo >= upTo);
 	}
 
@@ -136,6 +140,7 @@ export class DataProvider<T> {
 
 		const p = last.p.then(async () => {
 			const newData = await this._read!(last.upTo, upTo, this.sortFn);
+
 			if (!this.data?.length) {
 				this.data = newData;
 			} else {
@@ -166,6 +171,7 @@ export interface IQuery<T> {
 	datasource: IDataSource<T>;
 	input: string;
 	regex: boolean;
+
 	caseSensitive: boolean;
 }
 
@@ -177,11 +183,13 @@ export type IQueryResults<T> = {
 
 export const evaluate = <T>(q: IQuery<T>): IQueryResults<T> => {
 	const filter = compile(lex(q.input), q);
+
 	const results: IQueryResults<T> = {
 		selected: new Set(),
 		selectedAndParents: new Set(),
 		all: !q.input.trim(),
 	};
+
 	for (const model of q.datasource.data.loaded) {
 		filterDeep(q.datasource.data, filter, model, results);
 	}
@@ -196,6 +204,7 @@ const filterDeep = <T>(
 	results: IQueryResults<T>,
 ) => {
 	let anyChild = false;
+
 	if (filter(model)) {
 		results.selected.add(model);
 		results.selectedAndParents.add(model);
@@ -203,6 +212,7 @@ const filterDeep = <T>(
 	}
 
 	const children = s.getChildren(model);
+
 	for (const child of children.loaded) {
 		if (filterDeep(children, filter, child, results)) {
 			results.selectedAndParents.add(model);

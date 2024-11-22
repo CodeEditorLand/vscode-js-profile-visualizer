@@ -6,6 +6,7 @@ import { ICommonNode } from "vscode-js-profile-core/out/esm/common/model";
 
 export default (node: ICommonNode) => {
 	const parts = [node.id];
+
 	for (let n = node.parent; n; n = n.parent) {
 		parts.push(n.id);
 	}

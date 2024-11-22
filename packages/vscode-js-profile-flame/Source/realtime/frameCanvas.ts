@@ -43,6 +43,7 @@ export class FrameCanvas extends Canvas {
 	 */
 	public updateMetrics(shouldEase = this.settings.value.easing) {
 		let easeLength = this.width / this.settings.steps;
+
 		if (this.ease) {
 			cancelAnimationFrame(this.ease.raf);
 			easeLength += this.ease.dx;
@@ -52,12 +53,15 @@ export class FrameCanvas extends Canvas {
 
 		if (!shouldEase) {
 			this.drawGraph();
+
 			return;
 		}
 
 		let start: number;
+
 		const draw = (now: number) => {
 			const progress = Math.min(1, (now - start) / Sizing.Easing);
+
 			const dx = easeLength * (1 - progress);
 			this.drawGraph(dx);
 
@@ -83,6 +87,7 @@ export class FrameCanvas extends Canvas {
 	public dispose() {
 		super.dispose();
 		this.rmSettingListener();
+
 		if (this.ease) {
 			cancelAnimationFrame(this.ease.raf);
 		}
@@ -107,6 +112,7 @@ export class FrameCanvas extends Canvas {
 
 		if (this.hoveredIndex && this.settings.enabledMetrics.length) {
 			const stepSize = this.width / this.settings.steps;
+
 			const x =
 				this.width -
 				(this.settings.enabledMetrics[0].index - this.hoveredIndex) *
@@ -119,6 +125,7 @@ export class FrameCanvas extends Canvas {
 
 		// then the chart fill first (so lines will always be in the foreground)
 		this.ctx.globalAlpha = 0.1;
+
 		for (const [path, color] of this.paths) {
 			this.ctx.fillStyle = color;
 			this.ctx.fill(path);
@@ -126,6 +133,7 @@ export class FrameCanvas extends Canvas {
 
 		// then stroke the lines
 		this.ctx.globalAlpha = 1;
+
 		for (const [path, color] of this.paths) {
 			this.ctx.strokeStyle = color;
 			this.ctx.stroke(path);
@@ -149,6 +157,7 @@ export class FrameCanvas extends Canvas {
 
 	private onMouseMove(x: number) {
 		const { steps, enabledMetrics } = this.settings;
+
 		if (!enabledMetrics.length) {
 			return;
 		}
@@ -157,6 +166,7 @@ export class FrameCanvas extends Canvas {
 			0,
 			enabledMetrics[0].index - Math.round((1 - x / this.width) * steps),
 		);
+
 		if (index === this.hoveredIndex) {
 			return;
 		}
@@ -175,9 +185,12 @@ export class FrameCanvas extends Canvas {
 		const ranges = this.settings.value.splitCharts
 			? this.getMetricYRanges()
 			: [[0, this.height]];
+
 		for (const [y1, y2] of ranges) {
 			const step = (y2 - y1) / rulers;
+
 			let y = y1 + step;
+
 			for (let i = 0; i < rulers; i++) {
 				const targetY = Math.floor(y) - Sizing.RulerWidth / 2;
 				path.moveTo(0, targetY);
@@ -191,11 +204,13 @@ export class FrameCanvas extends Canvas {
 
 	private getMetricYRanges(): [number, number][] {
 		const metrics = this.settings.enabledMetrics;
+
 		if (!this.settings.value.splitCharts) {
 			return metrics.map(() => [0, this.height]);
 		}
 
 		const yStep = this.height / metrics.length;
+
 		return metrics.map((_, i) => [
 			Math.ceil(yStep * i + (i > 0 ? Sizing.SplitSpacing / 2 : 0)),
 			Math.floor(
@@ -222,13 +237,17 @@ export class FrameCanvas extends Canvas {
 		y2: number,
 	) {
 		const width = this.width;
+
 		const lineBaseY = y2 - Sizing.LineWidth / 2;
+
 		const stepSize = width / this.settings.steps;
+
 		const path = new Path2D();
 
 		if (metrics.length === 0) {
 			path.moveTo(0, lineBaseY);
 			path.lineTo(width, lineBaseY);
+
 			return path;
 		}
 
@@ -246,6 +265,7 @@ export class FrameCanvas extends Canvas {
 		path.lineTo(x - stepSize, lineBaseY);
 		path.lineTo(-stepSize, lineBaseY);
 		path.lineTo(width, lineBaseY);
+
 		return path;
 	}
 }

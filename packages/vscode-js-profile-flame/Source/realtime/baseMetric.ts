@@ -22,6 +22,7 @@ export abstract class Metric {
 	 */
 	public get maxY() {
 		let maxY = 10 ** Math.ceil(Math.log10(this.maxMetric));
+
 		if (maxY > this.maxMetric * 2) {
 			maxY /= 2;
 		}
@@ -132,6 +133,7 @@ export abstract class Metric {
 
 	protected recalcMax() {
 		let max = 1;
+
 		for (const metric of this.innerMetrics) {
 			max = Math.max(max, metric);
 		}
@@ -160,6 +162,7 @@ export abstract class DerivativeMetric extends Metric {
 	 */
 	protected push(timestamp: number, metric: number) {
 		const prevTimestamp = this.lastTimeStamp;
+
 		const prevMetric = this.lastMetric;
 
 		this.lastTimeStamp = timestamp;

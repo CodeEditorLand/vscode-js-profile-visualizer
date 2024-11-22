@@ -11,6 +11,7 @@ export default (
 	row: number,
 ) => {
 	let candidate = columns[column]?.rows[row];
+
 	if (typeof candidate === "number") {
 		candidate = columns[candidate].rows[row];
 	}

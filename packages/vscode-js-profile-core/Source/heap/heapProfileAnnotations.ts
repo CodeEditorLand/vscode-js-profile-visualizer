@@ -30,12 +30,14 @@ export class HeapProfileAnnotations extends ProfileAnnotations<ITreeNode> {
 	 */
 	protected set(file: string, position: Position, data: ITreeNode) {
 		let list = this.data.get(lowerCaseInsensitivePath(file));
+
 		if (!list) {
 			list = [];
 			this.data.set(lowerCaseInsensitivePath(file), list);
 		}
 
 		let index = 0;
+
 		while (
 			index < list.length &&
 			list[index].position.line < position.line
@@ -45,6 +47,7 @@ export class HeapProfileAnnotations extends ProfileAnnotations<ITreeNode> {
 
 		if (list[index]?.position.line === position.line) {
 			const existing = list[index];
+
 			if (position.character < existing.position.character) {
 				existing.position = new Position(
 					position.line,
@@ -79,6 +82,7 @@ export class HeapProfileAnnotations extends ProfileAnnotations<ITreeNode> {
 					}
 
 					const range = new Range(position, position);
+
 					return [
 						new CodeLens(range, {
 							title:

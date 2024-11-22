@@ -6,6 +6,7 @@ const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 export function makeNonce(length = 32) {
 	let str = "";
+
 	for (let i = 0; i < length; i++) {
 		str += chars[Math.floor(Math.random() * chars.length)];
 	}

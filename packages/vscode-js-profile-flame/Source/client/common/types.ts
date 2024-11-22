@@ -9,6 +9,7 @@ export interface IBaseInfoBoxProp {
 	box: IBox;
 	columns: ReadonlyArray<IColumn>;
 	boxes: ReadonlyMap<number, IBox>;
+
 	setFocused(box: IBox): void;
 }
 

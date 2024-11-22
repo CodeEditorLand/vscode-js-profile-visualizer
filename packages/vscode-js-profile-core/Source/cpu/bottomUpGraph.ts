@@ -76,6 +76,7 @@ const processNode = (
 	initialNode = node,
 ) => {
 	let child = aggregate.children[node.locationId];
+
 	if (!child) {
 		child = new BottomUpNode(model.locations[node.locationId], aggregate);
 		aggregate.childrenSize++;

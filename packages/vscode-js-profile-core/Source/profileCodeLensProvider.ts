@@ -73,6 +73,7 @@ export class ProfileCodeLensProvider implements CodeLensProvider {
 		const byPath = this.lenses?.getLensesForFile(
 			lowerCaseInsensitivePath(document.uri.fsPath),
 		);
+
 		if (byPath) {
 			return byPath;
 		}
@@ -81,6 +82,7 @@ export class ProfileCodeLensProvider implements CodeLensProvider {
 			document.uri.scheme === DownloadFileProvider.scheme
 				? this.lenses?.getLensesForFile(document.uri.query)
 				: undefined;
+
 		if (byUrl) {
 			return byUrl;
 		}

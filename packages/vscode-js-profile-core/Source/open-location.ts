@@ -24,8 +24,10 @@ type Link = CommandLink | UriLink;
 const exists = async (uristr: string) => {
 	try {
 		const uri = parseLink(uristr);
+
 		if (uri.type === LinkType.Command) return true;
 		await vscode.workspace.fs.stat(uri.uri);
+
 		return true;
 	} catch {
 		return false;
@@ -86,13 +88,17 @@ const showPositionInFile = async (
 	viewColumn?: vscode.ViewColumn,
 ): Promise<boolean> => {
 	const diskPaths = getCandidateDiskPaths(rootPath, location.source);
+
 	const foundPaths = await Promise.all(diskPaths.map(exists));
+
 	const existingIndex = foundPaths.findIndex((ok) => ok);
+
 	if (existingIndex === -1) {
 		return false;
 	}
 
 	const resolvedLink = parseLink(diskPaths[existingIndex]);
+
 	if (resolvedLink.type === LinkType.Command) {
 		await runCommand(resolvedLink); // delegate finding the position to the command provider
 		return true;
@@ -105,6 +111,7 @@ const showPositionInFile = async (
 		location.columnNumber,
 		viewColumn,
 	);
+
 	return true;
 };
 
@@ -113,6 +120,7 @@ const showPositionInUrl = async (
 	viewColumn?: vscode.ViewColumn,
 ) => {
 	let url: URL;
+
 	try {
 		url = new URL(rawUrl);
 	} catch {
@@ -135,6 +143,7 @@ const showPositionInUrl = async (
 		}),
 	);
 	await showPosition(document, lineNumber + 1, columnNumber + 1, viewColumn);
+
 	return true;
 };
 /**
@@ -144,10 +153,14 @@ const showPositionInUrl = async (
  */
 const parseLink = (link: string | undefined): Link => {
 	const matchCommand = link?.match(/^command:([\w\.]+)(?:\?(.*))?/);
+
 	if (matchCommand) {
 		const [command, rawArgs] = matchCommand.slice(1);
+
 		const parsed = rawArgs ? JSON.parse(decodeURIComponent(rawArgs)) : [];
+
 		const args = Array.isArray(parsed) ? parsed : [parsed];
+
 		return { type: LinkType.Command, command, args };
 	}
 	if (link?.match(/\w\w+:/))
@@ -156,6 +169,7 @@ const parseLink = (link: string | undefined): Link => {
 			uri: vscode.Uri.parse(link || ""),
 			isFile: false,
 		};
+
 	return {
 		type: LinkType.URI,
 		uri: vscode.Uri.file(link || ""),
@@ -177,6 +191,7 @@ export const getCandidateDiskPaths = (
 	const uri = parseLink(source.path);
 
 	const locations = [source.path];
+
 	if (!rootPath || uri.type === LinkType.Command || !uri.isFile) {
 		// no resolution for commands and virtual filesystems
 		return locations;
