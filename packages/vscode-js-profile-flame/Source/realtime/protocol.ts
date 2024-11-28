@@ -101,6 +101,7 @@ export type ToWebViewMessage =
 	| IUpdateSettingsMessage
 	| IApplyData
 	| IClearData;
+
 export type FromWebViewMessage = ISwitchGraph | ISetEnabledGraphs;
 
 export const getSteps = (settings: ISettings) =>

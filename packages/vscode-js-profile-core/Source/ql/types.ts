@@ -21,10 +21,12 @@ export type StringPropertyDefinition<T> = IBasePropertyDefinition<
 	T,
 	PropertyType.String
 >;
+
 export type NumberPropertyDefinition<T> = IBasePropertyDefinition<
 	T,
 	PropertyType.Number
 >;
+
 export type Property<T> =
 	| StringPropertyDefinition<T>
 	| NumberPropertyDefinition<T>;

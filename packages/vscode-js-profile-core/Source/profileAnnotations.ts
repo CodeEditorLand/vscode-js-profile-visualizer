@@ -9,6 +9,7 @@ import { INode } from "./common/model";
 import { getCandidateDiskPaths } from "./open-location";
 
 const basenameRe = /[^/\\]+$/;
+
 export const getBasename = (pathOrUrl: string) =>
 	basenameRe.exec(pathOrUrl)?.[0] ?? pathOrUrl;
 
