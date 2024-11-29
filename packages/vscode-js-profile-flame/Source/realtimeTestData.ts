@@ -26,6 +26,7 @@ export function sendTestData(webviewView: vscode.WebviewView) {
 				} as unknown as NodeJS.MemoryUsage,
 			},
 		};
+
 		x += 0.1;
 
 		if (Math.floor(z++ / 2) % 2 === 0) {

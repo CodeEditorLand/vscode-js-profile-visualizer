@@ -11,8 +11,11 @@ export class Configurator {
 		Metric,
 		{
 			element: HTMLElement;
+
 			value: HTMLElement;
+
 			enabled: boolean;
+
 			available: boolean;
 		}
 	>();
@@ -26,18 +29,25 @@ export class Configurator {
 
 		for (const metric of settings.allMetrics) {
 			const element = document.createElement("div");
+
 			element.classList.add(styles.metric);
+
 			element.addEventListener("click", () =>
 				settings.toggleMetric(metric),
 			);
 
 			const label = document.createElement("span");
+
 			label.classList.add(styles.label);
+
 			label.innerText = metric.name();
+
 			element.appendChild(label);
 
 			const value = document.createElement("span");
+
 			value.classList.add(styles.value);
+
 			element.appendChild(value);
 
 			this.metrics.set(metric, {
@@ -46,6 +56,7 @@ export class Configurator {
 				available: false,
 				value,
 			});
+
 			this.elem.appendChild(element);
 		}
 
@@ -66,6 +77,7 @@ export class Configurator {
 		for (const [metric, m] of this.metrics) {
 			if (metric.hasData() !== m.available) {
 				m.available = metric.hasData();
+
 				m.element.classList[metric.hasData() ? "add" : "remove"](
 					styles.available,
 				);
@@ -85,6 +97,7 @@ export class Configurator {
 
 		if (metric.hasData() !== m.available) {
 			m.available = metric.hasData();
+
 			m.element.classList[metric.hasData() ? "add" : "remove"](
 				styles.available,
 			);
@@ -98,7 +111,9 @@ export class Configurator {
 	private applySettings() {
 		for (const [metric, m] of this.metrics.entries()) {
 			m.enabled = this.settings.enabledMetrics.includes(metric);
+
 			m.element.classList[m.enabled ? "add" : "remove"](styles.enabled);
+
 			m.element.style.setProperty(
 				"--metric-color",
 				this.settings.metricColor(metric),

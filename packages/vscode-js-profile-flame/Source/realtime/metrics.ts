@@ -20,6 +20,7 @@ const formatSize = (bytes: number) => {
 
 	while (bytes > 1024 && size < sizeLabels.length) {
 		bytes /= 1024;
+
 		size++;
 	}
 

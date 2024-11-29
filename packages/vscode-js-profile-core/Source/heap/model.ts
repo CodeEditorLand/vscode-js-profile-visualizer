@@ -12,24 +12,30 @@ import { maybeFileUrlToPath } from "../path";
 
 export interface IHeapProfileNode extends INode {
 	selfSize: number;
+
 	totalSize: number;
 }
 
 export interface ITreeNode extends IHeapProfileNode {
 	children: { [id: number]: ITreeNode };
+
 	childrenSize: number;
+
 	parent?: ITreeNode;
 }
 
 export interface IHeapProfileRaw extends Cdp.HeapProfiler.SamplingHeapProfile {
 	$vscode?: IJsDebugAnnotations;
+
 	head: IProfileModelNode;
 }
 
 export interface IProfileModelNode
 	extends Omit<Cdp.HeapProfiler.SamplingHeapProfileNode, "children"> {
 	src?: ISourceLocation;
+
 	children: IProfileModelNode[];
+
 	locationId?: number;
 }
 
@@ -38,7 +44,9 @@ export interface IProfileModelNode
  */
 export type IProfileModel = {
 	head: IProfileModelNode;
+
 	samples: Cdp.HeapProfiler.SamplingHeapProfileSample[];
+
 	rootPath?: string;
 };
 
@@ -59,7 +67,9 @@ const ensureSourceLocations = (
 		string,
 		{
 			id: number;
+
 			callFrame: Cdp.Runtime.CallFrame;
+
 			location: ISourceLocation;
 		}
 	>();
@@ -78,7 +88,9 @@ const ensureSourceLocations = (
 		if (existing) {
 			return existing.id;
 		}
+
 		const id = locationIdCounter++;
+
 		locationsByRef.set(ref, {
 			id,
 			callFrame,
@@ -103,6 +115,7 @@ const ensureSourceLocations = (
 
 		if (node) {
 			const { callFrame } = node;
+
 			node.locationId = getLocationIdFor(callFrame);
 
 			nodes = nodes.concat(node.children);
@@ -132,6 +145,7 @@ export const buildModel = (profile: IHeapProfileRaw): IProfileModel => {
 					sourceLocations[node.locationId].locations,
 				);
 			}
+
 			nodes = nodes.concat(node.children);
 		}
 	}

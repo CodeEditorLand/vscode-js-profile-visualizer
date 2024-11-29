@@ -12,7 +12,9 @@ import { startWorker } from "./startWorker";
 
 export interface Workerish {
 	postMessage(message: GraphRPCCall): void;
+
 	onMessage(listener: (message: unknown) => void): vscode.Disposable;
+
 	terminate(): Promise<void>;
 }
 
@@ -46,12 +48,15 @@ const workerRegistry = ((globalThis as any).__jsHeapSnapshotWorkers ??=
 			/* uri */ string,
 			{ worker: Workerish; rc: number; closer?: NodeJS.Timeout }
 		>();
+
 		public async create(uri: vscode.Uri): Promise<IWorker> {
 			let rec = this.workers.get(uri.with({ query: "" }).toString());
 
 			if (!rec) {
 				const worker = await startWorker(uri);
+
 				rec = { worker, rc: 0 };
+
 				this.workers.set(uri.toString(), rec);
 			}
 
@@ -59,6 +64,7 @@ const workerRegistry = ((globalThis as any).__jsHeapSnapshotWorkers ??=
 
 			if (rec.closer) {
 				clearTimeout(rec.closer);
+
 				rec.closer = undefined;
 			}
 
@@ -69,6 +75,7 @@ const workerRegistry = ((globalThis as any).__jsHeapSnapshotWorkers ??=
 						// avoid stopping the worker if the webview was just moved around:
 						rec!.closer = setTimeout(() => {
 							rec!.worker.terminate();
+
 							this.workers.delete(uri.toString());
 						}, 5000);
 					}
@@ -126,6 +133,7 @@ export const setupHeapSnapshotWebview = async (
 	});
 
 	webview.options = { enableScripts: true };
+
 	webview.html = await bundlePage(webview.asWebviewUri(bundle), {
 		SNAPSHOT_URI: webview.asWebviewUri(uri).toString(),
 		DOCUMENT_URI: uri.toString(),

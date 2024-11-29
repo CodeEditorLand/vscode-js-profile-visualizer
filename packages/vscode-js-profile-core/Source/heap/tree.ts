@@ -22,9 +22,13 @@ export class TreeNode implements ITreeNode {
 	}
 
 	public children: { [id: number]: TreeNode } = {};
+
 	public totalSize = 0;
+
 	public selfSize = 0;
+
 	public childrenSize = 0;
+
 	public category: Category;
 
 	public get id() {
@@ -67,10 +71,12 @@ const processNode = (node: IProfileModelNode, parent: TreeNode) => {
 		const childTreeNode = processNode(child, treeNode);
 
 		treeNode.children[childTreeNode.id] = childTreeNode;
+
 		treeNode.childrenSize++;
 	});
 
 	treeNode.selfSize = node.selfSize;
+
 	treeNode.totalSize = node.selfSize;
 
 	for (const child in treeNode.children) {
@@ -88,7 +94,9 @@ export const createTree = (model: IProfileModel) => {
 
 	for (const node of model.head.children) {
 		const child = processNode(node, root);
+
 		root.children[child.id] = child;
+
 		root.childrenSize++;
 	}
 

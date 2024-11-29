@@ -50,6 +50,7 @@ export class HeapProfileEditorProvider
 
 			if (node) {
 				treeNodes.push(node);
+
 				nodes = nodes.concat(Object.values(node.children));
 			}
 		}
@@ -105,6 +106,7 @@ export class HeapProfileEditorProvider
 		});
 
 		webviewPanel.webview.options = { enableScripts: true };
+
 		webviewPanel.webview.html = await bundlePage(
 			webviewPanel.webview.asWebviewUri(this.bundle),
 			{

@@ -24,7 +24,9 @@ export class RealtimeWebviewProvider implements vscode.WebviewViewProvider {
 			enableScripts: true,
 			localResourceRoots: [this.extensionUri],
 		};
+
 		webviewView.webview.html = this.getHtmlForWebview(webviewView.webview);
+
 		this.tracker.trackWebview(webviewView);
 
 		webviewView.webview.onDidReceiveMessage((evt: FromWebViewMessage) => {

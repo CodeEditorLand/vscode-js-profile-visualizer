@@ -11,8 +11,11 @@ import { properRelative } from "./path";
  */
 export interface ISourceLocation {
 	lineNumber: number;
+
 	columnNumber: number;
+
 	source: Dap.Source;
+
 	relativePath?: string;
 }
 

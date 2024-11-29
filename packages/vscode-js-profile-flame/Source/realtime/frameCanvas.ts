@@ -20,12 +20,17 @@ const rulers = 4;
 
 export class FrameCanvas extends Canvas {
 	private rulers = this.createRulers();
+
 	private paths: [Path2D, string][] = [];
+
 	private ease?: { raf: number; dx: number };
+
 	private rmSettingListener = this.settings.onChange(() => this.redraw());
+
 	private metricRanges = this.getMetricYRanges();
 
 	public hoveredIndex?: number;
+
 	public onHoverIndex: () => void = () => undefined;
 
 	constructor(width: number, height: number, settings: Settings) {
@@ -34,7 +39,9 @@ export class FrameCanvas extends Canvas {
 		this.elem.addEventListener("mousemove", (evt) =>
 			this.onMouseMove(evt.pageX),
 		);
+
 		this.elem.addEventListener("mouseout", () => this.clearHover());
+
 		window.addEventListener("mouseout", () => this.clearHover());
 	}
 
@@ -46,6 +53,7 @@ export class FrameCanvas extends Canvas {
 
 		if (this.ease) {
 			cancelAnimationFrame(this.ease.raf);
+
 			easeLength += this.ease.dx;
 		}
 
@@ -63,12 +71,14 @@ export class FrameCanvas extends Canvas {
 			const progress = Math.min(1, (now - start) / Sizing.Easing);
 
 			const dx = easeLength * (1 - progress);
+
 			this.drawGraph(dx);
 
 			if (progress === 1) {
 				this.ease = undefined;
 			} else {
 				ease.dx = dx;
+
 				ease.raf = requestAnimationFrame(draw);
 			}
 		};
@@ -77,6 +87,7 @@ export class FrameCanvas extends Canvas {
 			dx: easeLength,
 			raf: requestAnimationFrame((now) => {
 				start = now;
+
 				draw(now);
 			}),
 		};
@@ -86,6 +97,7 @@ export class FrameCanvas extends Canvas {
 
 	public dispose() {
 		super.dispose();
+
 		this.rmSettingListener();
 
 		if (this.ease) {
@@ -95,7 +107,9 @@ export class FrameCanvas extends Canvas {
 
 	protected redraw() {
 		this.rulers = this.createRulers();
+
 		this.metricRanges = this.getMetricYRanges();
+
 		this.updateMetrics(false);
 	}
 
@@ -104,10 +118,13 @@ export class FrameCanvas extends Canvas {
 
 		// draw the background rulers first
 		this.ctx.globalAlpha = 1;
+
 		this.ctx.strokeStyle = this.settings.colors.border;
+
 		this.ctx.stroke(this.rulers);
 
 		this.ctx.save();
+
 		this.ctx.translate(dx, 0);
 
 		if (this.hoveredIndex && this.settings.enabledMetrics.length) {
@@ -117,9 +134,13 @@ export class FrameCanvas extends Canvas {
 				this.width -
 				(this.settings.enabledMetrics[0].index - this.hoveredIndex) *
 					stepSize;
+
 			this.ctx.beginPath();
+
 			this.ctx.moveTo(x, 0);
+
 			this.ctx.lineTo(x, this.height);
+
 			this.ctx.stroke();
 		}
 
@@ -128,6 +149,7 @@ export class FrameCanvas extends Canvas {
 
 		for (const [path, color] of this.paths) {
 			this.ctx.fillStyle = color;
+
 			this.ctx.fill(path);
 		}
 
@@ -136,6 +158,7 @@ export class FrameCanvas extends Canvas {
 
 		for (const [path, color] of this.paths) {
 			this.ctx.strokeStyle = color;
+
 			this.ctx.stroke(path);
 		}
 
@@ -148,6 +171,7 @@ export class FrameCanvas extends Canvas {
 		}
 
 		this.hoveredIndex = undefined;
+
 		this.onHoverIndex();
 
 		if (!this.ease) {
@@ -172,6 +196,7 @@ export class FrameCanvas extends Canvas {
 		}
 
 		this.hoveredIndex = index;
+
 		this.onHoverIndex();
 
 		if (!this.ease) {
@@ -193,8 +218,11 @@ export class FrameCanvas extends Canvas {
 
 			for (let i = 0; i < rulers; i++) {
 				const targetY = Math.floor(y) - Sizing.RulerWidth / 2;
+
 				path.moveTo(0, targetY);
+
 				path.lineTo(this.width, targetY);
+
 				y += step;
 			}
 		}
@@ -246,12 +274,14 @@ export class FrameCanvas extends Canvas {
 
 		if (metrics.length === 0) {
 			path.moveTo(0, lineBaseY);
+
 			path.lineTo(width, lineBaseY);
 
 			return path;
 		}
 
 		let x = width;
+
 		path.moveTo(
 			x,
 			getY(y1, lineBaseY, 1 - metrics[metrics.length - 1] / maxY),
@@ -259,11 +289,14 @@ export class FrameCanvas extends Canvas {
 
 		for (let i = metrics.length - 2; i >= 0; i--) {
 			x -= stepSize;
+
 			path.lineTo(x, getY(y1, lineBaseY, 1 - metrics[i] / maxY));
 		}
 
 		path.lineTo(x - stepSize, lineBaseY);
+
 		path.lineTo(-stepSize, lineBaseY);
+
 		path.lineTo(width, lineBaseY);
 
 		return path;

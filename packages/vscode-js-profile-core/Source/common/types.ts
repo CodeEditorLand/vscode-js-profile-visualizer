@@ -9,6 +9,7 @@ import { ISourceLocation } from "../location-mapping";
 
 export interface IAnnotationLocation {
 	callFrame: Cdp.Runtime.CallFrame;
+
 	locations: ISourceLocation[];
 }
 
@@ -40,8 +41,11 @@ export interface IJsDebugAnnotations {
  */
 export interface IOpenDocumentMessage {
 	type: "openDocument";
+
 	location?: ISourceLocation;
+
 	callFrame?: Cdp.Runtime.CallFrame;
+
 	toSide: boolean;
 }
 
@@ -51,9 +55,13 @@ export interface IOpenDocumentMessage {
  */
 export interface IReopenWithEditor {
 	type: "reopenWith";
+
 	viewType: string;
+
 	toSide?: boolean;
+
 	withQuery?: string;
+
 	requireExtension?: string;
 }
 
@@ -63,8 +71,11 @@ export interface IReopenWithEditor {
  */
 export interface IRunCommand {
 	type: "command";
+
 	command: string;
+
 	args: unknown[];
+
 	requireExtension?: string;
 }
 
@@ -73,6 +84,7 @@ export interface IRunCommand {
  */
 export interface ICallHeapGraph {
 	type: "callGraph";
+
 	inner: GraphRPCCall;
 }
 

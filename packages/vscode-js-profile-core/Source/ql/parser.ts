@@ -37,8 +37,11 @@ const operatorTokens = new Set(
 
 export interface ILexed {
 	token: Token;
+
 	text: string;
+
 	start: number;
+
 	length: number;
 }
 
@@ -62,6 +65,7 @@ export const lex = (expr: string) => {
 
 			if (char === Chars.Escape) {
 				text += expr[++i];
+
 				i++;
 
 				continue;
@@ -72,6 +76,7 @@ export const lex = (expr: string) => {
 			}
 
 			text += char;
+
 			i++;
 		}
 
@@ -82,6 +87,7 @@ export const lex = (expr: string) => {
 
 	if (expr[0] === Chars.StartColumn) {
 		state = Token.Column;
+
 		i++;
 	}
 
@@ -99,19 +105,24 @@ export const lex = (expr: string) => {
 					tokens.push(eat(Token.Text, () => true));
 				} else {
 					tokens.push(eat(Token.Text, (_, i) => i <= nextCol));
+
 					i++;
+
 					state = Token.Column; // either starting a column or at end of str
 				}
+
 				break;
 
 			case Token.Column:
 				tokens.push(eat(Token.Column, (c) => c >= "A" && c <= "z"));
+
 				state = Token.Operator;
 
 				break;
 
 			case Token.Operator:
 				tokens.push(eat(Token.Operator, (c) => operatorTokens.has(c)));
+
 				state = Token.Value;
 
 				break;
@@ -129,11 +140,13 @@ export const lex = (expr: string) => {
 						endWithSpace ? c !== Chars.Space : c !== char,
 					),
 				);
+
 				state = Token.Text;
 
 				if (!endWithSpace) {
 					i++;
 				}
+
 				break;
 
 			default:
@@ -199,6 +212,7 @@ export const compile = <T>(
 				const compiled = ops[prop.type][op.text](value.text) as (
 					a: unknown,
 				) => boolean;
+
 				filterList.push((m) => compiled(prop.accessor(m)));
 
 				break;
@@ -221,6 +235,7 @@ export const compile = <T>(
 			(query.caseSensitive ? "" : "i");
 
 		const compiled = ops[PropertyType.String]["~="](re);
+
 		filterList.push((m) => compiled(query.datasource.genericMatchStr(m)));
 	}
 

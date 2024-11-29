@@ -28,6 +28,7 @@ export function binarySearch<T>(
 			return mid;
 		}
 	}
+
 	return -(low + 1);
 }
 
@@ -36,6 +37,7 @@ export function binarySearch<T>(
  */
 export const addToSet = <T>(set: ReadonlySet<T>, value: T) => {
 	const next = new Set([...set, value]);
+
 	next.add(value);
 
 	return next;
@@ -46,6 +48,7 @@ export const addToSet = <T>(set: ReadonlySet<T>, value: T) => {
  */
 export const removeFromSet = <T>(set: ReadonlySet<T>, value: T) => {
 	const next = new Set([...set]);
+
 	next.delete(value);
 
 	return next;

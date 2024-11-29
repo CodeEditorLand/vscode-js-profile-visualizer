@@ -6,6 +6,7 @@ import { IPropertyToPrimitiveType, Property, PropertyType } from "./types";
 
 export interface IOperator<T> {
 	appliesTo: T;
+
 	filter: (
 		value: ReturnType<(Property<unknown> & { type: T })["accessor"]>,
 	) => boolean;

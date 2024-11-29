@@ -7,9 +7,13 @@
  */
 export class TextCache {
 	public readonly context: CanvasRenderingContext2D;
+
 	private readonly cached = new Map<number, number>();
+
 	public readonly charWidth: number;
+
 	public readonly charHeight: number;
+
 	private capacity = 128;
 
 	constructor(
@@ -18,23 +22,33 @@ export class TextCache {
 		private readonly scale: number,
 	) {
 		const canvas = document.createElement("canvas");
+
 		canvas.width = screen.width;
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		this.context = canvas.getContext("2d")!;
+
 		this.context.scale(scale, scale);
+
 		this.context.font = font;
 
 		const measure = getTextMeasure(font);
+
 		this.charWidth = Math.ceil(measure.width); // add 1 for any aliasing
 		this.charHeight = Math.ceil(measure.height);
+
 		canvas.height = Math.ceil(this.charHeight * this.scale);
+
 		canvas.width =
 			Math.ceil((this.charWidth + 1) * this.scale) * this.capacity;
+
 		this.context.scale(scale, scale);
 
 		this.context.font = font;
+
 		this.context.textAlign = "left";
+
 		this.context.textBaseline = "top";
+
 		this.context.fillStyle = color;
 	}
 
@@ -59,6 +73,7 @@ export class TextCache {
 			}
 
 			const width = Math.min(this.charWidth, w - xOffset);
+
 			target.drawImage(
 				this.context.canvas,
 				this.getCharCoordinate(text.charCodeAt(i)) * this.scale,
@@ -91,13 +106,18 @@ export class TextCache {
 				canvas.width,
 				canvas.height,
 			);
+
 			canvas.width *= 2;
+
 			this.capacity *= 2;
+
 			this.context.putImageData(existing, 0, 0);
 		}
 
 		const x = this.cached.size * (this.charWidth + 1);
+
 		this.cached.set(charCode, x);
+
 		this.context.fillText(String.fromCharCode(charCode), x, 0);
 
 		return x;
@@ -107,15 +127,25 @@ export class TextCache {
 // Borrowed from xterm: https://github.com/xtermjs/xterm.js/blob/19b73d2ba7a12b14b38dd6587c8a81df4f8bdd61/src/browser/services/CharSizeService.ts
 const getTextMeasure = (font: string) => {
 	const measureElement = document.createElement("span");
+
 	measureElement.style.display = "inline-block";
+
 	measureElement.style.visibility = "hidden";
+
 	measureElement.style.position = "absolute";
+
 	measureElement.style.top = "0";
+
 	measureElement.style.left = "-9999em";
+
 	measureElement.style.lineHeight = "normal";
+
 	measureElement.classList.add("xterm-char-measure-element");
+
 	measureElement.textContent = "W";
+
 	measureElement.setAttribute("aria-hidden", "true");
+
 	measureElement.style.font = font;
 
 	document.body.appendChild(measureElement);

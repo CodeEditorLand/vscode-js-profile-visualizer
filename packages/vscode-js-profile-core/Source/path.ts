@@ -46,6 +46,7 @@ export function maybeFileUrlToPath(fileUrl: string): string {
 	}
 
 	fileUrl = fileUrl.replace("file:///", "");
+
 	fileUrl = decodeURIComponent(fileUrl);
 
 	if (fileUrl[0] !== "/" && !fileUrl.match(/^[A-Za-z]:/)) {

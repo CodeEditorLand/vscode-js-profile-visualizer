@@ -26,6 +26,7 @@ const exists = async (uristr: string) => {
 		const uri = parseLink(uristr);
 
 		if (uri.type === LinkType.Command) return true;
+
 		await vscode.workspace.fs.stat(uri.uri);
 
 		return true;
@@ -44,8 +45,11 @@ export const openLocation = async ({
 	callFrame,
 }: {
 	rootPath: string | undefined;
+
 	location?: ISourceLocation;
+
 	viewColumn?: vscode.ViewColumn;
+
 	callFrame?: Cdp.Runtime.CallFrame;
 }) => {
 	if (location) {
@@ -73,6 +77,7 @@ const showPosition = async (
 		Math.max(0, lineNumber - 1),
 		Math.max(0, columnNumber - 1),
 	);
+
 	await vscode.window.showTextDocument(doc, {
 		viewColumn,
 		selection: new vscode.Range(pos, pos),
@@ -105,6 +110,7 @@ const showPositionInFile = async (
 	}
 
 	const doc = await vscode.workspace.openTextDocument(resolvedLink.uri);
+
 	await showPosition(
 		doc,
 		location.lineNumber,
@@ -142,6 +148,7 @@ const showPositionInUrl = async (
 			query: rawUrl,
 		}),
 	);
+
 	await showPosition(document, lineNumber + 1, columnNumber + 1, viewColumn);
 
 	return true;
@@ -163,6 +170,7 @@ const parseLink = (link: string | undefined): Link => {
 
 		return { type: LinkType.Command, command, args };
 	}
+
 	if (link?.match(/\w\w+:/))
 		return {
 			type: LinkType.URI,

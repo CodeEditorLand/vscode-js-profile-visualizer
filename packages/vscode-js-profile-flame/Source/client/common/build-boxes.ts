@@ -56,6 +56,7 @@ export default (
 				const y1 = Constants.BoxHeight * y + Constants.TimelineHeight;
 
 				const y2 = y1 + Constants.BoxHeight;
+
 				boxes.set(loc.graphId, {
 					column: x,
 					row: y,

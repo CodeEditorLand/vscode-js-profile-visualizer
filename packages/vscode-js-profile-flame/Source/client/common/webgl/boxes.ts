@@ -21,6 +21,7 @@ const createShader = (
 	}
 
 	gl.shaderSource(shader, source);
+
 	gl.compileShader(shader);
 
 	const success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
@@ -30,6 +31,7 @@ const createShader = (
 	}
 
 	const log = gl.getShaderInfoLog(shader);
+
 	gl.deleteShader(shader);
 
 	throw new Error(`Shader creation failed (${log || "unknown"})`);
@@ -47,7 +49,9 @@ const createProgram = (
 	}
 
 	gl.attachShader(program, vertexShader);
+
 	gl.attachShader(program, fragmentShader);
+
 	gl.linkProgram(program);
 
 	const success = gl.getProgramParameter(program, gl.LINK_STATUS);
@@ -57,6 +61,7 @@ const createProgram = (
 	}
 
 	const log = gl.getProgramInfoLog(program);
+
 	gl.deleteProgram(program);
 
 	throw new Error(`Program creation failed (${log || "unknown"})`);
@@ -64,9 +69,13 @@ const createProgram = (
 
 interface IOptions {
 	scale: number;
+
 	canvas: HTMLCanvasElement;
+
 	focusColor: string;
+
 	primaryColor: string;
+
 	boxes: ReadonlyArray<IBox>;
 }
 
@@ -109,37 +118,57 @@ export const setupGl = ({
 
 		for (const box of boxes) {
 			const topLeft = pi >>> 2;
+
 			positions[pi++] = box.x1;
+
 			positions[pi++] = box.y1 - Constants.BoxHeight;
+
 			positions[pi++] = box.loc.graphId;
+
 			positions[pi++] = box.category;
 
 			const topRight = pi >>> 2;
+
 			positions[pi++] = box.x2;
+
 			positions[pi++] = box.y1 - Constants.BoxHeight;
+
 			positions[pi++] = box.loc.graphId;
+
 			positions[pi++] = box.category;
 
 			const bottomLeft = pi >>> 2;
+
 			positions[pi++] = box.x1;
+
 			positions[pi++] = box.y2 - 1 - Constants.BoxHeight;
+
 			positions[pi++] = box.loc.graphId;
+
 			positions[pi++] = box.category;
 
 			const bottomRight = pi >>> 2;
+
 			positions[pi++] = box.x2;
+
 			positions[pi++] = box.y2 - 1 - Constants.BoxHeight;
+
 			positions[pi++] = box.loc.graphId;
+
 			positions[pi++] = box.category;
 
 			// triangle 1:
 			indexData[ii++] = topLeft;
+
 			indexData[ii++] = topRight;
+
 			indexData[ii++] = bottomLeft;
 
 			// triangle 2:
 			indexData[ii++] = topRight;
+
 			indexData[ii++] = bottomLeft;
+
 			indexData[ii++] = bottomRight;
 		}
 
@@ -147,16 +176,20 @@ export const setupGl = ({
 			ii === indexData.length,
 			"expected to have written all indices",
 		);
+
 		console.assert(
 			pi === positions.length,
 			"expected to have written all positions",
 		);
 
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, vertexBuffer);
+
 		gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, indexData, gl.STATIC_DRAW);
 
 		gl.bindBuffer(gl.ARRAY_BUFFER, boxesBuffer);
+
 		gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+
 		gl.vertexAttribPointer(boxAttributeLocation, 4, gl.FLOAT, false, 0, 0);
 	};
 
@@ -167,9 +200,13 @@ export const setupGl = ({
 	 */
 	const redraw = () => {
 		timeout = 0;
+
 		gl.clear(gl.COLOR_BUFFER_BIT);
+
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, vertexBuffer);
+
 		gl.enableVertexAttribArray(boxAttributeLocation);
+
 		gl.drawElements(gl.TRIANGLES, vertexCount, gl.UNSIGNED_INT, 0);
 	};
 
@@ -199,6 +236,7 @@ export const setupGl = ({
 	 */
 	const setBounds = (bounds: IBounds, size: ICanvasSize, scale: number) => {
 		gl.viewport(0, 0, scale * size.width, scale * size.height);
+
 		gl.uniform4f(
 			boundsLocation,
 			bounds.minX,
@@ -216,7 +254,9 @@ export const setupGl = ({
 		}
 
 		const rgba = chroma(color).rgba();
+
 		rgba[3] = 255;
+
 		gl.uniform4fv(
 			focusColorLocation,
 			new Float32Array(rgba.map((r) => r / 255)),
@@ -233,6 +273,7 @@ export const setupGl = ({
 		const parsed = chroma(color);
 
 		const hsv = parsed.luminance(Math.min(parsed.luminance(), 0.25)).hsv();
+
 		gl.uniform4f(
 			primaryColorLocation,
 			hsv[0] / 360,
@@ -244,6 +285,7 @@ export const setupGl = ({
 
 	// Clear the canvas
 	gl.clearColor(0, 0, 0, 0);
+
 	gl.useProgram(boxProgram);
 
 	setBounds(
@@ -257,32 +299,39 @@ export const setupGl = ({
 	setFocusColor(focusColor);
 
 	setPrimaryColor(primaryColor);
+
 	redraw();
 
 	return {
 		redraw,
 		setHovered: (graphId = -1) => {
 			gl.uniform1i(hoveredLocation, graphId);
+
 			debounceRedraw();
 		},
 		setFocused: (graphId = -1) => {
 			gl.uniform1i(focusedLocation, graphId);
+
 			debounceRedraw();
 		},
 		setFocusColor: (color: string) => {
 			setFocusColor(color);
+
 			debounceRedraw();
 		},
 		setPrimaryColor: (color: string) => {
 			setPrimaryColor(color);
+
 			debounceRedraw();
 		},
 		setBounds: (bounds: IBounds, size: ICanvasSize, scale: number) => {
 			setBounds(bounds, size, scale);
+
 			debounceRedraw();
 		},
 		setBoxes: (boxes: ReadonlyArray<IBox>) => {
 			setBoxes(boxes);
+
 			debounceRedraw();
 		},
 	};

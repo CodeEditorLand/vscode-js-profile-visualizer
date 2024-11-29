@@ -18,13 +18,17 @@ export const enum Category {
 
 export interface INode {
 	id: number;
+
 	category: Category;
+
 	callFrame: Cdp.Runtime.CallFrame;
+
 	src?: ISourceLocation;
 }
 
 export interface ICommonNode {
 	id: number;
+
 	parent?: ICommonNode;
 }
 

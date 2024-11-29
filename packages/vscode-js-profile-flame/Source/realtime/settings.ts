@@ -23,9 +23,11 @@ export class Settings {
 
 	public colors!: {
 		background: string;
+
 		border: string;
 
 		foreground: string;
+
 		graphs: string[];
 	};
 
@@ -56,6 +58,7 @@ export class Settings {
 					c[Color.ChartsGreen],
 				],
 			};
+
 			this.fireChange();
 		});
 	}
@@ -101,7 +104,9 @@ export class Settings {
 
 	public update(newValue: ISettings) {
 		this.value = newValue;
+
 		this.steps = getSteps(newValue);
+
 		this.fireChange();
 	}
 

@@ -18,10 +18,15 @@ import { ICpuProfileRaw } from "./types";
  */
 export interface IComputedNode {
 	id: number;
+
 	selfTime: number;
+
 	aggregateTime: number;
+
 	children: number[];
+
 	parent?: number;
+
 	locationId: number;
 }
 
@@ -30,13 +35,17 @@ export interface IComputedNode {
  */
 export interface ILocation extends INode {
 	selfTime: number;
+
 	aggregateTime: number;
+
 	ticks: number;
 }
 
 export interface IGraphNode extends ILocation {
 	children: { [id: number]: IGraphNode };
+
 	childrenSize: number;
+
 	parent?: IGraphNode;
 }
 
@@ -49,10 +58,15 @@ export interface IGraphNode extends ILocation {
  */
 export interface IProfileModel {
 	nodes: ReadonlyArray<IComputedNode>;
+
 	locations: ReadonlyArray<ILocation>;
+
 	samples: ReadonlyArray<number>;
+
 	timeDeltas: ReadonlyArray<number>;
+
 	rootPath?: string;
+
 	duration: number;
 }
 
@@ -96,7 +110,9 @@ const ensureSourceLocations = (
 		string,
 		{
 			id: number;
+
 			callFrame: Cdp.Runtime.CallFrame;
+
 			location: ISourceLocation;
 		}
 	>();
@@ -115,7 +131,9 @@ const ensureSourceLocations = (
 		if (existing) {
 			return existing.id;
 		}
+
 		const id = locationIdCounter++;
+
 		locationsByRef.set(ref, {
 			id,
 			callFrame,
@@ -135,6 +153,7 @@ const ensureSourceLocations = (
 
 	for (const node of profile.nodes) {
 		node.locationId = getLocationIdFor(node.callFrame);
+
 		node.positionTicks = node.positionTicks?.map((tick) => ({
 			...tick,
 			// weirdly, line numbers here are 1-based, not 0-based. The position tick
@@ -201,6 +220,7 @@ export const buildModel = (profile: ICpuProfileRaw): IProfileModel => {
 
 		if (id === undefined) {
 			id = idMap.size;
+
 			idMap.set(nodeId, id);
 		}
 
@@ -216,6 +236,7 @@ export const buildModel = (profile: ICpuProfileRaw): IProfileModel => {
 
 		// make them 0-based:
 		const id = mapId(node.id);
+
 		nodes[id] = {
 			id,
 			selfTime: 0,
@@ -245,7 +266,9 @@ export const buildModel = (profile: ICpuProfileRaw): IProfileModel => {
 
 	for (let i = 0; i < timeDeltas.length - 1; i++) {
 		const d = timeDeltas[i + 1];
+
 		nodes[mapId(samples[i])].selfTime += d;
+
 		lastNodeTime -= d;
 	}
 
@@ -255,6 +278,7 @@ export const buildModel = (profile: ICpuProfileRaw): IProfileModel => {
 	// some work by calculating it here.
 	if (nodes.length) {
 		nodes[mapId(samples[timeDeltas.length - 1])].selfTime += lastNodeTime;
+
 		timeDeltas.push(lastNodeTime);
 	}
 
@@ -263,7 +287,9 @@ export const buildModel = (profile: ICpuProfileRaw): IProfileModel => {
 		const node = nodes[i];
 
 		const location = locations[node.locationId];
+
 		location.aggregateTime += computeAggregateTime(i, nodes);
+
 		location.selfTime += node.selfTime;
 	}
 

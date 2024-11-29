@@ -102,6 +102,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 				panel.onDidDispose(() => {
 					worker.dispose();
+
 					webviewDisposable.dispose();
 				});
 			},
@@ -149,11 +150,14 @@ export function activate(context: vscode.ExtensionContext) {
 
 				const quickpick = vscode.window.createQuickPick<{
 					label: string;
+
 					index: number;
 				}>();
 
 				quickpick.title = "Toggle visible performance charts";
+
 				quickpick.canSelectMany = true;
+
 				quickpick.items = (
 					realtimeTracker.currentData?.filter((m) => m.hasData()) ??
 					metrics
@@ -161,6 +165,7 @@ export function activate(context: vscode.ExtensionContext) {
 					label: metric.name(),
 					index: i,
 				}));
+
 				quickpick.selectedItems = settings.enabledMetrics.length
 					? settings.enabledMetrics.map(
 							(index) => quickpick.items[index],
@@ -176,6 +181,7 @@ export function activate(context: vscode.ExtensionContext) {
 								quickpick.selectedItems.map((i) => i.index),
 							),
 						);
+
 						quickpick.onDidHide(() => resolve(undefined));
 					},
 				);

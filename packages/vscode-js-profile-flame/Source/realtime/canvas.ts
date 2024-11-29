@@ -11,9 +11,11 @@ const dpr = window.devicePixelRatio || 1;
  */
 export class Canvas {
 	public readonly elem = document.createElement("canvas");
+
 	public readonly ctx = this.elem.getContext(
 		"2d",
 	) as CanvasRenderingContext2D;
+
 	protected scale = 1;
 
 	constructor(
@@ -40,7 +42,9 @@ export class Canvas {
 		}
 
 		this.width = width;
+
 		this.height = height;
+
 		this.applySizing();
 	}
 
@@ -51,12 +55,19 @@ export class Canvas {
 		const { ctx } = this;
 
 		const effectiveZoom = (this.scale = dpr);
+
 		ctx.canvas.width = this.width * effectiveZoom;
+
 		ctx.canvas.height = this.height * effectiveZoom;
+
 		ctx.canvas.style.width = `${this.width}px`;
+
 		ctx.canvas.style.height = `${this.height}px`;
+
 		ctx.resetTransform();
+
 		ctx.scale(effectiveZoom, effectiveZoom);
+
 		this.redraw();
 	}
 

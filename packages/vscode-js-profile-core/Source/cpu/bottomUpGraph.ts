@@ -24,9 +24,13 @@ export class BottomUpNode implements IGraphNode {
 	}
 
 	public children: { [id: number]: BottomUpNode } = {};
+
 	public aggregateTime = 0;
+
 	public selfTime = 0;
+
 	public ticks = 0;
+
 	public childrenSize = 0;
 
 	public get id() {
@@ -52,6 +56,7 @@ export class BottomUpNode implements IGraphNode {
 
 	public addNode(node: IComputedNode) {
 		this.selfTime += node.selfTime;
+
 		this.aggregateTime += node.aggregateTime;
 	}
 
@@ -79,7 +84,9 @@ const processNode = (
 
 	if (!child) {
 		child = new BottomUpNode(model.locations[node.locationId], aggregate);
+
 		aggregate.childrenSize++;
+
 		aggregate.children[node.locationId] = child;
 	}
 
@@ -98,6 +105,7 @@ export const createBottomUpGraph = (model: IProfileModel) => {
 
 	for (const node of model.nodes) {
 		processNode(root, node, model);
+
 		root.addNode(node);
 	}
 

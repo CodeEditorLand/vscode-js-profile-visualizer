@@ -20,6 +20,7 @@ window.addEventListener("message", (evt) => {
 			for (const m of settings.allMetrics) {
 				m.update(data.data.timestamp, data.data);
 			}
+
 			chart.updateMetrics();
 
 			break;
@@ -28,6 +29,7 @@ window.addEventListener("message", (evt) => {
 			for (const m of settings.allMetrics) {
 				m.reset(data.settings.viewDuration, data.settings.pollInterval);
 			}
+
 			settings.update(data.settings);
 
 			break;
@@ -36,7 +38,9 @@ window.addEventListener("message", (evt) => {
 			for (let i = 0; i < data.data.length; i++) {
 				settings.allMetrics[i].setData(data.data[i]);
 			}
+
 			chart.updateMetrics();
+
 			updateSize();
 
 			break;
@@ -45,7 +49,9 @@ window.addEventListener("message", (evt) => {
 			for (const metric of settings.allMetrics) {
 				metric.setData([]);
 			}
+
 			chart.updateMetrics();
+
 			updateSize();
 
 			break;
@@ -69,7 +75,9 @@ new ResizeObserver(updateSize).observe(document.body);
 	const listener = () => {
 		// Seems like this needs a timeout. I don't know why:
 		setTimeout(updateSize, 500);
+
 		observer.removeEventListener("change", listener);
+
 		observeDprChanges();
 	};
 

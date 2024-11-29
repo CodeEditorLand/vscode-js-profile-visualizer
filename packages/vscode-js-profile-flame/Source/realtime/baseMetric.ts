@@ -6,8 +6,11 @@ import { IDAMetrics } from "./protocol";
 
 export abstract class Metric {
 	private innerMetrics: number[] = [];
+
 	private width = 1;
+
 	private maxMetric = 1;
+
 	private lastIncrements = 500;
 
 	/**
@@ -63,12 +66,16 @@ export abstract class Metric {
 	 */
 	public reset(duration: number, increments: number) {
 		const steps = Math.ceil(duration / increments) + 3;
+
 		this.width = steps;
 
 		if (increments !== this.lastIncrements) {
 			this.maxMetric = 1;
+
 			this.index = 0;
+
 			this.innerMetrics = [];
+
 			this.lastIncrements = increments;
 		} else if (this.width > this.innerMetrics.length) {
 			this.innerMetrics = this.innerMetrics.slice(-this.width);
@@ -89,7 +96,9 @@ export abstract class Metric {
 	 */
 	public setData(data: number[]) {
 		this.innerMetrics = data;
+
 		this.index = data.length;
+
 		this.maxMetric = this.recalcMax();
 	}
 
@@ -127,7 +136,9 @@ export abstract class Metric {
 		}
 
 		this.maxMetric = Math.max(this.maxMetric, metric);
+
 		this.innerMetrics.push(metric);
+
 		this.index++;
 	}
 
@@ -147,6 +158,7 @@ export abstract class Metric {
  */
 export abstract class DerivativeMetric extends Metric {
 	private lastTimeStamp = -1;
+
 	private lastMetric = -1;
 
 	/**
@@ -154,6 +166,7 @@ export abstract class DerivativeMetric extends Metric {
 	 */
 	public setData(data: number[]) {
 		super.setData(data);
+
 		this.lastTimeStamp = -1;
 	}
 
@@ -166,6 +179,7 @@ export abstract class DerivativeMetric extends Metric {
 		const prevMetric = this.lastMetric;
 
 		this.lastTimeStamp = timestamp;
+
 		this.lastMetric = metric;
 
 		if (this.lastTimeStamp !== -1) {

@@ -37,31 +37,49 @@ export const enum NodeType {
 
 export interface IClassGroup {
 	name: string;
+
 	index: number;
+
 	childrenLen: number;
+
 	retainedSize: number;
+
 	selfSize: number;
 }
 
 export interface INode {
 	name: string;
+
 	id: number;
+
 	index: number;
+
 	retainedSize: number;
+
 	selfSize: number;
+
 	childrenLen: number;
+
 	type: NodeType;
 }
 
 export interface IRetainingNode {
 	name: string;
+
 	id: number;
+
 	index: number;
+
 	retainedSize: number;
+
 	selfSize: number;
+
 	childrenLen: number;
+
 	type: NodeType;
+
 	edgeType: EdgeType;
+
 	retainsIndex: number;
 }
 
@@ -92,14 +110,17 @@ export type GraphRPCMethods = keyof GraphRPCInterface;
 
 export type GraphRPCCall<K extends GraphRPCMethods = GraphRPCMethods> = {
 	id: number;
+
 	args: GraphRPCInterface[K] extends (...args: infer A) => unknown
 		? A
 		: never;
+
 	method: K;
 };
 
 export type GraphRPCResult<K extends GraphRPCMethods = GraphRPCMethods> = {
 	id: number;
+
 	result:
 		| {
 				ok: GraphRPCInterface[K] extends (...args: unknown[]) => infer R

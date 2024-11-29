@@ -29,7 +29,9 @@ export abstract class ProfileAnnotations<TNode extends INode> {
 				Math.max(0, node.callFrame.lineNumber),
 				Math.max(0, node.callFrame.columnNumber),
 			);
+
 			seen.add(`${node.callFrame.url}/${basePosition.line}`);
+
 			this.set(node.callFrame.url, basePosition, node);
 
 			const src = node.src;
@@ -53,6 +55,7 @@ export abstract class ProfileAnnotations<TNode extends INode> {
 
 				if (!seen.has(key)) {
 					seen.add(key);
+
 					this.set(path, position, node);
 				}
 			}
@@ -72,6 +75,7 @@ export abstract class ProfileAnnotations<TNode extends INode> {
 
 		if (!arr) {
 			arr = [];
+
 			this.basenamesToExpand.set(basename, arr);
 		}
 

@@ -22,6 +22,7 @@ import { ProfileAnnotations } from "./profileAnnotations";
  */
 export class ProfileCodeLensProvider implements CodeLensProvider {
 	private readonly changeEmitter = new EventEmitter<void>();
+
 	private lenses?: ProfileAnnotations<INode>;
 
 	/**
@@ -38,6 +39,7 @@ export class ProfileCodeLensProvider implements CodeLensProvider {
 			"jsProfileVisualizer.hasCodeLenses",
 			true,
 		);
+
 		this.lenses = lenses;
 
 		return {
@@ -55,11 +57,13 @@ export class ProfileCodeLensProvider implements CodeLensProvider {
 	public clear() {
 		if (this.lenses) {
 			this.lenses = undefined;
+
 			commands.executeCommand(
 				"setContext",
 				"jsProfileVisualizer.hasCodeLenses",
 				false,
 			);
+
 			this.changeEmitter.fire();
 		}
 	}

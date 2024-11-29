@@ -11,6 +11,7 @@ import { ITreeNode } from "./model";
 
 export interface IProfileInformation {
 	selfSize: number;
+
 	totalSize: number;
 }
 
@@ -33,6 +34,7 @@ export class HeapProfileAnnotations extends ProfileAnnotations<ITreeNode> {
 
 		if (!list) {
 			list = [];
+
 			this.data.set(lowerCaseInsensitivePath(file), list);
 		}
 
@@ -54,7 +56,9 @@ export class HeapProfileAnnotations extends ProfileAnnotations<ITreeNode> {
 					position.character,
 				);
 			}
+
 			existing.data.totalSize += data.totalSize;
+
 			existing.data.selfSize += data.selfSize;
 		} else {
 			list.splice(index, 0, {

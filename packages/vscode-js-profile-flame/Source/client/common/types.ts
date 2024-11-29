@@ -7,7 +7,9 @@ import { IHeapProfileNode } from "vscode-js-profile-core/out/esm/heap/model";
 
 export interface IBaseInfoBoxProp {
 	box: IBox;
+
 	columns: ReadonlyArray<IColumn>;
+
 	boxes: ReadonlyMap<number, IBox>;
 
 	setFocused(box: IBox): void;
@@ -15,27 +17,41 @@ export interface IBaseInfoBoxProp {
 
 export interface IBox {
 	column: number;
+
 	row: number;
+
 	x1: number;
+
 	y1: number;
+
 	x2: number;
+
 	y2: number;
+
 	color: number;
+
 	level: number;
+
 	text: string;
+
 	category: number;
+
 	loc: IColumnRow;
 }
 
 export interface IBounds {
 	minX: number;
+
 	maxX: number;
+
 	y: number;
+
 	level: number;
 }
 
 export interface ICanvasSize {
 	width: number;
+
 	height: number;
 }
 
@@ -45,7 +61,9 @@ export type IColumnRow = (ILocation | IHeapProfileNode) & {
 
 export interface IColumn {
 	x1: number;
+
 	x2: number;
+
 	rows: (IColumnRow | number)[];
 }
 
@@ -58,10 +76,15 @@ export const enum LockBound {
 
 export interface IDrag {
 	timestamp: number;
+
 	pageXOrigin: number;
+
 	pageYOrigin: number;
+
 	original: IBounds;
+
 	xPerPixel: number;
+
 	lock: LockBound;
 }
 

@@ -90,6 +90,7 @@ export class CpuProfileEditorProvider
 		});
 
 		webviewPanel.webview.options = { enableScripts: true };
+
 		webviewPanel.webview.html = await bundlePage(
 			webviewPanel.webview.asWebviewUri(this.bundle),
 			{

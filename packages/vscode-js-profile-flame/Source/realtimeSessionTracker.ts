@@ -34,7 +34,9 @@ export const readRealtimeSettings = (
 
 interface ISessionData {
 	session: vscode.DebugSession;
+
 	metrics: Metric[];
+
 	cts: vscode.CancellationTokenSource;
 }
 
@@ -49,12 +51,16 @@ const splitChartsKey = "splitCharts";
  */
 export class RealtimeSessionTracker {
 	private settings = readRealtimeSettings(this.context);
+
 	private webviews = new Set<vscode.WebviewView>();
+
 	private sessionData = new Map<vscode.DebugSession, ISessionData>();
+
 	private allSessions = new Map<
 		string /* session ID */,
 		vscode.DebugSession
 	>();
+
 	private displayedSession?: vscode.DebugSession;
 
 	/**
@@ -87,6 +93,7 @@ export class RealtimeSessionTracker {
 	 */
 	public setEnabledMetrics(enabled: ReadonlyArray<number>) {
 		this.context.workspaceState.update(enabledMetricsKey, enabled);
+
 		this.updateSettings();
 	}
 
@@ -100,7 +107,9 @@ export class RealtimeSessionTracker {
 			"vscodeJsProfileFlameSplitCharts",
 			split,
 		);
+
 		this.context.workspaceState.update(splitChartsKey, split);
+
 		this.updateSettings();
 	}
 
@@ -157,10 +166,12 @@ export class RealtimeSessionTracker {
 			}
 
 			this.collectFromSession(data);
+
 			this.sessionData.set(session, data);
 		}
 
 		this.displayedSession = session;
+
 		this.broadcast({
 			type: MessageType.ApplyData,
 			data: data.metrics.map((m) => m.metrics),
@@ -188,10 +199,12 @@ export class RealtimeSessionTracker {
 		}
 
 		data.cts.cancel();
+
 		this.sessionData.delete(session);
 
 		if (this.displayedSession === session) {
 			this.displayedSession = undefined;
+
 			this.broadcast({ type: MessageType.ClearData });
 		}
 	}
@@ -231,11 +244,13 @@ export class RealtimeSessionTracker {
 							r.metrics.timestamp ||
 							r.metrics.Timestamp ||
 							Date.now();
+
 						this.onMetrics(data, r.metrics);
 					}
 
 					const timeout = setTimeout(() => {
 						listener.dispose();
+
 						loop();
 					}, this.settings.pollInterval);
 
@@ -278,6 +293,7 @@ export class RealtimeSessionTracker {
 				type: MessageType.ApplyData,
 				data: data.metrics.map((m) => m.metrics),
 			};
+
 			webview.postMessage(metrics);
 		} else {
 			this.onDidChangeActiveSession(vscode.debug.activeDebugSession);

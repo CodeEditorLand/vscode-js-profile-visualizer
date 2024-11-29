@@ -14,6 +14,7 @@ export interface IPropertyToPrimitiveType {
 
 export interface IBasePropertyDefinition<TNode, TProp extends PropertyType> {
 	type: TProp;
+
 	accessor: (node: TNode) => IPropertyToPrimitiveType[TProp];
 }
 

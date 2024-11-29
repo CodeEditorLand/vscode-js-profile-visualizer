@@ -11,7 +11,9 @@ import { decimalFormat } from "./display";
 
 export interface IProfileInformation {
 	selfTime: number;
+
 	aggregateTime: number;
+
 	ticks: number;
 }
 
@@ -34,6 +36,7 @@ export class CpuProfileAnnotations extends ProfileAnnotations<ILocation> {
 
 		if (!list) {
 			list = [];
+
 			this.data.set(lowerCaseInsensitivePath(file), list);
 		}
 
@@ -55,8 +58,11 @@ export class CpuProfileAnnotations extends ProfileAnnotations<ILocation> {
 					position.character,
 				);
 			}
+
 			existing.data.aggregateTime += data.aggregateTime;
+
 			existing.data.selfTime += data.selfTime;
+
 			existing.data.ticks += data.ticks;
 		} else {
 			list.splice(index, 0, {

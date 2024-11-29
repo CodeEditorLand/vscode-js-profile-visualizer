@@ -12,13 +12,16 @@ export const enum Constants {
 
 export interface IProfileNode extends Cdp.Profiler.ProfileNode {
 	locationId?: number;
+
 	positionTicks?: (Cdp.Profiler.PositionTickInfo & {
 		startLocationId?: number;
+
 		endLocationId?: number;
 	})[];
 }
 
 export interface ICpuProfileRaw extends Cdp.Profiler.Profile {
 	$vscode?: IJsDebugAnnotations;
+
 	nodes: IProfileNode[];
 }

@@ -15,9 +15,13 @@ type ReadRange<T> = (
 
 export class DataProvider<T> {
 	private data?: T[];
+
 	private _read?: ReadRange<T>;
+
 	private sortFn?: (a: T, b: T) => number;
+
 	private asyncLoads: { upTo: number; p: Promise<readonly T[]> }[] = [];
+
 	private children = new Map<T, DataProvider<T>>();
 
 	/** Gets whether the end of data has been reached. */
@@ -50,6 +54,7 @@ export class DataProvider<T> {
 			() => Promise.resolve(value),
 			getChildren,
 		);
+
 		dp.data = value;
 
 		return dp;
@@ -88,6 +93,7 @@ export class DataProvider<T> {
 			// if we didn't read all the data from the provider, we need to throw away
 			// any data we read before.
 			this.data = undefined;
+
 			this.asyncLoads = [];
 		} else if (this.data) {
 			this.data.sort(sort);
@@ -100,6 +106,7 @@ export class DataProvider<T> {
 
 		if (!children) {
 			children = this._getChildren(item);
+
 			this.children.set(item, children);
 		}
 
@@ -163,13 +170,17 @@ export class DataProvider<T> {
  */
 export interface IDataSource<T> {
 	data: DataProvider<T>;
+
 	properties: { [key: string]: Property<T> };
+
 	genericMatchStr: (node: T) => string;
 }
 
 export interface IQuery<T> {
 	datasource: IDataSource<T>;
+
 	input: string;
+
 	regex: boolean;
 
 	caseSensitive: boolean;
@@ -177,7 +188,9 @@ export interface IQuery<T> {
 
 export type IQueryResults<T> = {
 	all: boolean;
+
 	selected: Set<T>;
+
 	selectedAndParents: Set<T>;
 };
 
@@ -207,7 +220,9 @@ const filterDeep = <T>(
 
 	if (filter(model)) {
 		results.selected.add(model);
+
 		results.selectedAndParents.add(model);
+
 		anyChild = true;
 	}
 
@@ -216,6 +231,7 @@ const filterDeep = <T>(
 	for (const child of children.loaded) {
 		if (filterDeep(children, filter, child, results)) {
 			results.selectedAndParents.add(model);
+
 			anyChild = true;
 		}
 	}
