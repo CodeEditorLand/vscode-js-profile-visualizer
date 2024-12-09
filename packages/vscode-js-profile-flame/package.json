@@ -1,14 +1,13 @@
 {
-	"activationEvents": [
-		"onCommand:jsProfileVisualizer.heapsnapshot.flame.show",
-		"onWebviewPanel:jsProfileVisualizer.heapsnapshot.flame.show"
-	],
+	"name": "@codeeditorland/js-profile-flame",
+	"displayName": "Flame Chart Visualizer for JavaScript Profiles",
+	"description": "Flame graph visualizer for Heap and CPU profiles taken from the JavaScript debugger",
+	"sideEffects": false,
+	"main": "out/extension.js",
 	"browser": "out/extension.web.js",
-	"capabilities": {
-		"untrustedWorkspaces": {
-			"supported": true
-		},
-		"virtualWorkspaces": true
+	"scripts": {
+		"compile": "rimraf out && webpack --mode production",
+		"pack": "vsce package --yarn"
 	},
 	"contributes": {
 		"commands": [
@@ -123,24 +122,25 @@
 			]
 		}
 	},
+	"activationEvents": [
+		"onCommand:jsProfileVisualizer.heapsnapshot.flame.show",
+		"onWebviewPanel:jsProfileVisualizer.heapsnapshot.flame.show"
+	],
 	"dependencies": {
 		"chroma-js": "3.1.2",
 		"cytoscape": "3.30.4",
 		"cytoscape-klay": "3.1.4"
 	},
-	"description": "Flame graph visualizer for Heap and CPU profiles taken from the JavaScript debugger",
 	"devDependencies": {
 		"@types/chroma-js": "2.4.4",
 		"@types/cytoscape": "3.21.8",
 		"@types/resize-observer-browser": "0.1.11"
 	},
-	"displayName": "Flame Chart Visualizer for JavaScript Profiles",
 	"icon": "resources/logo.png",
-	"main": "out/extension.js",
-	"name": "vscode-js-profile-flame",
-	"scripts": {
-		"compile": "rimraf out && webpack --mode production",
-		"pack": "vsce package --yarn"
-	},
-	"sideEffects": false
+	"capabilities": {
+		"untrustedWorkspaces": {
+			"supported": true
+		},
+		"virtualWorkspaces": true
+	}
 }

@@ -1,6 +1,6 @@
 {
-	"dependencies": {},
-	"name": "vscode-js-profile-core",
+	"name": "@codeeditorland/js-profile-core",
+	"sideEffects": false,
 	"scripts": {
 		"compile": "concurrently \"npm:compile:*\"",
 		"compile:css": "cpy \"src/**/*.css\" out/esm",
@@ -10,5 +10,6 @@
 		"watch:esm": "tsc --watch -p tsconfig.browser.json",
 		"watch:ext": "tsc --watch"
 	},
-	"sideEffects": false
+	"dependencies": {},
+	"devDependencies": {}
 }
