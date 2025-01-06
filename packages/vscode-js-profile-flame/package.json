@@ -132,7 +132,7 @@
 		"cytoscape-klay": "3.1.4"
 	},
 	"devDependencies": {
-		"@types/chroma-js": "2.4.4",
+		"@types/chroma-js": "3.1.0",
 		"@types/cytoscape": "3.21.8",
 		"@types/resize-observer-browser": "0.1.11"
 	},
